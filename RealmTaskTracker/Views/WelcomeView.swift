@@ -73,7 +73,7 @@ struct WelcomeView: View {
         loading.toggle()
 
         let credentials = Credentials(email: username, password: password)
-        app.login(credentials: credentials) { (user: User?, error: Error?) in
+        app.login(credentials: credentials) { (user: RealmSwift.User?, error: Error?) in
             // Completion handlers are not necessarily called on the UI thread.
             // This call to DispatchQueue.main.sync ensures that any changes to the UI,
             // namely disabling the loading indicator and navigating to the next page,

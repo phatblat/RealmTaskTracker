@@ -20,6 +20,7 @@
 		F8E141632511A8AA003B4289 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E141622511A8AA003B4289 /* LoadingView.swift */; };
 		F8E1416B2511C537003B4289 /* TasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E1416A2511C537003B4289 /* TasksView.swift */; };
 		F8E141842512464B003B4289 /* RealmWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E141832512464B003B4289 /* RealmWrapper.swift */; };
+		F8E1418C25124A76003B4289 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E1418B25124A76003B4289 /* Models.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		F8E141622511A8AA003B4289 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		F8E1416A2511C537003B4289 /* TasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksView.swift; sourceTree = "<group>"; };
 		F8E141832512464B003B4289 /* RealmWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmWrapper.swift; sourceTree = "<group>"; };
+		F8E1418B25124A76003B4289 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +148,7 @@
 				F8E140CF25119360003B4289 /* Assets.xcassets */,
 				F8E1412D25119609003B4289 /* Constants.swift */,
 				F8E140D425119360003B4289 /* Info.plist */,
+				F8E1418B25124A76003B4289 /* Models.swift */,
 				F8E140D125119360003B4289 /* Preview Content */,
 				F8E140CB2511935F003B4289 /* RealmTaskTrackerApp.swift */,
 				F8E141832512464B003B4289 /* RealmWrapper.swift */,
@@ -451,6 +454,7 @@
 				F8E141842512464B003B4289 /* RealmWrapper.swift in Sources */,
 				F8E1412E25119609003B4289 /* Constants.swift in Sources */,
 				F8E1416B2511C537003B4289 /* TasksView.swift in Sources */,
+				F8E1418C25124A76003B4289 /* Models.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
