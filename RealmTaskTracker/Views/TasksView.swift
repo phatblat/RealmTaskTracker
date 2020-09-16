@@ -11,6 +11,10 @@ import SwiftUI
 struct TasksView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var realmWrapper: RealmWrapper
+
+    @State private var showingLogoutAlert = false
+    @State private var showingAddAlert = false
+
     private var realm: Realm {
         guard let realm = realmWrapper.realm else { fatalError("No Realm!") }
         return realm
@@ -22,7 +26,9 @@ struct TasksView: View {
         realm.objects(Task.self).sorted(byKeyPath: "_id")
     }
 
-    @State private var showingAlert = false
+    private var partitionValue: String {
+        realm.configuration.syncConfiguration?.partitionValue?.stringValue ?? "No Realm"
+    }
 
     var body: some View {
         List {
@@ -31,14 +37,15 @@ struct TasksView: View {
             }
         }
         // Partition value must be of string type.
-        .navigationBarTitle(realm.configuration.syncConfiguration?.partitionValue?.stringValue ?? "No Realm")
+        .navigationBarTitle(partitionValue)
+        .navigationBarBackButtonHidden(true)
         .navigationBarItems(
             leading:
                 Button("Log Out") {
-                    showingAlert = true
+                    showingLogoutAlert = true
                 }
-                .alert(isPresented: $showingAlert) {
-                    Alert(title: Text("Log Out"), message: Text(""), primaryButton: .default(Text("Cancel")), secondaryButton: .destructive(Text("Yes, Log Out"), action: {
+                .alert(isPresented: $showingLogoutAlert) {
+                    Alert(title: Text("Log Out"), message: Text(""), primaryButton: .cancel(), secondaryButton: .destructive(Text("Yes, Log Out"), action: {
                             print("Logging out...");
                             app.currentUser()?.logOut() { error in
                                 guard error == nil else {
@@ -55,12 +62,25 @@ struct TasksView: View {
                 },
             trailing:
                 Button("+") {
-                    print("Help tapped!")
+                    showingAddAlert = true
                 }
+                .alert(isPresented: $showingAddAlert, TextAlert(title: "Add Task", action: {
+                    // When the user clicks the add button, present them with a dialog to enter the task name.
+                    print("Callback \($0 ?? "<cancel>")")
+
+//                    let textField = alertController.textFields![0] as UITextField
+
+                    // Create a new Task with the text that the user entered.
+                    let task = Task(partition: partitionValue, name: "New Task")
+
+                    // Any writes to the Realm must occur in a write block.
+                    try! realm.write {
+                        // Add the Task to the Realm. That's it!
+                        realm.add(task)
+                    }
+                }))
         )
     }
-
-    func addTask() {}
 }
 
 struct TasksView_Previews: PreviewProvider {
