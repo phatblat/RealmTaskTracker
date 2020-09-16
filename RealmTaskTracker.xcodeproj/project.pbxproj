@@ -17,6 +17,7 @@
 		F8E140DE25119361003B4289 /* RealmTaskTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E140DD25119361003B4289 /* RealmTaskTrackerTests.swift */; };
 		F8E140E925119361003B4289 /* RealmTaskTrackerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E140E825119361003B4289 /* RealmTaskTrackerUITests.swift */; };
 		F8E1412E25119609003B4289 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E1412D25119609003B4289 /* Constants.swift */; };
+		F8E141632511A8AA003B4289 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E141622511A8AA003B4289 /* LoadingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		F8E140E825119361003B4289 /* RealmTaskTrackerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmTaskTrackerUITests.swift; sourceTree = "<group>"; };
 		F8E140EA25119361003B4289 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F8E1412D25119609003B4289 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		F8E141622511A8AA003B4289 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +178,7 @@
 		F8E141562511A64A003B4289 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F8E141622511A8AA003B4289 /* LoadingView.swift */,
 				F8E140CD2511935F003B4289 /* WelcomeView.swift */,
 			);
 			path = Views;
@@ -437,6 +440,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8E140CE2511935F003B4289 /* WelcomeView.swift in Sources */,
+				F8E141632511A8AA003B4289 /* LoadingView.swift in Sources */,
 				F8E140CC2511935F003B4289 /* RealmTaskTrackerApp.swift in Sources */,
 				F8E1412E25119609003B4289 /* Constants.swift in Sources */,
 			);

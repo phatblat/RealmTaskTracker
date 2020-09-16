@@ -8,21 +8,28 @@
 import SwiftUI
 
 struct WelcomeView: View {
+    @State private var loading = false
     @State private var username: String = ""
     @State private var password: String = ""
 
     var body: some View {
-        Text("Please enter a username and password.")
-            .padding()
-        Form {
-            TextField("Username", text: $username)
-            TextField("Password", text: $password)
-            Button("Sign In", action: signIn)
-            Button("Sign Up", action: signUp)
+        LoadingView(isShowing: $loading) {
+            VStack {
+                Text("Please enter a username and password.")
+                    .padding()
+                Form {
+                    TextField("Username", text: $username)
+                    TextField("Password", text: $password)
+                    Button("Sign In", action: signIn)
+                }
+                Button("Sign Up", action: signUp)
+            }
         }
     }
 
-    func signIn() {}
+    func signIn() {
+        loading.toggle()
+    }
 
     func signUp() {}
 }
