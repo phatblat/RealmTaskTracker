@@ -10,10 +10,6 @@ import RealmSwift
 import Combine
 import SwiftUI
 
-extension RLMRealm: ObservableObject {
-
-}
-
 struct WelcomeView: View {
     @State private var loading = false
     @State private var username = ""
