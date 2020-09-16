@@ -33,3 +33,11 @@ struct LoadingView<Content>: View where Content: View {
         }
     }
 }
+
+struct LoadingView_Previews: PreviewProvider {
+    static var previews: some View {
+        LoadingView(isShowing: .constant(true)) {
+            Text("Loading")
+        }
+    }
+}
