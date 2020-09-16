@@ -11,11 +11,12 @@
 		C23183EA1465C3F46EE5F23A /* Pods_RealmTaskTracker_RealmTaskTrackerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 691FDBE374D4822ADF4844BE /* Pods_RealmTaskTracker_RealmTaskTrackerUITests.framework */; };
 		C855642007EFF193A25ECFC6 /* Pods_RealmTaskTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C4EACB8FCC6598BDBEA5CF8 /* Pods_RealmTaskTracker.framework */; };
 		F8E140CC2511935F003B4289 /* RealmTaskTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E140CB2511935F003B4289 /* RealmTaskTrackerApp.swift */; };
-		F8E140CE2511935F003B4289 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E140CD2511935F003B4289 /* ContentView.swift */; };
+		F8E140CE2511935F003B4289 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E140CD2511935F003B4289 /* WelcomeView.swift */; };
 		F8E140D025119360003B4289 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8E140CF25119360003B4289 /* Assets.xcassets */; };
 		F8E140D325119360003B4289 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8E140D225119360003B4289 /* Preview Assets.xcassets */; };
 		F8E140DE25119361003B4289 /* RealmTaskTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E140DD25119361003B4289 /* RealmTaskTrackerTests.swift */; };
 		F8E140E925119361003B4289 /* RealmTaskTrackerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E140E825119361003B4289 /* RealmTaskTrackerUITests.swift */; };
+		F8E1412E25119609003B4289 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E1412D25119609003B4289 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,7 +48,7 @@
 		F5AA5B0820CE66B16B48ED07 /* Pods-RealmTaskTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealmTaskTracker.release.xcconfig"; path = "Target Support Files/Pods-RealmTaskTracker/Pods-RealmTaskTracker.release.xcconfig"; sourceTree = "<group>"; };
 		F8E140C82511935F003B4289 /* RealmTaskTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealmTaskTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8E140CB2511935F003B4289 /* RealmTaskTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmTaskTrackerApp.swift; sourceTree = "<group>"; };
-		F8E140CD2511935F003B4289 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		F8E140CD2511935F003B4289 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		F8E140CF25119360003B4289 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F8E140D225119360003B4289 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		F8E140D425119360003B4289 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -57,6 +58,7 @@
 		F8E140E425119361003B4289 /* RealmTaskTrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RealmTaskTrackerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8E140E825119361003B4289 /* RealmTaskTrackerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmTaskTrackerUITests.swift; sourceTree = "<group>"; };
 		F8E140EA25119361003B4289 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F8E1412D25119609003B4289 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,11 +137,12 @@
 		F8E140CA2511935F003B4289 /* RealmTaskTracker */ = {
 			isa = PBXGroup;
 			children = (
-				F8E140CB2511935F003B4289 /* RealmTaskTrackerApp.swift */,
-				F8E140CD2511935F003B4289 /* ContentView.swift */,
 				F8E140CF25119360003B4289 /* Assets.xcassets */,
+				F8E1412D25119609003B4289 /* Constants.swift */,
 				F8E140D425119360003B4289 /* Info.plist */,
 				F8E140D125119360003B4289 /* Preview Content */,
+				F8E140CB2511935F003B4289 /* RealmTaskTrackerApp.swift */,
+				F8E141562511A64A003B4289 /* Views */,
 			);
 			path = RealmTaskTracker;
 			sourceTree = "<group>";
@@ -168,6 +171,14 @@
 				F8E140EA25119361003B4289 /* Info.plist */,
 			);
 			path = RealmTaskTrackerUITests;
+			sourceTree = "<group>";
+		};
+		F8E141562511A64A003B4289 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F8E140CD2511935F003B4289 /* WelcomeView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -425,8 +436,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F8E140CE2511935F003B4289 /* ContentView.swift in Sources */,
+				F8E140CE2511935F003B4289 /* WelcomeView.swift in Sources */,
 				F8E140CC2511935F003B4289 /* RealmTaskTrackerApp.swift in Sources */,
+				F8E1412E25119609003B4289 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
