@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -97,7 +97,6 @@
 				C39ABC7D2CA919D8E68C04EE /* Pods-RealmTaskTrackerTests.debug.xcconfig */,
 				F3A5DFEA6B870BD302B36665 /* Pods-RealmTaskTrackerTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -629,7 +628,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C39ABC7D2CA919D8E68C04EE /* Pods-RealmTaskTrackerTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MTGSZH8QM4;
@@ -652,7 +650,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F3A5DFEA6B870BD302B36665 /* Pods-RealmTaskTrackerTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MTGSZH8QM4;
@@ -675,7 +672,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 691C23480D91BE72E1A4B72C /* Pods-RealmTaskTracker-RealmTaskTrackerUITests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MTGSZH8QM4;
 				INFOPLIST_FILE = RealmTaskTrackerUITests/Info.plist;
@@ -696,7 +692,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B4764DF7ED915A45339866D0 /* Pods-RealmTaskTracker-RealmTaskTrackerUITests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MTGSZH8QM4;
 				INFOPLIST_FILE = RealmTaskTrackerUITests/Info.plist;
