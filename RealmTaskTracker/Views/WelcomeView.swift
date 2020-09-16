@@ -5,15 +5,23 @@
 //  Created by Ben Chatelain on 9/15/20.
 //
 
+import Realm
 import RealmSwift
+import Combine
 import SwiftUI
+
+extension RLMRealm: ObservableObject {
+
+}
 
 struct WelcomeView: View {
     @State private var loading = false
     @State private var username = ""
     @State private var password = ""
     @State private var message = ""
-    @State private var areYouGoingToSecondView = false
+    @State private var signedIn = false
+
+    @ObservedObject private var realmWrapper = RealmWrapper()
 
     var body: some View {
         NavigationView {
@@ -24,7 +32,7 @@ struct WelcomeView: View {
                     Form {
                         TextField("Username", text: $username)
                         SecureField("Password", text: $password)
-                        NavigationLink(destination: TasksView(), isActive: $areYouGoingToSecondView) {
+                        NavigationLink(destination: TasksView(), isActive: $signedIn) {
                             Button("Sign In", action: signIn)
                         }
                         Button("Sign Up", action: signUp)
@@ -34,7 +42,7 @@ struct WelcomeView: View {
             }
             .navigationBarTitle("Welcome")
         }
-
+        .environmentObject(realmWrapper)
     }
 
     func signUp() {
@@ -87,10 +95,9 @@ struct WelcomeView: View {
                 let partitionValue = "My Project"
 
                 // Open a realm.
-                let projectRealm = try! Realm(configuration: user!.configuration(partitionValue: partitionValue))
+                realmWrapper.realm = try! Realm(configuration: user!.configuration(partitionValue: partitionValue))
 
-                areYouGoingToSecondView = true
-//                self!.navigationController!.pushViewController(TasksViewController(projectRealm: projectRealm), animated: true)
+                signedIn = true
             }
         }
     }
