@@ -32,11 +32,10 @@ struct WelcomeView: View {
                     Form {
                         TextField("Username", text: $username)
                         SecureField("Password", text: $password)
-                        NavigationLink(destination: TasksView(), isActive: $signedIn) {
-                            Button("Sign In", action: signIn)
-                        }
+                        Button("Sign In", action: signIn)
                         Button("Sign Up", action: signUp)
                     }
+                    NavigationLink(destination: TasksView(), isActive: $signedIn) { EmptyView () }
                     Text(message)
                 }
             }
@@ -49,7 +48,7 @@ struct WelcomeView: View {
         loading.toggle()
 
         let emailPassAuth = app.emailPasswordAuth()
-        emailPassAuth.registerUser(email: username, password: password, completion: { (error: Error?) in
+        emailPassAuth.registerUser(email: username, password: password) { (error: Error?) in
             DispatchQueue.main.sync {
                 loading.toggle()
 
@@ -65,7 +64,7 @@ struct WelcomeView: View {
                 message = "Signup successful! Signing in..."
                 signIn()
             }
-        })
+        }
     }
 
     func signIn() {
