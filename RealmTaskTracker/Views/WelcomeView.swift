@@ -41,7 +41,7 @@ struct WelcomeView: View {
         loading.toggle()
 
         let emailPassAuth = app.emailPasswordAuth()
-        emailPassAuth.registerEmail(username, password: password, completion: { (error: Error?) in
+        emailPassAuth.registerUser(email: username, password: password, completion: { (error: Error?) in
             DispatchQueue.main.sync {
                 loading.toggle()
 
@@ -64,7 +64,7 @@ struct WelcomeView: View {
         print("Log in as user: \(username)")
         loading.toggle()
 
-        let credentials = Credentials(username: username, password: password)
+        let credentials = Credentials(email: username, password: password)
         app.login(credentials: credentials) { (user: User?, error: Error?) in
             // Completion handlers are not necessarily called on the UI thread.
             // This call to DispatchQueue.main.sync ensures that any changes to the UI,
