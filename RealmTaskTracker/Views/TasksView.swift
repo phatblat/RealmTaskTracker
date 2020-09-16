@@ -12,10 +12,8 @@ struct TasksView: View {
     @EnvironmentObject var realmWrapper: RealmWrapper
 
     var body: some View {
-        NavigationView {
-            Text("Hello, World!")
-                .navigationBarTitle(realmWrapper.realm?.configuration.description ?? "No Realm")
-        }
+        Text("Hello, World!")
+            .navigationBarTitle(realmWrapper.realm?.configuration.syncConfiguration?.partitionValue?.stringValue ?? "No Realm")
     }
 }
 
