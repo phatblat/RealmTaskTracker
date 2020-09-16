@@ -1,6 +1,7 @@
 project 'RealmTaskTracker.xcodeproj'
 
 platform :ios, '13.0'
+inhibit_all_warnings!
 
 target 'RealmTaskTracker' do
   use_frameworks!
