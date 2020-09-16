@@ -12,8 +12,8 @@ import SwiftUI
 
 struct WelcomeView: View {
     @State private var loading = false
-    @State private var username = ""
-    @State private var password = ""
+    @State private var username = "Testuser"
+    @State private var password = "password"
     @State private var message = ""
     @State private var signedIn = false
 
