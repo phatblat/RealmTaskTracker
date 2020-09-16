@@ -67,3 +67,9 @@ class Task: Object {
         self.name = name
     }
 }
+
+extension Task: Identifiable {
+    var id: ObjectIdentifier {
+        ObjectIdentifier(_id)
+    }
+}
