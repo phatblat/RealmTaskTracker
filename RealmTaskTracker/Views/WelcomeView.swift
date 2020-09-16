@@ -19,7 +19,7 @@ struct WelcomeView: View {
                     .padding()
                 Form {
                     TextField("Username", text: $username)
-                    TextField("Password", text: $password)
+                    SecureField("Password", text: $password)
                     Button("Sign In", action: signIn)
                 }
                 Button("Sign Up", action: signUp)
