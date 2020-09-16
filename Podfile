@@ -6,7 +6,8 @@ inhibit_all_warnings!
 target 'RealmTaskTracker' do
   use_frameworks!
 
-  pod 'RealmSwift', '10.0.0-beta.4'
+  # https://github.com/realm/realm-cocoa/releases/tag/v10.0.0-beta.5
+  pod 'RealmSwift', '10.0.0-beta.5'
 
   target 'RealmTaskTrackerTests' do
     inherit! :search_paths
