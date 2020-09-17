@@ -25,6 +25,7 @@ struct TasksView: View {
         realm.objects(Task.self).sorted(byKeyPath: "_id")
     }
 
+    // Partition value must be of string type.
     private var partitionValue: String {
         realm.configuration.syncConfiguration?.partitionValue?.stringValue ?? "No Realm"
     }
@@ -32,11 +33,11 @@ struct TasksView: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(tasks) { task in
+                ForEach(tasks, id: \._id) { task in
                     Text(task.name)
                 }
+                .onDelete(perform: delete)
             }
-            // Partition value must be of string type.
             .navigationBarTitle(partitionValue)
             .navigationBarBackButtonHidden(true)
             .navigationBarItems(
@@ -68,6 +69,19 @@ struct TasksView: View {
             )
         }
         .navigationBarHidden(true)
+    }
+
+    // FIXME: Works to delete, but crashes as list is refreshed.
+    func delete(at offsets: IndexSet) {
+        for index in offsets {
+            let task = tasks[index]
+            // All modifications to a realm must happen in a write block.
+            try! realm.write {
+                // Delete the Task.
+                realm.delete(task)
+            }
+        }
+
     }
 }
 
