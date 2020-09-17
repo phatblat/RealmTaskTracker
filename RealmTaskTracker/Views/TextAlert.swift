@@ -4,8 +4,10 @@
 //
 //  Created by Ben Chatelain on 9/16/20.
 //
-/// https://www.objc.io/blog/2020/04/21/swiftui-alert-with-textfield/
-/// https://gist.github.com/chriseidhof/cb662d2161a59a0cd5babf78e3562272
+//  https://www.objc.io/blog/2020/04/21/swiftui-alert-with-textfield/
+//  https://gist.github.com/chriseidhof/cb662d2161a59a0cd5babf78e3562272
+
+// Unused. I couldn't get this to work in Xcode 12 GM.
 
 import SwiftUI
 
