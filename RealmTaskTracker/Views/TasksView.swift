@@ -35,43 +35,43 @@ struct TasksView: View {
         NavigationView {
             List {
                 ForEach(tasks, id: \._id) { task in
-                    Button(task.name) {
-                        showingActionSheet = true
-                    }
-                    .actionSheet(isPresented: $showingActionSheet) {
-                        var buttons: [Alert.Button] = []
-                        // If the task is not in the Open state, we can set it to open. Otherwise, that action will not be available.
-                        // We do this for the other two states -- InProgress and Complete.
-                        if (task.statusEnum != .Open) {
-                            buttons.append(.default(Text("Open"), action: {
-                                // Any modifications to managed objects must occur in a write block.
-                                // When we modify the Task's state, that change is automatically reflected in the realm.
-                                try! realm.write {
-                                    task.statusEnum = .Open
-                                }
-                            }))
+                    TaskRow(task: task)
+                        .onTapGesture { showingActionSheet = true }
+                        // FIXME: First task in list is always the one modified.
+                        .actionSheet(isPresented: $showingActionSheet) {
+                            var buttons: [Alert.Button] = []
+                            // If the task is not in the Open state, we can set it to open. Otherwise, that action will not be available.
+                            // We do this for the other two states -- InProgress and Complete.
+                            if (task.statusEnum != .Open) {
+                                buttons.append(.default(Text("Open"), action: {
+                                    // Any modifications to managed objects must occur in a write block.
+                                    // When we modify the Task's state, that change is automatically reflected in the realm.
+                                    try! realm.write {
+                                        task.statusEnum = .Open
+                                    }
+                                }))
+                            }
+
+                            if (task.statusEnum != .InProgress) {
+                                buttons.append(.default(Text("Start Progress"), action: {
+                                    try! realm.write {
+                                        task.statusEnum = .InProgress
+                                    }
+                                }))
+                            }
+
+                            if (task.statusEnum != .Complete) {
+                                buttons.append(.default(Text("Complete"), action: {
+                                    try! realm.write {
+                                        task.statusEnum = .Complete
+                                    }
+                                }))
+                            }
+
+                            buttons.append(.cancel())
+
+                            return ActionSheet(title: Text(task.name), message: Text("Select an action"), buttons: buttons)
                         }
-
-                        if (task.statusEnum != .InProgress) {
-                            buttons.append(.default(Text("Start Progress"), action: {
-                                try! realm.write {
-                                    task.statusEnum = .InProgress
-                                }
-                            }))
-                        }
-
-                        if (task.statusEnum != .Complete) {
-                            buttons.append(.default(Text("Complete"), action: {
-                                try! realm.write {
-                                    task.statusEnum = .Complete
-                                }
-                            }))
-                        }
-
-                        buttons.append(.cancel())
-
-                        return ActionSheet(title: Text(task.name), message: Text("Select an action"), buttons: buttons)
-                    }
                 }
                 .onDelete(perform: delete)
             }
