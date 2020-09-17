@@ -13,7 +13,6 @@ struct TasksView: View {
     @EnvironmentObject var realmWrapper: RealmWrapper
 
     @State private var showingLogoutAlert = false
-    @State private var showingAddAlert = false
 
     private var realm: Realm {
         guard let realm = realmWrapper.realm else { fatalError("No Realm!") }
@@ -52,8 +51,8 @@ struct TasksView: View {
                                     print("Error logging out: \(error!)")
                                     return
                                 }
+                                print("Logged out!")
                                 DispatchQueue.main.sync {
-                                    print("Logged out!")
                                     presentationMode.wrappedValue.dismiss()
                                 }
                             }
@@ -61,24 +60,9 @@ struct TasksView: View {
                     )
                 },
             trailing:
-                Button("+") {
-                    showingAddAlert = true
+                NavigationLink(destination: AddTaskView()) {
+                    Text("+")
                 }
-                .alert(isPresented: $showingAddAlert, TextAlert(title: "Add Task", action: {
-                    // When the user clicks the add button, present them with a dialog to enter the task name.
-                    print("Callback \($0 ?? "<cancel>")")
-
-//                    let textField = alertController.textFields![0] as UITextField
-
-                    // Create a new Task with the text that the user entered.
-                    let task = Task(partition: partitionValue, name: "New Task")
-
-                    // Any writes to the Realm must occur in a write block.
-                    try! realm.write {
-                        // Add the Task to the Realm. That's it!
-                        realm.add(task)
-                    }
-                }))
         )
     }
 }
