@@ -30,40 +30,44 @@ struct TasksView: View {
     }
 
     var body: some View {
-        List {
-            ForEach(tasks) { task in
-                Text(task.name)
+        NavigationView {
+            List {
+                ForEach(tasks) { task in
+                    Text(task.name)
+                }
             }
+            // Partition value must be of string type.
+            .navigationBarTitle(partitionValue)
+            .navigationBarBackButtonHidden(true)
+            .navigationBarItems(
+                leading:
+                    Button("Log Out") {
+                        showingLogoutAlert = true
+                    }
+                    .alert(isPresented: $showingLogoutAlert) {
+                        Alert(title: Text("Log Out"), message: Text(""), primaryButton: .cancel(), secondaryButton: .destructive(Text("Yes, Log Out"), action: {
+                                print("Logging out...");
+                                app.currentUser()?.logOut() { error in
+                                    guard error == nil else {
+                                        print("Error logging out: \(error!)")
+                                        return
+                                    }
+                                    print("Logged out!")
+                                    DispatchQueue.main.sync {
+                                        presentationMode.wrappedValue.dismiss()
+                                    }
+                                }
+                            })
+                        )
+                    },
+                trailing:
+                    NavigationLink(destination: AddTaskView()) {
+                        Text("+")
+                    }
+                    .animation(.easeInOut(duration: 3.0))
+            )
         }
-        // Partition value must be of string type.
-        .navigationBarTitle(partitionValue)
-        .navigationBarBackButtonHidden(true)
-        .navigationBarItems(
-            leading:
-                Button("Log Out") {
-                    showingLogoutAlert = true
-                }
-                .alert(isPresented: $showingLogoutAlert) {
-                    Alert(title: Text("Log Out"), message: Text(""), primaryButton: .cancel(), secondaryButton: .destructive(Text("Yes, Log Out"), action: {
-                            print("Logging out...");
-                            app.currentUser()?.logOut() { error in
-                                guard error == nil else {
-                                    print("Error logging out: \(error!)")
-                                    return
-                                }
-                                print("Logged out!")
-                                DispatchQueue.main.sync {
-                                    presentationMode.wrappedValue.dismiss()
-                                }
-                            }
-                        })
-                    )
-                },
-            trailing:
-                NavigationLink(destination: AddTaskView()) {
-                    Text("+")
-                }
-        )
+        .navigationBarHidden(true)
     }
 }
 
