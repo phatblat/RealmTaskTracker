@@ -1,6 +1,7 @@
 # MongoDB Realm Task Tracker
 
-Implementation of the [MongoDB Realm iOS Swift tutorial](https://docs.mongodb.com/realm/tutorial/ios-swift/).
+Implementation of the [MongoDB Realm iOS Swift tutorial](https://docs.mongodb.com/realm/tutorial/ios-swift/)
+in SwiftUI.
 
 ## 📄 License
 
