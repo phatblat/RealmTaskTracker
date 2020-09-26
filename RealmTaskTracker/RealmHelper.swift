@@ -8,6 +8,22 @@
 import RealmSwift
 import Foundation
 
+struct Constants {
+    static let appVersion: String = {
+        guard let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
+            else { fatalError("Info.plist does not contain CFBundleShortVersionString") }
+        return version
+    }()
+
+    static let realmAppId: String = {
+        guard let version = Bundle.main.object(forInfoDictionaryKey: "REALM_APP_ID") as? String
+            else { fatalError("Info.plist does not contain REALM_APP_ID") }
+        return version
+    }()
+}
+
+let app = App(id: Constants.realmAppId)
+
 extension Realm {
     static func create(_ data: Object) {
         let realm = try! Realm()

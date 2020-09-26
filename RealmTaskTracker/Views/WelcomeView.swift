@@ -12,10 +12,10 @@ import SwiftUI
 
 struct WelcomeView: View {
     @State private var loading = false
+    @State private var signedIn = false
     @State private var username = ""
     @State private var password = ""
-    @State private var message = ""
-    @State private var signedIn = false
+    @State private var message = "Version: \(Constants.appVersion)"
 
     @ObservedObject private var realmWrapper = RealmWrapper()
 
