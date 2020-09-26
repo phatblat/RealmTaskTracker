@@ -13,6 +13,8 @@
 		F8BC89A1251F9CB900566416 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BC89A0251F9CB900566416 /* Project.swift */; };
 		F8BC89A6251F9CBD00566416 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BC89A5251F9CBD00566416 /* User.swift */; };
 		F8BC89AB251F9CC300566416 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BC89AA251F9CC300566416 /* Task.swift */; };
+		F8BC89B6251F9FD700566416 /* RealmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BC89B5251F9FD700566416 /* RealmHelper.swift */; };
+		F8BC89BB251FA23500566416 /* RealmConvertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BC89BA251FA23500566416 /* RealmConvertable.swift */; };
 		F8E140CC2511935F003B4289 /* RealmTaskTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E140CB2511935F003B4289 /* RealmTaskTrackerApp.swift */; };
 		F8E140CE2511935F003B4289 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E140CD2511935F003B4289 /* WelcomeView.swift */; };
 		F8E140D025119360003B4289 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8E140CF25119360003B4289 /* Assets.xcassets */; };
@@ -58,6 +60,8 @@
 		F8BC89A0251F9CB900566416 /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		F8BC89A5251F9CBD00566416 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F8BC89AA251F9CC300566416 /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		F8BC89B5251F9FD700566416 /* RealmHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmHelper.swift; sourceTree = "<group>"; };
+		F8BC89BA251FA23500566416 /* RealmConvertable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmConvertable.swift; sourceTree = "<group>"; };
 		F8E140C82511935F003B4289 /* RealmTaskTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealmTaskTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8E140CB2511935F003B4289 /* RealmTaskTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmTaskTrackerApp.swift; sourceTree = "<group>"; };
 		F8E140CD2511935F003B4289 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
@@ -170,9 +174,11 @@
 				F8E140D425119360003B4289 /* Info.plist */,
 				F8BC899C251F9C9A00566416 /* Models */,
 				F8E140D125119360003B4289 /* Preview Content */,
+				F8BC89B5251F9FD700566416 /* RealmHelper.swift */,
 				F8E140CB2511935F003B4289 /* RealmTaskTrackerApp.swift */,
 				F8E141832512464B003B4289 /* RealmWrapper.swift */,
 				F8E141562511A64A003B4289 /* Views */,
+				F8BC89BA251FA23500566416 /* RealmConvertable.swift */,
 			);
 			path = RealmTaskTracker;
 			sourceTree = "<group>";
@@ -472,6 +478,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8E140CE2511935F003B4289 /* WelcomeView.swift in Sources */,
+				F8BC89BB251FA23500566416 /* RealmConvertable.swift in Sources */,
 				F8E141632511A8AA003B4289 /* LoadingView.swift in Sources */,
 				F8E140CC2511935F003B4289 /* RealmTaskTrackerApp.swift in Sources */,
 				F8E141842512464B003B4289 /* RealmWrapper.swift in Sources */,
@@ -483,6 +490,7 @@
 				F8BC89AB251F9CC300566416 /* Task.swift in Sources */,
 				F8E1419C2512BFC3003B4289 /* AddTaskView.swift in Sources */,
 				F8E141942512B296003B4289 /* TextAlert.swift in Sources */,
+				F8BC89B6251F9FD700566416 /* RealmHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
