@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TaskRow: View {
-    let task: Task
+    let task: RealmTask
 
     var body: some View {
         HStack {
@@ -29,6 +29,6 @@ struct TaskRow: View {
 
 struct TaskRow_Previews: PreviewProvider {
     static var previews: some View {
-        TaskRow(task: Task(partition: "", name: "Some Task"))
+        TaskRow(task: Task(name: "Some Task").realmMap())
     }
 }

@@ -55,9 +55,6 @@ extension Object {
     }
 }
 
-protocol UUIDIdentifiable: Identifiable { var id: String { get } }
-protocol Initializable { init() }
-
 // MARK: - RealmHelpter
 /// The helper is just a CRUD simplification for Realm with support for RealmConvertible protocol
 struct RealmHelper {
@@ -98,11 +95,11 @@ struct RealmHelper {
         }
     }
 
-    func get<O: Object & UUIDIdentifiable>(_ o: O) -> O? {
+    func get<O: Object & ObjectIdentifiable>(_ o: O) -> O? {
         realm.object(ofType: O.self, forPrimaryKey: o.id)
     }
 
-    func delete<O: Object & UUIDIdentifiable>(_ o: O) {
+    func delete<O: Object & ObjectIdentifiable>(_ o: O) {
         if let d = get(o) {
             do {
                 try realm.write {

@@ -64,7 +64,7 @@ class DataObservable<Type: RealmConvertible>: ObservableObject {
         for item in items { delete(item) }
     }
 
-    func get(id: String) -> Type? {
+    func get(id: ObjectIdentifier) -> Type? {
         items.first{ $0.id == id }
     }
 

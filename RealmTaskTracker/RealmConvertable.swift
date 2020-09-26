@@ -9,11 +9,10 @@ import RealmSwift
 import SwiftUI
 import Foundation
 
-protocol RealmConvertible where Self: Equatable & UUIDIdentifiable & Initializable {
-    associatedtype RealmType: Object & UUIDIdentifiable
-
+/// Specifies a type which can be converted to a realm object.
+protocol RealmConvertible where Self: Equatable & ObjectIdentifiable & RealmInitializable {
+    init(_ dest: RealmType)
     func realmMap() -> RealmType
-    init(_ dest:RealmType)
 }
 
 // Dynamic Realm Binding for live data editing

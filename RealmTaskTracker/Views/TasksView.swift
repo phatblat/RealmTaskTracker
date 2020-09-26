@@ -11,6 +11,7 @@ import SwiftUI
 struct TasksView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var realmWrapper: RealmWrapper
+    @EnvironmentObject var data: DataStore
 
     @State private var showingLogoutAlert = false
     @State private var showingActionSheet = false
@@ -20,10 +21,10 @@ struct TasksView: View {
         return realm
     }
 
-    private var tasks: Results<Task> {
+    private var tasks: Results<RealmTask> {
         // Access all tasks in the realm, sorted by _id so that the ordering is defined.
         // Only tasks with the project ID as the partition key value will be in the realm.
-        realm.objects(Task.self).sorted(byKeyPath: "_id")
+        realm.objects(RealmTask.self).sorted(byKeyPath: "_id")
     }
 
     // Partition value must be of string type.
@@ -47,7 +48,7 @@ struct TasksView: View {
                                     // Any modifications to managed objects must occur in a write block.
                                     // When we modify the Task's state, that change is automatically reflected in the realm.
                                     try! realm.write {
-                                        task.statusEnum = .Open
+//                                        task.statusEnum = .Open
                                     }
                                 }))
                             }
@@ -55,7 +56,7 @@ struct TasksView: View {
                             if (task.statusEnum != .InProgress) {
                                 buttons.append(.default(Text("Start Progress"), action: {
                                     try! realm.write {
-                                        task.statusEnum = .InProgress
+//                                        task.statusEnum = .InProgres
                                     }
                                 }))
                             }
@@ -63,7 +64,7 @@ struct TasksView: View {
                             if (task.statusEnum != .Complete) {
                                 buttons.append(.default(Text("Complete"), action: {
                                     try! realm.write {
-                                        task.statusEnum = .Complete
+//                                        task.statusEnum = .Complete
                                     }
                                 }))
                             }

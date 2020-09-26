@@ -33,7 +33,7 @@ struct AddTaskView: View {
                 }
 
                 // Create a new Task with the text that the user entered.
-                let task = Task(partition: partitionValue, name: enteredText)
+                let task = Task(name: enteredText).realmMap()
 
                 // Any writes to the Realm must occur in a write block.
                 try! realm.write {

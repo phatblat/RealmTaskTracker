@@ -78,9 +78,13 @@ whoami:
 
 .PHONY: diff
 diff:
-	$(REALM_CLI) diff --app-id=$(REALM_APP_ID)
+	$(REALM_CLI) diff
 
 .PHONY: export
 export:
 	rm -rf $(ATLAS_FOLDER)
-	$(REALM_CLI) export --app-id=$(REALM_APP_ID) --output $(ATLAS_FOLDER) --include-hosting --for-source-control
+	$(REALM_CLI) export --app-id=$(REALM_APP_ID) --output $(ATLAS_FOLDER) --for-source-control
+
+.PHONY: import
+import:
+	$(REALM_CLI) import --app-id=$(REALM_APP_ID) --path $(ATLAS_FOLDER) --strategy=replace
