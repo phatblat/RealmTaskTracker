@@ -10,6 +10,9 @@
 		1EEDB6F50D54FBCB4F940AB6 /* Pods_RealmTaskTrackerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 907EC3DD01D524CB0E53AFD1 /* Pods_RealmTaskTrackerTests.framework */; };
 		C23183EA1465C3F46EE5F23A /* Pods_RealmTaskTracker_RealmTaskTrackerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 691FDBE374D4822ADF4844BE /* Pods_RealmTaskTracker_RealmTaskTrackerUITests.framework */; };
 		C855642007EFF193A25ECFC6 /* Pods_RealmTaskTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C4EACB8FCC6598BDBEA5CF8 /* Pods_RealmTaskTracker.framework */; };
+		F8BC89A1251F9CB900566416 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BC89A0251F9CB900566416 /* Project.swift */; };
+		F8BC89A6251F9CBD00566416 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BC89A5251F9CBD00566416 /* User.swift */; };
+		F8BC89AB251F9CC300566416 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BC89AA251F9CC300566416 /* Task.swift */; };
 		F8E140CC2511935F003B4289 /* RealmTaskTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E140CB2511935F003B4289 /* RealmTaskTrackerApp.swift */; };
 		F8E140CE2511935F003B4289 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E140CD2511935F003B4289 /* WelcomeView.swift */; };
 		F8E140D025119360003B4289 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8E140CF25119360003B4289 /* Assets.xcassets */; };
@@ -20,7 +23,6 @@
 		F8E141632511A8AA003B4289 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E141622511A8AA003B4289 /* LoadingView.swift */; };
 		F8E1416B2511C537003B4289 /* TasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E1416A2511C537003B4289 /* TasksView.swift */; };
 		F8E141842512464B003B4289 /* RealmWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E141832512464B003B4289 /* RealmWrapper.swift */; };
-		F8E1418C25124A76003B4289 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E1418B25124A76003B4289 /* Models.swift */; };
 		F8E141942512B296003B4289 /* TextAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E141932512B296003B4289 /* TextAlert.swift */; };
 		F8E1419C2512BFC3003B4289 /* AddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E1419B2512BFC3003B4289 /* AddTaskView.swift */; };
 		F8E141A7251312CC003B4289 /* TaskRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E141A6251312CC003B4289 /* TaskRow.swift */; };
@@ -53,6 +55,9 @@
 		C39ABC7D2CA919D8E68C04EE /* Pods-RealmTaskTrackerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealmTaskTrackerTests.debug.xcconfig"; path = "Target Support Files/Pods-RealmTaskTrackerTests/Pods-RealmTaskTrackerTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F3A5DFEA6B870BD302B36665 /* Pods-RealmTaskTrackerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealmTaskTrackerTests.release.xcconfig"; path = "Target Support Files/Pods-RealmTaskTrackerTests/Pods-RealmTaskTrackerTests.release.xcconfig"; sourceTree = "<group>"; };
 		F5AA5B0820CE66B16B48ED07 /* Pods-RealmTaskTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealmTaskTracker.release.xcconfig"; path = "Target Support Files/Pods-RealmTaskTracker/Pods-RealmTaskTracker.release.xcconfig"; sourceTree = "<group>"; };
+		F8BC89A0251F9CB900566416 /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
+		F8BC89A5251F9CBD00566416 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		F8BC89AA251F9CC300566416 /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		F8E140C82511935F003B4289 /* RealmTaskTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealmTaskTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8E140CB2511935F003B4289 /* RealmTaskTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmTaskTrackerApp.swift; sourceTree = "<group>"; };
 		F8E140CD2511935F003B4289 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
@@ -69,7 +74,6 @@
 		F8E141622511A8AA003B4289 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		F8E1416A2511C537003B4289 /* TasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksView.swift; sourceTree = "<group>"; };
 		F8E141832512464B003B4289 /* RealmWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmWrapper.swift; sourceTree = "<group>"; };
-		F8E1418B25124A76003B4289 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		F8E141932512B296003B4289 /* TextAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAlert.swift; sourceTree = "<group>"; };
 		F8E1419B2512BFC3003B4289 /* AddTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskView.swift; sourceTree = "<group>"; };
 		F8E141A6251312CC003B4289 /* TaskRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRow.swift; sourceTree = "<group>"; };
@@ -126,6 +130,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		F8BC899C251F9C9A00566416 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F8BC89A0251F9CB900566416 /* Project.swift */,
+				F8BC89AA251F9CC300566416 /* Task.swift */,
+				F8BC89A5251F9CBD00566416 /* User.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		F8E140BF2511935F003B4289 = {
 			isa = PBXGroup;
 			children = (
@@ -154,7 +168,7 @@
 				F8E140CF25119360003B4289 /* Assets.xcassets */,
 				F8E1412D25119609003B4289 /* Constants.swift */,
 				F8E140D425119360003B4289 /* Info.plist */,
-				F8E1418B25124A76003B4289 /* Models.swift */,
+				F8BC899C251F9C9A00566416 /* Models */,
 				F8E140D125119360003B4289 /* Preview Content */,
 				F8E140CB2511935F003B4289 /* RealmTaskTrackerApp.swift */,
 				F8E141832512464B003B4289 /* RealmWrapper.swift */,
@@ -464,8 +478,10 @@
 				F8E1412E25119609003B4289 /* Constants.swift in Sources */,
 				F8E141A7251312CC003B4289 /* TaskRow.swift in Sources */,
 				F8E1416B2511C537003B4289 /* TasksView.swift in Sources */,
+				F8BC89A1251F9CB900566416 /* Project.swift in Sources */,
+				F8BC89A6251F9CBD00566416 /* User.swift in Sources */,
+				F8BC89AB251F9CC300566416 /* Task.swift in Sources */,
 				F8E1419C2512BFC3003B4289 /* AddTaskView.swift in Sources */,
-				F8E1418C25124A76003B4289 /* Models.swift in Sources */,
 				F8E141942512B296003B4289 /* TextAlert.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
