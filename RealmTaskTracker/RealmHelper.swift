@@ -26,8 +26,8 @@ extension Realm {
             try realm?.write {
                 realm?.deleteAll()
             }
-        } catch let e {
-            print("REALM ERR:", e.localizedDescription)
+        } catch {
+            print("REALM ERROR:", error.localizedDescription)
         }
     }
 }
@@ -50,20 +50,35 @@ struct RealmHelper {
     init() { realm = try! Realm() }
 
     func create<O: Object>(_ o: O) {
-        try? realm.write {
-            realm.add(o)
+        do {
+            try realm.write {
+                realm.add(o)
+            }
+        }
+        catch {
+            print("REALM ADD ERROR:", error.localizedDescription)
         }
     }
 
     func update<O: Object>(o: O) {
-        try? realm.write {
-            realm.create(O.self, value:o, update: .modified)
+        do {
+            try realm.write {
+                realm.create(O.self, value:o, update: .modified)
+            }
+        }
+        catch {
+            print("REALM CREATE ERROR:", error.localizedDescription)
         }
     }
 
     func updateConvertible<C: RealmConvertible>(_ c: C) {
-        try? realm.write {
-            realm.create(C.RealmType.self, value:c.realmMap(), update: .modified)
+        do {
+            try realm.write {
+                realm.create(C.RealmType.self, value: c.realmMap(), update: .modified)
+            }
+        }
+        catch {
+            print("REALM CREATE ERROR:", error.localizedDescription)
         }
     }
 
@@ -73,8 +88,13 @@ struct RealmHelper {
 
     func delete<O: Object & UUIDIdentifiable>(_ o: O) {
         if let d = get(o) {
-            try? realm.write {
-                realm.delete(d)
+            do {
+                try realm.write {
+                    realm.delete(d)
+                }
+            }
+            catch {
+                print("REALM DELETE ERROR:", error.localizedDescription)
             }
         }
     }
