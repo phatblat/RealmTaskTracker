@@ -28,6 +28,11 @@ class DataObservable<Type: RealmConvertible>: ObservableObject {
         watchRealm()
     }
 
+    func store(realm: Realm) {
+        helper.realm = realm
+        notificationTokens = []
+    }
+
     private func watchRealm() {
         notificationTokens.append(realmItems.observe { _ in
             self.updateItems()

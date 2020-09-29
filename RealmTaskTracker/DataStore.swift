@@ -5,20 +5,22 @@
 //  Created by Ben Chatelain on 9/26/20.
 //
 
+import RealmSwift
 import Combine
 import Foundation
 
 final class DataStore: ObservableObject {
+    private(set) var taskDB = DataObservable<Task>()
+    private var taskCancellable: AnyCancellable?
 
-    private var todoCancellable: AnyCancellable?
-    private(set) var todoDB = DataObservable<Task>()
-
-    // could store related references to other related DataObservables
-
-    @Published private(set) var todos: [Task] = []
+    @Published private(set) var tasks: [Task] = []
 
     init() {
-        todoDB = DataObservable<Task>()
-        todoCancellable = todoDB.$items.assign(to: \.todos, on: self)
+        taskDB = DataObservable<Task>()
+        taskCancellable = taskDB.$items.assign(to: \.tasks, on: self)
+    }
+
+    func store(realm: Realm) {
+        taskDB.store(realm: realm)
     }
 }

@@ -47,6 +47,8 @@ struct Task: Equatable, Statusable {
 }
 
 extension Task: RealmConvertible {
+    var realmType: RealmTask.Type { RealmType.self }
+
     init(_ obj: RealmTask) {
         self._id = obj._id
         self.name = obj.name

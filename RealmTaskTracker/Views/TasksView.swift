@@ -5,38 +5,34 @@
 //  Created by Ben Chatelain on 9/15/20.
 //
 
-import RealmSwift
+//import RealmSwift
 import SwiftUI
 
 struct TasksView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @EnvironmentObject var realmWrapper: RealmWrapper
     @EnvironmentObject var data: DataStore
+    @EnvironmentObject var helper: RealmHelper
 
     @State private var showingLogoutAlert = false
     @State private var showingActionSheet = false
 
-    private var realm: Realm {
-        guard let realm = realmWrapper.realm else { fatalError("No Realm!") }
-        return realm
-    }
-
-    private var tasks: Results<RealmTask> {
-        // Access all tasks in the realm, sorted by _id so that the ordering is defined.
-        // Only tasks with the project ID as the partition key value will be in the realm.
-        realm.objects(RealmTask.self).sorted(byKeyPath: "_id")
+    private var tasks: [Task] {
+        data.tasks.sorted(by: { $0._id < $1._id })
     }
 
     // Partition value must be of string type.
     private var partitionValue: String {
-        realm.configuration.syncConfiguration?.partitionValue?.stringValue ?? "No Realm"
+//        realm.configuration.syncConfiguration?.partitionValue?.stringValue ?? "No Realm"
+        ""
     }
 
     var body: some View {
         NavigationView {
             List {
                 ForEach(tasks, id: \._id) { task in
-                    TaskRow(task: task)
+                    // Make it mutable
+                    var task = task
+                    TaskRow(task: task.realmBinding())
                         .onTapGesture { showingActionSheet = true }
                         // FIXME: First task in list is always the one modified.
                         .actionSheet(isPresented: $showingActionSheet) {
@@ -47,25 +43,22 @@ struct TasksView: View {
                                 buttons.append(.default(Text("Open"), action: {
                                     // Any modifications to managed objects must occur in a write block.
                                     // When we modify the Task's state, that change is automatically reflected in the realm.
-                                    try! realm.write {
-//                                        task.statusEnum = .Open
-                                    }
+                                    task.statusEnum = .Open
+                                    helper.updateConvertible(task)
                                 }))
                             }
 
                             if (task.statusEnum != .InProgress) {
                                 buttons.append(.default(Text("Start Progress"), action: {
-                                    try! realm.write {
-//                                        task.statusEnum = .InProgres
-                                    }
+                                    task.statusEnum = .InProgress
+                                    helper.updateConvertible(task)
                                 }))
                             }
 
                             if (task.statusEnum != .Complete) {
                                 buttons.append(.default(Text("Complete"), action: {
-                                    try! realm.write {
-//                                        task.statusEnum = .Complete
-                                    }
+                                    task.statusEnum = .Complete
+                                    helper.updateConvertible(task)
                                 }))
                             }
 
@@ -76,7 +69,7 @@ struct TasksView: View {
                 }
                 .onDelete(perform: delete)
             }
-            .navigationBarTitle(partitionValue)
+//            .navigationBarTitle(helper.partitionValue)
             .navigationBarBackButtonHidden(true)
             .navigationBarItems(
                 leading:
@@ -85,13 +78,8 @@ struct TasksView: View {
                     }
                     .alert(isPresented: $showingLogoutAlert) {
                         Alert(title: Text("Log Out"), message: Text(""), primaryButton: .cancel(), secondaryButton: .destructive(Text("Yes, Log Out"), action: {
-                                print("Logging out...");
-                                app.currentUser()?.logOut() { error in
-                                    guard error == nil else {
-                                        print("Error logging out: \(error!)")
-                                        return
-                                    }
-                                    print("Logged out!")
+                                print("Logging out...")
+                                RealmHelper.signOut { result in
                                     DispatchQueue.main.sync {
                                         presentationMode.wrappedValue.dismiss()
                                     }
@@ -114,17 +102,13 @@ struct TasksView: View {
         for index in offsets {
             let task = tasks[index]
             // All modifications to a realm must happen in a write block.
-            try! realm.write {
-                // Delete the Task.
-                realm.delete(task)
-            }
+            helper.deleteConvertible(task)
         }
-
     }
 }
 
 struct TasksView_Previews: PreviewProvider {
     static var previews: some View {
-        TasksView()
+        TasksView().environmentObject(DataStore())
     }
 }

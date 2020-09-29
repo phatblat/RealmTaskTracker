@@ -11,8 +11,13 @@ import Foundation
 
 /// Specifies a type which can be converted to a realm object.
 protocol RealmConvertible where Self: Equatable & ObjectIdentifiable & RealmInitializable {
+    var realmType: RealmType.Type { get }
     init(_ dest: RealmType)
     func realmMap() -> RealmType
+}
+
+extension RealmConvertible {
+    var realmType: RealmType.Type { RealmType.self }
 }
 
 // Dynamic Realm Binding for live data editing

@@ -10,18 +10,10 @@ import SwiftUI
 
 struct AddTaskView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @EnvironmentObject var realmWrapper: RealmWrapper
+
+    @EnvironmentObject var helper: RealmHelper
 
     @State private var enteredText: String = ""
-
-    private var realm: Realm {
-        guard let realm = realmWrapper.realm else { fatalError("No Realm!") }
-        return realm
-    }
-
-    private var partitionValue: String {
-        realm.configuration.syncConfiguration?.partitionValue?.stringValue ?? "No Realm"
-    }
 
     var body: some View {
         Form {
@@ -34,12 +26,7 @@ struct AddTaskView: View {
 
                 // Create a new Task with the text that the user entered.
                 let task = Task(name: enteredText).realmMap()
-
-                // Any writes to the Realm must occur in a write block.
-                try! realm.write {
-                    // Add the Task to the Realm. That's it!
-                    realm.add(task)
-                }
+                helper.create(task)
                 print("Task added! \(task)")
                 presentationMode.wrappedValue.dismiss()
             }
