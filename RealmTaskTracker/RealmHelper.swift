@@ -7,6 +7,7 @@
 
 import RealmSwift
 import SwiftUI
+import Combine
 import Foundation
 
 struct Constants {
@@ -134,7 +135,7 @@ extension RealmHelper {
                 return
             }
 
-            print("Login succeeded!")
+            print("Login succeeded")
 
             guard let user = user else {
                 print("No user returned!")
@@ -155,22 +156,31 @@ extension RealmHelper {
         }
     }
 
-    static func signOut(completionHandler: @escaping (_ result: Result<Void, Error>) -> Void) {
-        guard let user = app.currentUser() else {
-            print("Not logged in, no user.")
-            completionHandler(.success(()))
-            return
-        }
-
-        user.logOut() { error in
-            guard error == nil else {
-                print("Error logging out: \(error!)")
-                completionHandler(.failure(error!))
+    static func signOut() -> Future<Void, Error> {
+        return Future<Void, Error> { promise in
+            guard let user = app.currentUser() else {
+                print("Not logged in, no user.")
+                promise(.success(()))
                 return
             }
 
-            print("Logged out!")
-            completionHandler(.success(()))
+            _ = user.logOut()
+                .sink { (completion: Subscribers.Completion<Error>) in
+                    print("completion")
+                } receiveValue: {
+                    print("receiveValue")
+                    print("Logged out")
+                    promise(.success(()))
+                }
+
+//            { error in
+//                guard error == nil else {
+//                    print("Error logging out: \(error!)")
+//                    promise(.failure(error!))
+//                    return
+//                }
+//
+//            }
         }
     }
 }

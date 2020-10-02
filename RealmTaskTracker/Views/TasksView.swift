@@ -79,13 +79,14 @@ struct TasksView: View {
                     .alert(isPresented: $showingLogoutAlert) {
                         Alert(title: Text("Log Out"), message: Text(""), primaryButton: .cancel(), secondaryButton: .destructive(Text("Yes, Log Out"), action: {
                                 print("Logging out...")
-                                RealmHelper.signOut { result in
-                                    DispatchQueue.main.sync {
-                                        presentationMode.wrappedValue.dismiss()
-                                    }
+                                _ = RealmHelper.signOut().sink { error in
+                                    print("Logged out")
+                                    presentationMode.wrappedValue.dismiss()
+                                } receiveValue: {
+                                    print("receiveValue")
                                 }
-                            })
-                        )
+                            }
+                        ))
                     },
                 trailing:
                     NavigationLink(destination: AddTaskView()) {
