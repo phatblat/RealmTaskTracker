@@ -167,20 +167,15 @@ extension RealmHelper {
             _ = user.logOut()
                 .sink { (completion: Subscribers.Completion<Error>) in
                     print("completion")
-                } receiveValue: {
-                    print("receiveValue")
-                    print("Logged out")
-                    promise(.success(()))
-                }
-
-//            { error in
-//                guard error == nil else {
-//                    print("Error logging out: \(error!)")
-//                    promise(.failure(error!))
-//                    return
-//                }
-//
-//            }
+                    switch completion {
+                    case .failure(let error):
+                        print("Error logging out: ", error)
+                        promise(.failure(error))
+                    case .finished:
+                        print("Logged out")
+                        promise(.success(()))
+                    }
+                } receiveValue: { _ in }
         }
     }
 }
