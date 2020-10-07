@@ -28,6 +28,12 @@ struct TaskRow: View {
     }
 }
 
+extension TaskRow {
+    func delete() {
+        data.taskDB.delete(task)
+    }
+}
+
 struct TaskRow_Previews: PreviewProvider {
     static var previews: some View {
         TaskRow(task: .constant(Task(name: "Some Task")))
