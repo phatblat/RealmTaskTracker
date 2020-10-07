@@ -57,19 +57,6 @@ extension Object {
     }
 }
 
-// MARK: - Environment
-struct RealmHelperEnvironmentKey: EnvironmentKey {
-    typealias Value = RealmHelper
-    static var defaultValue = RealmHelper()
-}
-
-extension EnvironmentValues {
-    var helper: RealmHelper {
-        get { self[RealmHelperEnvironmentKey.self] }
-        set { self[RealmHelperEnvironmentKey.self] = newValue }
-    }
-}
-
 let realmQueue = "co.log-g.RealmTaskTracker.realmQueue"
 
 // MARK: - RealmHelpter
