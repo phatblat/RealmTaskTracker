@@ -70,6 +70,8 @@ extension EnvironmentValues {
     }
 }
 
+let realmQueue = "co.log-g.RealmTaskTracker.realmQueue"
+
 // MARK: - RealmHelpter
 /// The helper is just a CRUD simplification for Realm with support for RealmConvertible protocol
 class RealmHelper: ObservableObject {
@@ -82,7 +84,7 @@ class RealmHelper: ObservableObject {
     /// Creates a helper wrapping a new realm
     init() {
         do {
-            realm = try Realm()
+            self.realm = try Realm()
         }
         catch {
             fatalError("Error opening local realm: \( error.localizedDescription)")
@@ -142,16 +144,18 @@ extension RealmHelper {
                 return
             }
 
-            // Open a realm.
-            do {
-                let config = user.configuration(partitionValue: Constants.partitionValue)
-                let realm = try Realm(configuration: config)
-                completionHandler(.success(RealmHelper(realm: realm)))
-            }
-            catch {
-                print("Realm error opening: ", error.localizedDescription)
-                completionHandler(.failure(error))
-                return
+            DispatchQueue(label: realmQueue).async {
+                // Open a realm.
+                do {
+                    let config = user.configuration(partitionValue: Constants.partitionValue)
+                    let realm = try Realm(configuration: config)
+                    completionHandler(.success(RealmHelper(realm: realm)))
+                }
+                catch {
+                    print("Realm error opening: ", error.localizedDescription)
+                    completionHandler(.failure(error))
+                    return
+                }
             }
         }
     }

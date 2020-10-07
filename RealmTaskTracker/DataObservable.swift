@@ -9,6 +9,8 @@ import RealmSwift
 import SwiftUI
 
 class DataObservable<Type: RealmConvertible>: ObservableObject {
+    // filter can be used to scope data on init
+    private let filter: String
     private let helper = RealmHelper()
     private var notificationTokens: [NotificationToken] = []
     private var realmItems: RealmSwift.Results<Type.RealmType>
@@ -16,7 +18,9 @@ class DataObservable<Type: RealmConvertible>: ObservableObject {
     @Published private(set) var items: [Type]
 
     init(_ filter: String = "") {
-        // filter can be used to scope data on init
+        self.filter = filter
+
+        //updateItems()
 
         if filter.count > 0 {
             realmItems = helper.list(Type.RealmType.self).filter(filter)
@@ -24,13 +28,17 @@ class DataObservable<Type: RealmConvertible>: ObservableObject {
             realmItems = helper.list(Type.RealmType.self)
         }
 
-        items = realmItems.map { Type($0) }
+        self.items = self.realmItems.map { Type($0) }
+
         watchRealm()
     }
 
     func store(realm: Realm) {
         helper.realm = realm
         notificationTokens = []
+
+        updateItems()
+        watchRealm()
     }
 
     private func watchRealm() {
@@ -40,7 +48,12 @@ class DataObservable<Type: RealmConvertible>: ObservableObject {
     }
 
     private func updateItems() {
-        DispatchQueue.main.async {
+        DispatchQueue(label: realmQueue).async {
+            if self.filter.count > 0 {
+                self.realmItems = self.helper.list(Type.RealmType.self).filter(self.filter)
+            } else {
+                self.realmItems = self.helper.list(Type.RealmType.self)
+            }
             self.items = self.realmItems.map { Type($0) }
         }
     }
