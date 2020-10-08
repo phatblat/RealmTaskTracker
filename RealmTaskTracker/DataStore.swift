@@ -27,9 +27,11 @@ extension DataStore {
             switch result {
             case .failure(let error):
                 print("Signup failed: \(error)")
+                completionHandler(.failure(error))
             case .success(let realm):
                 print("Signup successful!")
                 self.taskDB.store(realm: realm)
+                completionHandler(.success(()))
             }
         }
     }
@@ -39,9 +41,11 @@ extension DataStore {
             switch result {
             case .failure(let error):
                 print("Login failed: \(error)")
+                completionHandler(.failure(error))
             case .success(let realm):
                 print("Login succeeded!")
                 self.taskDB.store(realm: realm)
+                completionHandler(.success(()))
             }
         }
     }
