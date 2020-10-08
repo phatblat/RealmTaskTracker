@@ -153,6 +153,7 @@ extension RealmHelper {
                 // Open a realm.
                 do {
                     let config = user.configuration(partitionValue: Constants.partitionValue)
+                    Realm.Configuration.defaultConfiguration = config
                     let realm = try Realm(configuration: config)
                     completionHandler(.success(realm))
                 }
