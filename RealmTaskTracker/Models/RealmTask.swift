@@ -8,7 +8,10 @@
 import RealmSwift
 import Foundation
 
-protocol ObjectIdentifiable: Identifiable { var id: ObjectIdentifier { get } }
+protocol ObjectIdentifiable: Identifiable {
+    var id: ObjectIdentifier { get }
+    var _id: ObjectId { get }
+}
 
 protocol RealmInitializable {
     associatedtype RealmType: Object & ObjectIdentifiable

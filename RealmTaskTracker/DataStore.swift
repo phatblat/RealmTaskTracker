@@ -28,9 +28,9 @@ extension DataStore {
             case .failure(let error):
                 print("Signup failed: \(error)")
                 completionHandler(.failure(error))
-            case .success(let realm):
+            case .success(let config):
                 print("Signup successful!")
-                self.taskDB.store(realm: realm)
+                self.taskDB.update(config: config)
                 completionHandler(.success(()))
             }
         }
@@ -42,9 +42,9 @@ extension DataStore {
             case .failure(let error):
                 print("Login failed: \(error)")
                 completionHandler(.failure(error))
-            case .success(let realm):
+            case .success(let config):
                 print("Login succeeded!")
-                self.taskDB.store(realm: realm)
+                self.taskDB.update(config: config)
                 completionHandler(.success(()))
             }
         }

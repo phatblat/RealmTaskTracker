@@ -28,9 +28,14 @@ struct Constants {
 
 extension Realm {
     static func create(_ data: Object) {
-        let realm = try! Realm()
-        try! realm.write {
-            realm.add(data)
+        do {
+            let realm = try Realm()
+            try realm.write {
+                realm.add(data)
+            }
+        }
+        catch {
+            fatalError("Error: \(error.localizedDescription)")
         }
     }
 
@@ -57,44 +62,34 @@ extension Object {
     }
 }
 
-let realmQueueLabel = "co.log-g.RealmTaskTracker.realmQueue"
-
-//public convenience init(label: String, qos: DispatchQoS = .unspecified, attributes: DispatchQueue.Attributes = [], autoreleaseFrequency: DispatchQueue.AutoreleaseFrequency = .inherit, target: DispatchQueue? = nil)
-/// Serial background queue
-let realmQueue = DispatchQueue(label: realmQueueLabel, qos: .background)
-//let realmQueue = DispatchQueue.main
-
 // MARK: - RealmHelpter
 /// The helper is just a CRUD simplification for Realm with support for RealmConvertible protocol
 class RealmHelper {
-    static let singleton = RealmHelper()
-    
-    var realm: Realm?
+    var realm: Realm
 
     var partitionValue: String {
-//        realm.configuration.syncConfiguration?.partitionValue?.stringValue ?? "No Realm"
-        ""
+        realm.configuration.syncConfiguration?.partitionValue?.stringValue ?? "No Realm"
     }
 
     /// Creates a helper wrapping a new realm
-    private init() {
-//        do {
-//            self.realm = try Realm()
-//        }
-//        catch {
-//            fatalError("Error opening local realm: \( error.localizedDescription)")
-//        }
+    init() {
+        do {
+            self.realm = try Realm()
+        }
+        catch {
+            fatalError("Error opening local realm: \(error.localizedDescription)")
+        }
     }
 
-    /// Creates a helper wrapping the given realm
-//    init(realm: Realm) {
-//        self.realm = realm
-//    }
-//
-//    /// Helper to wrap a new realm
-//    func reinit(realm: Realm) {
-//        self.realm = realm
-//    }
+    /// Reinit the realm (used after a config change)
+    func reinit() {
+        do {
+            self.realm = try Realm()
+        }
+        catch {
+            fatalError("Error opening realm: \(error.localizedDescription)")
+        }
+    }
 }
 
 // MARK: - Static properties & methods
@@ -106,11 +101,10 @@ extension RealmHelper {
     ///   - username: Username used to identify the user.
     ///   - password: Password used to identify the user.
     ///   - completionHandler: Executed on the background realmQueue.
-    static func signUp(username: String, password: String, completionHandler: @escaping (_ result: Result<Realm, Error>) -> Void) {
+    static func signUp(username: String, password: String, completionHandler: @escaping (_ result: Result<Realm.Configuration, Error>) -> Void) {
 
         let emailPassAuth = app.emailPasswordAuth()
         emailPassAuth.registerUser(email: username, password: password) { (error: Error?) in
-
             guard error == nil else {
                  print("Signup failed: \(error!)")
                  completionHandler(.failure(error!))
@@ -131,7 +125,7 @@ extension RealmHelper {
     ///   - username: Username used to identify the user.
     ///   - password: Password used to identify the user.
     ///   - completionHandler: Executed on the background realmQueue.
-    static func signIn(username: String, password: String, completionHandler: @escaping (_ result: Result<Realm, Error>) -> Void) {
+    static func signIn(username: String, password: String, completionHandler: @escaping (_ result: Result<Realm.Configuration, Error>) -> Void) {
         print("Signing in as user: \(username)")
 
         let credentials = Credentials(email: username, password: password)
@@ -146,22 +140,13 @@ extension RealmHelper {
 
             guard let user = user else {
                 print("No user returned!")
+//                completionHandler(.failure(_))
                 return
             }
 
-            realmQueue.async {
-                // Open a realm.
-                do {
-                    let config = user.configuration(partitionValue: Constants.partitionValue)
-                    Realm.Configuration.defaultConfiguration = config
-                    let realm = try Realm(configuration: config)
-                    completionHandler(.success(realm))
-                }
-                catch {
-                    print("Realm error opening: ", error.localizedDescription)
-                    completionHandler(.failure(error))
-                }
-            }
+            let config = user.configuration(partitionValue: Constants.partitionValue)
+            Realm.Configuration.defaultConfiguration = config
+            completionHandler(.success(config))
         }
     }
 
@@ -194,8 +179,6 @@ extension RealmHelper {
 // MARK: - CRUD instance methods
 extension RealmHelper {
     func create<O: Object>(_ o: O) {
-        guard let realm = realm else { fatalError("Realm has not been initialized yet") }
-
         do {
             try realm.write {
                 realm.add(o)
@@ -207,8 +190,6 @@ extension RealmHelper {
     }
 
     func update<O: Object>(o: O) {
-        guard let realm = realm else { fatalError("Realm has not been initialized yet") }
-
         do {
             try realm.write {
                 realm.create(O.self, value: o, update: .modified)
@@ -220,8 +201,6 @@ extension RealmHelper {
     }
 
     func updateConvertible<C: RealmConvertible>(_ c: C) {
-        guard let realm = realm else { fatalError("Realm has not been initialized yet") }
-
         do {
             try realm.write {
                 realm.create(C.RealmType.self, value: c.realmObject, update: .modified)
@@ -233,14 +212,10 @@ extension RealmHelper {
     }
 
     func get<O: Object & ObjectIdentifiable>(_ o: O) -> O? {
-        guard let realm = realm else { fatalError("Realm has not been initialized yet") }
-
-        return realm.object(ofType: O.self, forPrimaryKey: o.id)
+        realm.object(ofType: O.self, forPrimaryKey: o._id)
     }
 
     func delete<O: Object & ObjectIdentifiable>(_ o: O) {
-        guard let realm = realm else { fatalError("Realm has not been initialized yet") }
-
         if let d = get(o) {
             do {
                 try realm.write {
@@ -254,17 +229,16 @@ extension RealmHelper {
     }
 
     func deleteConvertible<C: RealmConvertible>(_ c: C) {
-        guard let realm = realm else { fatalError("Realm has not been initialized yet") }
-
         guard let o = realm.object(ofType: c.realmType, forPrimaryKey: c.id)
-        else { print("Realm object with id \(c.id) not found. Unable to delete"); return }
+            else {
+                print("Realm object with id \(c.id) not found. Unable to delete")
+                return
+        }
 
         delete(o)
     }
 
     func list<O: Object>(_ o: O.Type) -> RealmSwift.Results<O> {
-        guard let realm = realm else { fatalError("Realm has not been initialized yet") }
-
-        return realm.objects(o)
+        realm.objects(o)
     }
 }

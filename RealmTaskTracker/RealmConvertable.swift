@@ -14,7 +14,7 @@ protocol RealmConvertible where Self: Equatable & ObjectIdentifiable & RealmInit
     init(_ dest: RealmType)
     var realmType: RealmType.Type { get }
     var realmObject: RealmType { get }
-    var threadSafeReference: ThreadSafeReference<RealmType.Type> { get }
+//    var threadSafeReference: ThreadSafeReference<RealmType.Type> { get }
 }
 
 extension RealmConvertible {
@@ -25,7 +25,7 @@ extension RealmConvertible {
 
 extension RealmConvertible {
     func realmBinding() -> Binding<Self> {
-        let helper = RealmHelper.singleton
+        let helper = RealmHelper()
         return Binding<Self>(get: {
             if let realmObject = helper.get(self.realmObject) {
                 // get the latest realm version for most up to date data and map back to abstracted structs on init

@@ -11,7 +11,9 @@ import SwiftUI
 class DataObservable<Type: RealmConvertible>: ObservableObject {
     // filter can be used to scope data on init
     private let filter: String
-    private let helper = RealmHelper.singleton
+
+    /// Starts out as a local realm
+//    private var helper = RealmHelper()
     private var notificationTokens: [NotificationToken] = []
     private var realmItems: RealmSwift.Results<Type.RealmType>?
 
@@ -33,10 +35,12 @@ class DataObservable<Type: RealmConvertible>: ObservableObject {
 //        watchRealm()
     }
 
+
     deinit { notificationTokens = [] }
 
-    func store(realm: Realm) {
-        helper.realm = realm
+    func update(config: Realm.Configuration) {
+        Realm.Configuration.defaultConfiguration = config
+//        helper = RealmHelper()
         notificationTokens = []
 
         updateItems()
@@ -51,20 +55,17 @@ class DataObservable<Type: RealmConvertible>: ObservableObject {
 
         // https://academy.realm.io/posts/realm-notifications-on-background-threads-with-swift/
         self.notificationTokens.append(realmItems.observe(on: DispatchQueue.main) { _ in
-            realmQueue.async {
-                self.updateItems()
-            }
+            self.updateItems()
         })
     }
 
     private func updateItems() {
-        guard helper.realm != nil else { return }
-
+        let helper = RealmHelper()
         var realmItems: RealmSwift.Results<Type.RealmType>
         if self.filter.count > 0 {
-            realmItems = self.helper.list(Type.RealmType.self).filter(self.filter)
+            realmItems = helper.list(Type.RealmType.self).filter(self.filter)
         } else {
-            realmItems = self.helper.list(Type.RealmType.self)
+            realmItems = helper.list(Type.RealmType.self)
         }
         self.realmItems = realmItems
 
@@ -77,10 +78,12 @@ class DataObservable<Type: RealmConvertible>: ObservableObject {
     }
 
     func create(_ item: Type) {
+        let helper = RealmHelper()
         helper.create(item.realmObject)
     }
 
     func update(_ updatingItems: [Type]) {
+        let helper = RealmHelper()
         for item in updatingItems {
             if items.contains(item) {
                 // this items exists in db so we can update it
@@ -90,6 +93,7 @@ class DataObservable<Type: RealmConvertible>: ObservableObject {
     }
 
     func delete(_ item: Type) {
+        let helper = RealmHelper()
         let realm = item.realmObject
         helper.delete(realm)
     }
@@ -111,6 +115,7 @@ class DataObservable<Type: RealmConvertible>: ObservableObject {
         }
 
         for item in newItems {
+            let helper = RealmHelper()
             // adds or creates item
             helper.updateConvertible(item)
         }
@@ -122,6 +127,6 @@ class DataObservable<Type: RealmConvertible>: ObservableObject {
     func binding(_ item: Type) -> Binding<Type> {
         Binding<Type>(get: {
             return self.items.first(where: { $0.id == item.id }) ?? item
-        }, set: helper.updateConvertible)
+        }, set: RealmHelper().updateConvertible)
     }
 }
