@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TaskRow: View {
     @EnvironmentObject var data: DataStore
+
     @Binding var task: Task
 
     var body: some View {

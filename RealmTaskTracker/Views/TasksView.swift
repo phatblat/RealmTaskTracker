@@ -10,7 +10,7 @@ import SwiftUI
 
 struct TasksView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    
+
     @EnvironmentObject var data: DataStore
 
     @State private var showingLogoutAlert = false
@@ -107,8 +107,7 @@ struct TasksView: View {
     func delete(at offsets: IndexSet) {
         for index in offsets {
             let task = tasks[index]
-            // All modifications to a realm must happen in a write block.
-//            helper.deleteConvertible(task)
+            data.taskDB.delete(task)
         }
     }
 }
