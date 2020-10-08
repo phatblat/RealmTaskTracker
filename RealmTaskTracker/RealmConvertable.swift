@@ -13,7 +13,7 @@ import Foundation
 protocol RealmConvertible where Self: Equatable & ObjectIdentifiable & RealmInitializable {
     var realmType: RealmType.Type { get }
     init(_ dest: RealmType)
-    func realmMap() -> RealmType
+    var realmObject: RealmType { get }
 }
 
 extension RealmConvertible {
@@ -24,15 +24,15 @@ extension RealmConvertible {
 
 extension RealmConvertible {
     func realmBinding() -> Binding<Self> {
-        let h = RealmHelper()
+        let helper = RealmHelper()
         return Binding<Self>(get: {
-            if let r = h.get(self.realmMap()) {
+            if let realmObject = helper.get(self.realmObject) {
                 // get the latest realm version for most up to date data and map back to abstracted structs on init
-                return Self(r)
+                return Self(realmObject)
             } else {
                 // otherwise return self as it's the most up to date version of the data struct
                 return self
             }
-        }, set: h.updateConvertible)
+        }, set: helper.updateConvertible)
     }
 }

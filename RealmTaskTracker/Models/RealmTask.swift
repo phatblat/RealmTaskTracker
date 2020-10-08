@@ -63,7 +63,7 @@ extension Task: RealmConvertible {
         self.assignee = assignee
     }
 
-    func realmMap() -> RealmTask {
+    var realmObject: RealmTask {
         RealmTask(self)
     }
 }

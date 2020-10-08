@@ -221,7 +221,7 @@ extension RealmHelper {
 
         do {
             try realm.write {
-                realm.create(C.RealmType.self, value: c.realmMap(), update: .modified)
+                realm.create(C.RealmType.self, value: c.realmObject, update: .modified)
             }
         }
         catch {

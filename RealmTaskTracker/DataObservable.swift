@@ -79,20 +79,20 @@ class DataObservable<Type: RealmConvertible>: ObservableObject {
     deinit { notificationTokens = [] }
 
     func create(_ item: Type) {
-        helper.create(item.realmMap())
+        helper.create(item.realmObject)
     }
 
     func update(_ updatingItems: [Type]) {
         for item in updatingItems {
             if items.contains(item) {
                 // this items exists in db so we can update it
-                helper.update(o: item.realmMap())
+                helper.update(o: item.realmObject)
             }
         }
     }
 
     func delete(_ item: Type) {
-        let realm = item.realmMap()
+        let realm = item.realmObject
         helper.delete(realm)
     }
 

@@ -25,7 +25,7 @@ struct AddTaskView: View {
                 }
 
                 // Create a new Task with the text that the user entered.
-                let task = Task(name: enteredText).realmMap()
+                let task = Task(name: enteredText).realmObject
 //                helper.create(task)
                 print("Task added! \(task)")
                 presentationMode.wrappedValue.dismiss()
