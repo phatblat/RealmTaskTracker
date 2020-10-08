@@ -5,9 +5,6 @@
 //  Created by Ben Chatelain on 9/15/20.
 //
 
-import Realm
-import RealmSwift
-import Combine
 import SwiftUI
 
 struct WelcomeView: View {
@@ -38,21 +35,21 @@ struct WelcomeView: View {
             .navigationBarTitle("Welcome")
         }
     }
+}
 
+extension WelcomeView {
     func signUp() {
         loading.toggle()
 
-        RealmHelper.signUp(username: username, password: password) { result in
+        data.signUp(username: username, password: password) { result in
             DispatchQueue.main.sync {
                 loading.toggle()
 
                 switch result {
                 case .failure(let error):
-                    print("Signup failed: \(error)")
                     message = "Signup failed: \(error.localizedDescription)"
-                case .success(let helper):
+                case .success():
                     print("Signup successful!")
-                    data.store(realm: helper.realm)
                     signedIn = true
                 }
             }
@@ -62,11 +59,7 @@ struct WelcomeView: View {
     func signIn() {
         loading.toggle()
 
-        RealmHelper.signIn(username: username, password: password) { result in
-            // Completion handlers are not necessarily called on the UI thread.
-            // This call to DispatchQueue.main.sync ensures that any changes to the UI,
-            // namely disabling the loading indicator and navigating to the next page,
-            // are handled on the UI thread:
+        data.signIn(username: username, password: password) { result in
             DispatchQueue.main.sync {
                 loading.toggle()
 
@@ -74,9 +67,8 @@ struct WelcomeView: View {
                 case .failure(let error):
                     print("Login failed: \(error)")
                     message = "Login failed: \(error.localizedDescription)"
-                case .success(let helper):
+                case .success(_):
                     print("Login succeeded!")
-                    data.store(realm: helper.realm)
                     signedIn = true
                 }
             }

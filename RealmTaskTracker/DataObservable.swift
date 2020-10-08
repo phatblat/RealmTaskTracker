@@ -13,24 +13,24 @@ class DataObservable<Type: RealmConvertible>: ObservableObject {
     private let filter: String
     private let helper = RealmHelper()
     private var notificationTokens: [NotificationToken] = []
-    private var realmItems: RealmSwift.Results<Type.RealmType>
+    private var realmItems: RealmSwift.Results<Type.RealmType>?
 
-    @Published private(set) var items: [Type]
+    @Published private(set) var items: [Type] = []
 
     init(_ filter: String = "") {
         self.filter = filter
 
         //updateItems()
 
-        if filter.count > 0 {
-            realmItems = helper.list(Type.RealmType.self).filter(filter)
-        } else {
-            realmItems = helper.list(Type.RealmType.self)
-        }
-
-        self.items = self.realmItems.map { Type($0) }
-
-        watchRealm()
+//        if filter.count > 0 {
+//            realmItems = helper.list(Type.RealmType.self).filter(filter)
+//        } else {
+//            realmItems = helper.list(Type.RealmType.self)
+//        }
+//
+//        self.items = self.realmItems.map { Type($0) }
+//
+//        watchRealm()
     }
 
     func store(realm: Realm) {
@@ -42,19 +42,37 @@ class DataObservable<Type: RealmConvertible>: ObservableObject {
     }
 
     private func watchRealm() {
-        notificationTokens.append(realmItems.observe { _ in
-            self.updateItems()
+        guard let realmItems = realmItems else {
+            print("No realmItems yet")
+            return
+        }
+
+        // https://academy.realm.io/posts/realm-notifications-on-background-threads-with-swift/
+//        DispatchQueue.main.async {
+        self.notificationTokens.append(realmItems.observe(on: DispatchQueue.main) { _ in
+            realmQueue.async {
+                self.updateItems()
+            }
         })
+//        }
     }
 
     private func updateItems() {
-        DispatchQueue(label: realmQueue).async {
-            if self.filter.count > 0 {
-                self.realmItems = self.helper.list(Type.RealmType.self).filter(self.filter)
-            } else {
-                self.realmItems = self.helper.list(Type.RealmType.self)
-            }
-            self.items = self.realmItems.map { Type($0) }
+        guard helper.realm != nil else { return }
+
+        var realmItems: RealmSwift.Results<Type.RealmType>
+        if self.filter.count > 0 {
+            realmItems = self.helper.list(Type.RealmType.self).filter(self.filter)
+        } else {
+            realmItems = self.helper.list(Type.RealmType.self)
+        }
+        self.realmItems = realmItems
+
+        let items: [Type] = realmItems.map { Type($0) }
+
+        // Published properties need to be updated on the main queue
+        DispatchQueue.main.async {
+            self.items = items
         }
     }
 

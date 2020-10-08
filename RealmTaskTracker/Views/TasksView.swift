@@ -11,7 +11,7 @@ import SwiftUI
 struct TasksView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var data: DataStore
-    @EnvironmentObject var helper: RealmHelper
+//    @EnvironmentObject var helper: RealmHelper
 
     @State private var showingLogoutAlert = false
     @State private var showingActionSheet = false
@@ -44,21 +44,21 @@ struct TasksView: View {
                                     // Any modifications to managed objects must occur in a write block.
                                     // When we modify the Task's state, that change is automatically reflected in the realm.
                                     task.statusEnum = .Open
-                                    helper.updateConvertible(task)
+//                                    helper.updateConvertible(task)
                                 }))
                             }
 
                             if (task.statusEnum != .InProgress) {
                                 buttons.append(.default(Text("Start Progress"), action: {
                                     task.statusEnum = .InProgress
-                                    helper.updateConvertible(task)
+//                                    helper.updateConvertible(task)
                                 }))
                             }
 
                             if (task.statusEnum != .Complete) {
                                 buttons.append(.default(Text("Complete"), action: {
                                     task.statusEnum = .Complete
-                                    helper.updateConvertible(task)
+//                                    helper.updateConvertible(task)
                                 }))
                             }
 
@@ -108,7 +108,7 @@ struct TasksView: View {
         for index in offsets {
             let task = tasks[index]
             // All modifications to a realm must happen in a write block.
-            helper.deleteConvertible(task)
+//            helper.deleteConvertible(task)
         }
     }
 }
