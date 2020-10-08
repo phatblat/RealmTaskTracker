@@ -86,7 +86,7 @@ extension Task: Identifiable, ObjectIdentifiable {
 // MARK: - RealmTask
 class RealmTask: Object, ObjectIdentifiable, Statusable {
     @objc dynamic var _id: ObjectId = ObjectId.generate()
-    @objc dynamic var _partition: ProjectId = ""
+    @objc dynamic var _partition: ProjectId = Constants.partitionValue
     @objc dynamic var name: String = ""
     @objc dynamic var status = TaskStatus.Open.rawValue
     @objc dynamic var assignee: User?
