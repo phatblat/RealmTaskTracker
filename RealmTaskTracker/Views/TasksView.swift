@@ -10,8 +10,8 @@ import SwiftUI
 
 struct TasksView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    
     @EnvironmentObject var data: DataStore
-//    @EnvironmentObject var helper: RealmHelper
 
     @State private var showingLogoutAlert = false
     @State private var showingActionSheet = false
