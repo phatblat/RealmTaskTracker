@@ -33,6 +33,8 @@ class DataObservable<Type: RealmConvertible>: ObservableObject {
 //        watchRealm()
     }
 
+    deinit { notificationTokens = [] }
+
     func store(realm: Realm) {
         helper.realm = realm
         notificationTokens = []
@@ -48,13 +50,11 @@ class DataObservable<Type: RealmConvertible>: ObservableObject {
         }
 
         // https://academy.realm.io/posts/realm-notifications-on-background-threads-with-swift/
-//        DispatchQueue.main.async {
         self.notificationTokens.append(realmItems.observe(on: DispatchQueue.main) { _ in
             realmQueue.async {
                 self.updateItems()
             }
         })
-//        }
     }
 
     private func updateItems() {
@@ -75,8 +75,6 @@ class DataObservable<Type: RealmConvertible>: ObservableObject {
             self.items = items
         }
     }
-
-    deinit { notificationTokens = [] }
 
     func create(_ item: Type) {
         helper.create(item.realmObject)
@@ -120,9 +118,7 @@ class DataObservable<Type: RealmConvertible>: ObservableObject {
         objectWillChange.send()
     }
 
-
-    // Dynamic Realm Binding for live data editing
-
+    /// Dynamic Realm Binding for live data editing
     func binding(_ item: Type) -> Binding<Type> {
         Binding<Type>(get: {
             return self.items.first(where: { $0.id == item.id }) ?? item
