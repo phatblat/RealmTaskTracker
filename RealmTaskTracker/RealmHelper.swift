@@ -146,6 +146,11 @@ extension RealmHelper {
 
             let config = user.configuration(partitionValue: Constants.partitionValue)
             Realm.Configuration.defaultConfiguration = config
+//            app.syncManager.logLevel = .debug
+//            app.syncManager.errorHandler = { error, session in
+//                print("Sync error: ", error)
+//            }
+
             completionHandler(.success(config))
         }
     }
