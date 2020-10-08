@@ -5,19 +5,16 @@
 //  Created by Ben Chatelain on 9/15/20.
 //
 
-import Realm
-import RealmSwift
-import Combine
 import SwiftUI
 
 struct WelcomeView: View {
-    @State private var loading = false
-    @State private var username = ""
-    @State private var password = ""
-    @State private var message = ""
-    @State private var signedIn = false
+    @EnvironmentObject var data: DataStore
 
-    @ObservedObject private var realmWrapper = RealmWrapper()
+    @State private var loading = false
+    @State private var signedIn = false
+    @State private var username = "Testuser"
+    @State private var password = "password"
+    @State private var message = "Version: \(Constants.appVersion)"
 
     var body: some View {
         NavigationView {
@@ -37,62 +34,43 @@ struct WelcomeView: View {
             }
             .navigationBarTitle("Welcome")
         }
-        .environmentObject(realmWrapper)
     }
+}
 
+extension WelcomeView {
     func signUp() {
         loading.toggle()
 
-        let emailPassAuth = app.emailPasswordAuth()
-        emailPassAuth.registerUser(email: username, password: password) { (error: Error?) in
+        data.signUp(username: username, password: password) { result in
             DispatchQueue.main.sync {
                 loading.toggle()
 
-                guard error == nil else {
-                     print("Signup failed: \(error!)")
-                     message = "Signup failed: \(error!.localizedDescription)"
-                     return
+                switch result {
+                case .failure(let error):
+                    message = "Signup failed: \(error.localizedDescription)"
+                case .success():
+                    print("Signup successful!")
+                    signedIn = true
                 }
-                print("Signup successful!")
-
-                // Registering just registers. Now we need to sign in,
-                // but we can reuse the existing username and password.
-                message = "Signup successful! Signing in..."
-                signIn()
             }
         }
     }
 
     func signIn() {
-        print("Log in as user: \(username)")
         loading.toggle()
 
-        let credentials = Credentials(email: username, password: password)
-        app.login(credentials: credentials) { (user: RealmSwift.User?, error: Error?) in
-            // Completion handlers are not necessarily called on the UI thread.
-            // This call to DispatchQueue.main.sync ensures that any changes to the UI,
-            // namely disabling the loading indicator and navigating to the next page,
-            // are handled on the UI thread:
+        data.signIn(username: username, password: password) { result in
             DispatchQueue.main.sync {
                 loading.toggle()
-                guard error == nil else {
-                   // Auth error: user already exists? Try logging in as that user.
-                   print("Login failed: \(error!)");
-                   message = "Login failed: \(error!.localizedDescription)"
-                   return
+
+                switch result {
+                case .failure(let error):
+                    print("Login failed: \(error)")
+                    message = "Login failed: \(error.localizedDescription)"
+                case .success(_):
+                    print("Login succeeded!")
+                    signedIn = true
                 }
-
-                print("Login succeeded!")
-
-                // For the first phase of the tutorial, go directly to the Tasks page
-                // for the hardcoded project ID "My Project".
-                // This will use a common project and demonstrate sync.
-                let partitionValue = "My Project"
-
-                // Open a realm.
-                realmWrapper.realm = try! Realm(configuration: user!.configuration(partitionValue: partitionValue))
-
-                signedIn = true
             }
         }
     }
@@ -100,6 +78,6 @@ struct WelcomeView: View {
 
 struct WelcomeView_Previews: PreviewProvider {
     static var previews: some View {
-        WelcomeView()
+        WelcomeView().environmentObject(DataStore())
     }
 }

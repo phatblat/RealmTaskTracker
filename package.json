@@ -1,0 +1,30 @@
+{
+  "name": "realmtasktracker",
+  "version": "1.0.0",
+  "description": "Task Tracker Tutorial implemented in SwiftUI",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phatblat/RealmTaskTracker.git"
+  },
+  "keywords": [
+    "realm",
+    "mongodb",
+    "swiftui",
+    "combine",
+    "tutorial"
+  ],
+  "author": "phatblat",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/phatblat/RealmTaskTracker/issues"
+  },
+  "homepage": "https://github.com/phatblat/RealmTaskTracker#readme",
+  "devDependencies": {
+    "mongodb-realm-cli": "^1.1.0"
+  },
+  "dependencies": {}
+}

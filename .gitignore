@@ -3,11 +3,14 @@
 *.xccheckout
 *.xcscmblueprint
 .DS_Store
+.atlas_private_api_key
+.atlas_public_api_key
 .build/
 .classpath
 .gradle/
 .idea/
 .project
+.realm_app_id
 .rubygems/
 .settings
 .vscode/
@@ -16,4 +19,5 @@ Pods/
 bin/
 build/
 gradlew.bat
+node_modules/
 xcuserdata

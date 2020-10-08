@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct TaskRow: View {
-    let task: Task
+    @EnvironmentObject var data: DataStore
+
+    @Binding var task: Task
 
     var body: some View {
         HStack {
@@ -27,8 +29,15 @@ struct TaskRow: View {
     }
 }
 
+extension TaskRow {
+    func delete() {
+        data.taskDB.delete(task)
+    }
+}
+
 struct TaskRow_Previews: PreviewProvider {
     static var previews: some View {
-        TaskRow(task: Task(partition: "", name: "Some Task"))
+        TaskRow(task: .constant(Task(name: "Some Task")))
+            .environmentObject(DataStore())
     }
 }
