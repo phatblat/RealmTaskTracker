@@ -44,21 +44,21 @@ struct TasksView: View {
                                     // Any modifications to managed objects must occur in a write block.
                                     // When we modify the Task's state, that change is automatically reflected in the realm.
                                     task.statusEnum = .Open
-//                                    helper.updateConvertible(task)
+                                    data.taskDB.update(task)
                                 }))
                             }
 
                             if (task.statusEnum != .InProgress) {
                                 buttons.append(.default(Text("Start Progress"), action: {
                                     task.statusEnum = .InProgress
-//                                    helper.updateConvertible(task)
+                                    data.taskDB.update(task)
                                 }))
                             }
 
                             if (task.statusEnum != .Complete) {
                                 buttons.append(.default(Text("Complete"), action: {
                                     task.statusEnum = .Complete
-//                                    helper.updateConvertible(task)
+                                    data.taskDB.update(task)
                                 }))
                             }
 

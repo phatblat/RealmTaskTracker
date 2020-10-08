@@ -82,6 +82,10 @@ class DataObservable<Type: RealmConvertible>: ObservableObject {
         helper.create(item.realmObject)
     }
 
+    func update(_ item: Type) {
+        update([item])
+    }
+    
     func update(_ updatingItems: [Type]) {
         let helper = RealmHelper()
         for item in updatingItems {
@@ -90,6 +94,7 @@ class DataObservable<Type: RealmConvertible>: ObservableObject {
                 helper.update(o: item.realmObject)
             }
         }
+        updateItems()
     }
 
     func delete(_ item: Type) {

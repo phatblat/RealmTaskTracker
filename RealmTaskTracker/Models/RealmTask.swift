@@ -42,11 +42,17 @@ extension Statusable {
 }
 
 // MARK: - Task
-struct Task: Equatable, Statusable {
+struct Task: Statusable {
     var _id: ObjectId
     var name: String
     var status: String
     var assignee: User?
+}
+
+extension Task: Equatable {
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs._id == rhs._id
+    }
 }
 
 extension Task: RealmConvertible {
