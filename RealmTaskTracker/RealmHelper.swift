@@ -103,7 +103,7 @@ extension RealmHelper {
     ///   - completionHandler: Executed on the background realmQueue.
     static func signUp(username: String, password: String, completionHandler: @escaping (_ result: Result<Realm.Configuration, Error>) -> Void) {
 
-        let emailPassAuth = app.emailPasswordAuth()
+        let emailPassAuth = app.emailPasswordAuth
         emailPassAuth.registerUser(email: username, password: password) { (error: Error?) in
             guard error == nil else {
                  print("Signup failed: \(error!)")
@@ -128,7 +128,7 @@ extension RealmHelper {
     static func signIn(username: String, password: String, completionHandler: @escaping (_ result: Result<Realm.Configuration, Error>) -> Void) {
         print("Signing in as user: \(username)")
 
-        let credentials = Credentials(email: username, password: password)
+        let credentials = Credentials.emailPassword(email: username, password: password)
         app.login(credentials: credentials) { (user: RealmSwift.User?, error: Error?) in
             guard error == nil else {
                 print("Login failed: \(error!)")
@@ -154,7 +154,7 @@ extension RealmHelper {
     /// - Returns: A future with either no value on success, or error on failure.
     static func signOut() -> Future<Void, Error> {
         return Future<Void, Error> { promise in
-            guard let user = app.currentUser() else {
+            guard let user = app.currentUser else {
                 print("Not logged in, no user.")
                 promise(.success(()))
                 return
