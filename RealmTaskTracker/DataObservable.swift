@@ -11,7 +11,7 @@ import SwiftUI
 class DataObservable<Type: RealmConvertible>: ObservableObject {
     // filter can be used to scope data on init
     private let filter: String
-    private let helper = RealmHelper()
+    private let helper = RealmHelper.singleton
     private var notificationTokens: [NotificationToken] = []
     private var realmItems: RealmSwift.Results<Type.RealmType>?
 

@@ -67,6 +67,8 @@ let realmQueue = DispatchQueue(label: realmQueueLabel, qos: .background)
 // MARK: - RealmHelpter
 /// The helper is just a CRUD simplification for Realm with support for RealmConvertible protocol
 class RealmHelper {
+    static let singleton = RealmHelper()
+    
     var realm: Realm?
 
     var partitionValue: String {
@@ -75,7 +77,7 @@ class RealmHelper {
     }
 
     /// Creates a helper wrapping a new realm
-    init() {
+    private init() {
 //        do {
 //            self.realm = try Realm()
 //        }
@@ -85,14 +87,14 @@ class RealmHelper {
     }
 
     /// Creates a helper wrapping the given realm
-    init(realm: Realm) {
-        self.realm = realm
-    }
-
-    /// Helper to wrap a new realm
-    func reinit(realm: Realm) {
-        self.realm = realm
-    }
+//    init(realm: Realm) {
+//        self.realm = realm
+//    }
+//
+//    /// Helper to wrap a new realm
+//    func reinit(realm: Realm) {
+//        self.realm = realm
+//    }
 }
 
 // MARK: - Static properties & methods
