@@ -88,3 +88,7 @@ export:
 .PHONY: import
 import:
 	$(REALM_CLI) import --app-id=$(REALM_APP_ID) --path $(ATLAS_FOLDER) --strategy=replace
+
+.PHONY: shell
+shell:
+	mongo "mongodb+srv://cluster0.5exqq.mongodb.net/tracker" --username ben
