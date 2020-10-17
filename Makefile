@@ -91,4 +91,4 @@ import:
 
 .PHONY: shell
 shell:
-	mongo "mongodb+srv://cluster0.5exqq.mongodb.net/tracker" --username ben
+	mongo "mongodb+srv://cluster10.5exqq.azure.mongodb.net/tracker" --username ben
