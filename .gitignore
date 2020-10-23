@@ -9,6 +9,8 @@
 .classpath
 .gradle/
 .idea/
+.mongodb_password
+.mongodb_username
 .project
 .realm_app_id
 .rubygems/
