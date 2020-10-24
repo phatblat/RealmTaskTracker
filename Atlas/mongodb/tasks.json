@@ -1,29 +1,4 @@
-[{
-  "_id": {
-    "$oid": "5efb663d14bc891ac2048282"
-  },
-  "_partition": "My Project",
-  "name": "the first thing!",
-  "status": "Open"
-},{
-  "_id": {
-    "$oid": "5efb66643fca7006bcd87817"
-  },
-  "_partition": "My Project",
-  "name": "the second REALLY BIG thing",
-  "status": "Open"
-},{
-  "_id": {
-    "$oid": "5efb66c33fca7006bcd8781c"
-  },
-  "_partition": "My Project",
-  "name": "The third thing",
-  "status": "Open"
-},{
-  "_id": {
-    "$oid": "5efb66d03fca7006bcd87820"
-  },
-  "_partition": "My Project",
-  "name": "The fourth thing",
-  "status": "Open"
-}]
+{"_id":{"$oid":"5efb663d14bc891ac2048282"},"_partition":"My Project","name":"the first thing!","status":"Open"}
+{"_id":{"$oid":"5efb66d03fca7006bcd87820"},"_partition":"My Project","name":"The fourth thing","status":"Open"}
+{"_id":{"$oid":"5efb66643fca7006bcd87817"},"_partition":"My Project","name":"the second REALLY BIG thing","status":"Open"}
+{"_id":{"$oid":"5efb66c33fca7006bcd8781c"},"_partition":"My Project","name":"The third thing","status":"Open"}
