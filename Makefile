@@ -8,39 +8,19 @@
 # Variables
 #
 
-CMD_NAME = RealmTaskTracker
-SHELL = /bin/sh
-SWIFT_VERSION = 5.3
+ATLAS_PUBLIC_API_KEY := $(shell cat .atlas_public_api_key)
+ATLAS_PRIVATE_API_KEY := $(shell cat .atlas_private_api_key)
+MONGODB_USERNAME := $(shell cat .mongodb_username)
+MONGODB_PASSWORD := $(shell cat .mongodb_password)
+CLUSTER = cluster10.5exqq.azure.mongodb.net
+DATABASE = tasks
+COLLECTION = tasks
+REALM_APP_ID := $(shell cat .realm_app_id)
 REALM_CLI = node_modules/.bin/realm-cli
-REALM_APP_ID = `cat .realm_app_id`
-ATLAS_PUBLIC_API_KEY = `cat .atlas_public_api_key`
-ATLAS_PRIVATE_API_KEY = `cat .atlas_private_api_key`
+SWIFT_VERSION = 5.3
 ATLAS_FOLDER = Atlas
-
-# set EXECUTABLE_DIRECTORY according to your specific environment
-# run swift build and see where the output executable is created
-
-# OS specific differences
-UNAME = ${shell uname}
-
-ifeq ($(UNAME), Darwin)
-SWIFTC_FLAGS =
-LINKER_FLAGS = -Xlinker -L/usr/local/lib
-PLATFORM = x86_64-apple-macosx
-EXECUTABLE_DIRECTORY = ./.build/${PLATFORM}/debug
-TEST_BUNDLE = ${CMD_NAME}PackageTests.xctest
-TEST_RESOURCES_DIRECTORY = ./.build/${PLATFORM}/debug/${TEST_BUNDLE}/Contents/Resources
-endif
-ifeq ($(UNAME), Linux)
-SWIFTC_FLAGS = -Xcc -fblocks
-LINKER_FLAGS = -Xlinker -rpath -Xlinker .build/debug
-PATH_TO_SWIFT = /home/vagrant/swiftenv/versions/$(SWIFT_VERSION)
-PLATFORM = x86_64-unknown-linux
-EXECUTABLE_DIRECTORY = ./.build/${PLATFORM}/debug
-TEST_RESOURCES_DIRECTORY = ${EXECUTABLE_DIRECTORY}
-endif
-
-RUN_RESOURCES_DIRECTORY = ${EXECUTABLE_DIRECTORY}
+MONGODB_FOLDER = $(ATLAS_FOLDER)/mongodb
+REALM_FOLDER = $(ATLAS_FOLDER)/realm
 
 ################################################################################
 #
@@ -51,15 +31,20 @@ RUN_RESOURCES_DIRECTORY = ${EXECUTABLE_DIRECTORY}
 version:
 	xcodebuild -version
 	swift --version
-	swift package tools-version
+	mongo --version
+	mongodump --version
+	mongorestore --version
+	mongoexport --version
+	mongoimport --version
 	$(REALM_CLI) --version
 
 .PHONY: init
 init:
-	- swiftenv install $(SWIFT_VERSION)
-	swiftenv local $(SWIFT_VERSION)
-	nvm use
+	- brew bundle install
+	# nvm use
 	npm install
+	bundle install --gemfile=Gemfile
+	pod install --repo-update
 
 .PHONY: clean
 clean:
@@ -67,6 +52,34 @@ clean:
 	xcodebuild clean
 	swift package clean
 	swift package reset
+
+#
+# MongoDB
+#
+
+.PHONY: shell
+shell:
+	mongo "mongodb+srv://$(CLUSTER)/$(DATABASE)" --username $(MONGODB_USERNAME) --password $(MONGODB_PASSWORD)
+
+.PHONY: dump
+dump:
+	mongodump --uri "mongodb+srv://$(MONGODB_USERNAME):$(MONGODB_PASSWORD)@$(CLUSTER)/$(DATABASE)" --out=$(MONGODB_FOLDER)
+
+.PHONY: restore
+restore:
+	mongorestore --uri "mongodb+srv://$(MONGODB_USERNAME):$(MONGODB_PASSWORD)@$(CLUSTER)/$(DATABASE)" --drop $(MONGODB_FOLDER)
+
+.PHONY: export
+export:
+	mongoexport --uri="mongodb+srv://$(MONGODB_USERNAME):$(MONGODB_PASSWORD)@$(CLUSTER)/$(DATABASE)" --collection=$(COLLECTION) --out=$(MONGODB_FOLDER)/$(COLLECTION).json
+
+.PHONY: import
+import:
+	mongoimport --uri="mongodb+srv://$(MONGODB_USERNAME):$(MONGODB_PASSWORD)@$(CLUSTER)/$(DATABASE)" --collection=$(COLLECTION) --drop $(MONGODB_FOLDER)/$(COLLECTION).json
+
+#
+# Realm
+#
 
 .PHONY: login
 login:
@@ -76,19 +89,15 @@ login:
 whoami:
 	$(REALM_CLI) whoami
 
-.PHONY: diff
-diff:
-	$(REALM_CLI) diff
+.PHONY: realmdiff
+realmdiff:
+	$(REALM_CLI) diff --app-id=$(REALM_APP_ID)
 
-.PHONY: export
-export:
-	rm -rf $(ATLAS_FOLDER)
-	$(REALM_CLI) export --app-id=$(REALM_APP_ID) --output $(ATLAS_FOLDER) --for-source-control
+.PHONY: realmexport
+realmexport:
+	rm -rf $(ATLAS_FOLDER)/realm
+	$(REALM_CLI) export --app-id=$(REALM_APP_ID) --output $(REALM_FOLDER) --for-source-control
 
-.PHONY: import
-import:
-	$(REALM_CLI) import --app-id=$(REALM_APP_ID) --path $(ATLAS_FOLDER) --strategy=replace
-
-.PHONY: shell
-shell:
-	mongo "mongodb+srv://cluster10.5exqq.azure.mongodb.net/tracker" --username ben
+.PHONY: realmimport
+realmimport:
+	$(REALM_CLI) import --app-id=$(REALM_APP_ID) --path $(REALM_FOLDER) --strategy=replace
