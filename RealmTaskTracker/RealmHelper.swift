@@ -127,31 +127,26 @@ extension RealmHelper {
     ///   - completionHandler: Executed on the background realmQueue.
     static func signIn(username: String, password: String, completionHandler: @escaping (_ result: Result<Realm.Configuration, Error>) -> Void) {
         print("Signing in as user: \(username)")
+        
+        app.syncManager.logLevel = .debug
+        app.syncManager.errorHandler = { error, session in
+            print("Sync error: ", error)
+        }
 
         let credentials = Credentials.emailPassword(email: username, password: password)
-        app.login(credentials: credentials) { (user: RealmSwift.User?, error: Error?) in
-            guard error == nil else {
-                print("Login failed: \(error!)")
-                completionHandler(.failure(error!))
+        app.login(credentials: credentials) { result in
+            switch result {
+            case .failure(let error):
+                print("Login failed: \(error)")
+                completionHandler(.failure(error))
                 return
+            case .success(let user):
+                print("Login succeeded")
+
+                let config = user.configuration(partitionValue: Constants.partitionValue)
+                Realm.Configuration.defaultConfiguration = config
+                completionHandler(.success(config))
             }
-
-            print("Login succeeded")
-
-            guard let user = user else {
-                print("No user returned!")
-//                completionHandler(.failure(_))
-                return
-            }
-
-            let config = user.configuration(partitionValue: Constants.partitionValue)
-            Realm.Configuration.defaultConfiguration = config
-//            app.syncManager.logLevel = .debug
-//            app.syncManager.errorHandler = { error, session in
-//                print("Sync error: ", error)
-//            }
-
-            completionHandler(.success(config))
         }
     }
 
