@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct WelcomeView: View {
-    @EnvironmentObject var data: DataStore
+    @EnvironmentObject var model: DataModel
 
     @State private var loading = false
     @State private var signedIn = false
@@ -41,7 +41,7 @@ extension WelcomeView {
     func signUp() {
         loading.toggle()
 
-        data.signUp(username: username, password: password) { result in
+        model.signUp(username: username, password: password) { result in
             DispatchQueue.main.sync {
                 loading.toggle()
 
@@ -59,7 +59,7 @@ extension WelcomeView {
     func signIn() {
         loading.toggle()
 
-        data.signIn(username: username, password: password) { result in
+        model.signIn(username: username, password: password) { result in
             DispatchQueue.main.sync {
                 loading.toggle()
 
@@ -78,6 +78,7 @@ extension WelcomeView {
 
 struct WelcomeView_Previews: PreviewProvider {
     static var previews: some View {
-        WelcomeView().environmentObject(DataStore())
+        WelcomeView()
+            .environmentObject(DataModel())
     }
 }

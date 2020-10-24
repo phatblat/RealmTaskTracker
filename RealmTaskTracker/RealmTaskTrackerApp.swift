@@ -11,7 +11,8 @@ import SwiftUI
 struct RealmTaskTrackerApp: App {
     var body: some Scene {
         WindowGroup {
-            WelcomeView().environmentObject(DataStore())
+            WelcomeView()
+                .environmentObject(DataModel())
         }
     }
 }

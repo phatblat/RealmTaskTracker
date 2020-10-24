@@ -11,7 +11,7 @@ import SwiftUI
 struct AddTaskView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
-    @EnvironmentObject var data: DataStore
+    @EnvironmentObject var model: DataModel
 
     @State private var enteredText: String = ""
 
@@ -26,7 +26,10 @@ struct AddTaskView: View {
 
                 // Create a new Task with the text that the user entered.
                 let task = Task(name: enteredText)
-                data.taskDB.create(task)
+                let realm = try! Realm()
+                try! realm.write {
+                    realm.add(task)
+                }
                 print("Task added! \(task)")
                 presentationMode.wrappedValue.dismiss()
             }

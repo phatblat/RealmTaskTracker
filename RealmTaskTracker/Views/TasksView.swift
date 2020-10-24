@@ -5,25 +5,24 @@
 //  Created by Ben Chatelain on 9/15/20.
 //
 
-//import RealmSwift
+import RealmSwift
 import SwiftUI
 
 struct TasksView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
-    @EnvironmentObject var data: DataStore
+    @EnvironmentObject var model: DataModel
 
     @State private var showingLogoutAlert = false
     @State private var showingActionSheet = false
 
-    private var tasks: [Task] {
-        data.tasks.sorted(by: { $0._id < $1._id })
+    private var tasks: Results<Task> {
+        model.tasks //.sorted(by: <)
     }
 
     // Partition value must be of string type.
     private var partitionValue: String {
-//        realm.configuration.syncConfiguration?.partitionValue?.stringValue ?? "No Realm"
-        ""
+        Constants.partitionValue
     }
 
     var body: some View {
@@ -32,7 +31,7 @@ struct TasksView: View {
                 ForEach(tasks, id: \._id) { task in
                     // Make it mutable
                     var task = task
-                    TaskRow(task: task.realmBinding())
+                    TaskRow(task: task)
                         .onTapGesture { showingActionSheet = true }
                         // FIXME: First task in list is always the one modified.
                         .actionSheet(isPresented: $showingActionSheet) {
@@ -44,21 +43,21 @@ struct TasksView: View {
                                     // Any modifications to managed objects must occur in a write block.
                                     // When we modify the Task's state, that change is automatically reflected in the realm.
                                     task.statusEnum = .Open
-                                    data.taskDB.update(task)
+//                                    data.taskDB.update(task)
                                 }))
                             }
 
                             if (task.statusEnum != .InProgress) {
                                 buttons.append(.default(Text("Start Progress"), action: {
                                     task.statusEnum = .InProgress
-                                    data.taskDB.update(task)
+//                                    data.taskDB.update(task)
                                 }))
                             }
 
                             if (task.statusEnum != .Complete) {
                                 buttons.append(.default(Text("Complete"), action: {
                                     task.statusEnum = .Complete
-                                    data.taskDB.update(task)
+//                                    data.taskDB.update(task)
                                 }))
                             }
 
@@ -79,17 +78,17 @@ struct TasksView: View {
                     .alert(isPresented: $showingLogoutAlert) {
                         Alert(title: Text("Log Out"), message: Text(""), primaryButton: .cancel(), secondaryButton: .destructive(Text("Yes, Log Out"), action: {
                                 print("Logging out...")
-                                _ = RealmHelper.signOut()
-                                    .receive(on: DispatchQueue.main)
-                                    .sink { completion in
-                                        switch completion {
-                                        case .failure(let error):
-                                            print("Error: ", error)
-                                        case .finished:
-                                            print("Logged out")
-                                        }
-                                        presentationMode.wrappedValue.dismiss()
-                                    } receiveValue: { _ in }
+//                                _ = model.signOut()
+//                                    .receive(on: DispatchQueue.main)
+//                                    .sink { completion in
+//                                        switch completion {
+//                                        case .failure(let error):
+//                                            print("Error: ", error)
+//                                        case .finished:
+//                                            print("Logged out")
+//                                        }
+//                                        presentationMode.wrappedValue.dismiss()
+//                                    } receiveValue: { _ in }
                             }
                         ))
                     },
@@ -107,13 +106,17 @@ struct TasksView: View {
     func delete(at offsets: IndexSet) {
         for index in offsets {
             let task = tasks[index]
-            data.taskDB.delete(task)
+            let realm = try! Realm()
+            try! realm.write {
+                realm.delete(task)
+            }
         }
     }
 }
 
 struct TasksView_Previews: PreviewProvider {
     static var previews: some View {
-        TasksView().environmentObject(DataStore())
+        TasksView()
+            .environmentObject(DataModel())
     }
 }
