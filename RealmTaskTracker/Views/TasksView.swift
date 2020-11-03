@@ -8,17 +8,20 @@
 import RealmSwift
 import SwiftUI
 
+/// Screen containing a list of tasks. Implements functionality for adding, rearranging, and deleting tasks.
 struct TasksView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
-    @EnvironmentObject var model: AppState
+    @EnvironmentObject var state: AppState
+
+    /// The items in this group.
+    @ObservedObject var tasks: Results<Task>
 
     @State private var showingLogoutAlert = false
     @State private var showingActionSheet = false
 
-    private var tasks: Results<Task> {
-        model.tasks //.sorted(by: <)
-    }
+    /// The button to be displayed on the top left.
+    var leadingBarButton: AnyView?
 
     // Partition value must be of string type.
     private var partitionValue: String {
@@ -27,11 +30,13 @@ struct TasksView: View {
 
     var body: some View {
         NavigationView {
+            // The list shows the items in the realm.
             List {
-                ForEach(tasks, id: \._id) { task in
-                    // Make it mutable
-                    var task = task
-                    TaskRow(task: task)
+                // ⚠️ ALWAYS freeze a Realm list while iterating in a SwiftUI
+                // View's ForEach(). Otherwise, unexpected behavior will occur,
+                // especially when deleting object from the list.
+                ForEach(tasks.freeze()) { frozenTask in
+                    TaskRow(task: tasks.realm!.resolve)
                         .onTapGesture { showingActionSheet = true }
                         // FIXME: First task in list is always the one modified.
                         .actionSheet(isPresented: $showingActionSheet) {

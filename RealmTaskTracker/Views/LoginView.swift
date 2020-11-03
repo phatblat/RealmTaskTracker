@@ -1,5 +1,5 @@
 //
-//  WelcomeView.swift
+//  LoginView.swift
 //  RealmTaskTracker
 //
 //  Created by Ben Chatelain on 9/15/20.
@@ -7,10 +7,12 @@
 
 import SwiftUI
 
-struct WelcomeView: View {
-    @EnvironmentObject var model: AppState
+struct LoginView: View {
+    @EnvironmentObject var state: AppState
 
-    @State private var loading = false
+    // Display an error if it occurs
+    @State var error: Error?
+
     @State private var signedIn = false
     @State private var username = "Testuser"
     @State private var password = "password"
@@ -18,33 +20,34 @@ struct WelcomeView: View {
 
     var body: some View {
         NavigationView {
-            LoadingView(isShowing: $loading) {
+            LoadingView(isShowing: $state.shouldIndicateActivity) {
                 VStack {
+                    if let error = error {
+                        Text("Error: \(error.localizedDescription)")
+                    }
                     Text("Please enter a username and password.")
                         .padding()
                     Form {
                         TextField("Username", text: $username)
                         SecureField("Password", text: $password)
                         Button("Sign In", action: signIn)
+                            .disabled(state.shouldIndicateActivity)
                         Button("Sign Up", action: signUp)
+                            .disabled(state.shouldIndicateActivity)
                     }
                     NavigationLink(destination: TasksView(), isActive: $signedIn) { EmptyView () }
                     Text(message)
                 }
             }
-            .navigationBarTitle("Welcome")
+            .navigationBarTitle("Login")
         }
     }
 }
 
-extension WelcomeView {
+extension LoginView {
     func signUp() {
-        loading.toggle()
-
-        model.signUp(username: username, password: password) { result in
+        state.signUp(username: username, password: password) { result in
             DispatchQueue.main.sync {
-                loading.toggle()
-
                 switch result {
                 case .failure(let error):
                     message = "Signup failed: \(error.localizedDescription)"
@@ -57,12 +60,8 @@ extension WelcomeView {
     }
 
     func signIn() {
-        loading.toggle()
-
-        model.signIn(username: username, password: password) { result in
+        state.signIn(username: username, password: password) { result in
             DispatchQueue.main.sync {
-                loading.toggle()
-
                 switch result {
                 case .failure(let error):
                     print("Login failed: \(error)")
@@ -76,9 +75,9 @@ extension WelcomeView {
     }
 }
 
-struct WelcomeView_Previews: PreviewProvider {
+struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        WelcomeView()
+        LoginView()
             .environmentObject(AppState())
     }
 }
