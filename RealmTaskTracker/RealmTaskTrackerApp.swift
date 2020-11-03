@@ -12,7 +12,7 @@ struct RealmTaskTrackerApp: App {
     var body: some Scene {
         WindowGroup {
             WelcomeView()
-                .environmentObject(DataModel())
+                .environmentObject(AppState())
         }
     }
 }

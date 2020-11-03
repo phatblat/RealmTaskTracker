@@ -11,7 +11,7 @@ import SwiftUI
 struct AddTaskView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
-    @EnvironmentObject var model: DataModel
+    @EnvironmentObject var state: AppState
 
     @State private var enteredText: String = ""
 

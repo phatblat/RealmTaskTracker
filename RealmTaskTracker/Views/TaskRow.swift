@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TaskRow: View {
-    @EnvironmentObject var model: DataModel
+    @EnvironmentObject var state: AppState
 
     var task: Task
 
@@ -39,6 +39,6 @@ extension TaskRow {
 struct TaskRow_Previews: PreviewProvider {
     static var previews: some View {
         TaskRow(task: Task(name: "Some Task"))
-            .environmentObject(DataModel())
+            .environmentObject(AppState())
     }
 }

@@ -1,5 +1,5 @@
 //
-//  DataModel.swift
+//  AppState.swift
 //  RealmTaskTracker
 //
 //  Created by Ben Chatelain on 9/26/20.
@@ -14,7 +14,7 @@ let defaultConfig = { (user: RealmSwift.User) in
     Realm.Configuration.defaultConfiguration = user.configuration(partitionValue: Constants.partitionValue)
 }
 
-final class DataModel: ObservableObject {
+final class AppState: ObservableObject {
     @Published private(set) var tasks: Results<Task>
 
     private let app = App(id: Constants.realmAppId)
@@ -87,7 +87,7 @@ final class DataModel: ObservableObject {
     }
 }
 
-extension DataModel {
+extension AppState {
     func signUp(username: String, password: String, completionHandler: @escaping (_ result: Result<Void, Error>) -> Void) {
         let emailPassAuth = app.emailPasswordAuth
         emailPassAuth.registerUser(email: username, password: password) { (error: Error?) in

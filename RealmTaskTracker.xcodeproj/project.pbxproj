@@ -14,7 +14,7 @@
 		F8BC89A1251F9CB900566416 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BC89A0251F9CB900566416 /* Project.swift */; };
 		F8BC89A6251F9CBD00566416 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BC89A5251F9CBD00566416 /* User.swift */; };
 		F8BC89AB251F9CC300566416 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BC89AA251F9CC300566416 /* Task.swift */; };
-		F8BC89CE251FB5E500566416 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BC89CD251FB5E500566416 /* DataModel.swift */; };
+		F8BC89CE251FB5E500566416 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BC89CD251FB5E500566416 /* AppState.swift */; };
 		F8E140CC2511935F003B4289 /* RealmTaskTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E140CB2511935F003B4289 /* RealmTaskTrackerApp.swift */; };
 		F8E140CE2511935F003B4289 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E140CD2511935F003B4289 /* WelcomeView.swift */; };
 		F8E140D025119360003B4289 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8E140CF25119360003B4289 /* Assets.xcassets */; };
@@ -59,7 +59,7 @@
 		F8BC89A0251F9CB900566416 /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		F8BC89A5251F9CBD00566416 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F8BC89AA251F9CC300566416 /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
-		F8BC89CD251FB5E500566416 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
+		F8BC89CD251FB5E500566416 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		F8E140C82511935F003B4289 /* RealmTaskTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealmTaskTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8E140CB2511935F003B4289 /* RealmTaskTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmTaskTrackerApp.swift; sourceTree = "<group>"; };
 		F8E140CD2511935F003B4289 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
@@ -167,7 +167,7 @@
 			children = (
 				F8E140CF25119360003B4289 /* Assets.xcassets */,
 				F887347D2544A44B002B5B31 /* Constants.swift */,
-				F8BC89CD251FB5E500566416 /* DataModel.swift */,
+				F8BC89CD251FB5E500566416 /* AppState.swift */,
 				F8E140D425119360003B4289 /* Info.plist */,
 				F8BC899C251F9C9A00566416 /* Models */,
 				F8E140D125119360003B4289 /* Preview Content */,
@@ -482,7 +482,7 @@
 				F8E1419C2512BFC3003B4289 /* AddTaskView.swift in Sources */,
 				F8E141942512B296003B4289 /* TextAlert.swift in Sources */,
 				F887347E2544A44B002B5B31 /* Constants.swift in Sources */,
-				F8BC89CE251FB5E500566416 /* DataModel.swift in Sources */,
+				F8BC89CE251FB5E500566416 /* AppState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct WelcomeView: View {
-    @EnvironmentObject var model: DataModel
+    @EnvironmentObject var model: AppState
 
     @State private var loading = false
     @State private var signedIn = false
@@ -79,6 +79,6 @@ extension WelcomeView {
 struct WelcomeView_Previews: PreviewProvider {
     static var previews: some View {
         WelcomeView()
-            .environmentObject(DataModel())
+            .environmentObject(AppState())
     }
 }

@@ -11,7 +11,7 @@ import SwiftUI
 struct TasksView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
-    @EnvironmentObject var model: DataModel
+    @EnvironmentObject var model: AppState
 
     @State private var showingLogoutAlert = false
     @State private var showingActionSheet = false
@@ -117,6 +117,6 @@ struct TasksView: View {
 struct TasksView_Previews: PreviewProvider {
     static var previews: some View {
         TasksView()
-            .environmentObject(DataModel())
+            .environmentObject(AppState())
     }
 }
