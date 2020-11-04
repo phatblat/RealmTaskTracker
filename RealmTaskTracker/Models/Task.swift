@@ -42,7 +42,7 @@ class Task: Object, ObjectKeyIdentifiable, Statusable {
 
     /// The task's current status. Defaults to "Open".
     @objc dynamic var status = TaskStatus.Open.rawValue
-    @objc dynamic var assignee: User?
+//    @objc dynamic var assignee: User?
 
     /// Declares the _id member as the primary key to the realm.
     override static func primaryKey() -> String? {
