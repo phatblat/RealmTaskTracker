@@ -77,7 +77,7 @@ struct TasksView: View {
                 }
                 .onDelete(perform: delete)
             }
-//            .navigationBarTitle(helper.partitionValue)
+            .navigationBarTitle("Tasks", displayMode: .large)
             .navigationBarBackButtonHidden(true)
             .navigationBarItems(
                 leading:
