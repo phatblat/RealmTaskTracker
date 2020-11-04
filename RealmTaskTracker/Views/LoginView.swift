@@ -47,29 +47,25 @@ struct LoginView: View {
 extension LoginView {
     func signUp() {
         state.signUp(username: username, password: password) { result in
-            DispatchQueue.main.sync {
-                switch result {
-                case .failure(let error):
-                    message = "Signup failed: \(error.localizedDescription)"
-                case .success():
-                    print("Signup successful!")
-                    signedIn = true
-                }
+            switch result {
+            case .failure(let error):
+                message = "Signup failed: \(error.localizedDescription)"
+            case .success():
+                print("Signup successful!")
+                signedIn = true
             }
         }
     }
 
     func signIn() {
         state.signIn(username: username, password: password) { result in
-            DispatchQueue.main.sync {
-                switch result {
-                case .failure(let error):
-                    print("Login failed: \(error)")
-                    message = "Login failed: \(error.localizedDescription)"
-                case .success(_):
-                    print("Login succeeded!")
-                    signedIn = true
-                }
+            switch result {
+            case .failure(let error):
+                print("Login failed: \(error)")
+                message = "Login failed: \(error.localizedDescription)"
+            case .success(_):
+                print("Login succeeded!")
+                signedIn = true
             }
         }
     }
