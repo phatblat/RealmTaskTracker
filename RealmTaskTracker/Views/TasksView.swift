@@ -15,7 +15,11 @@ struct TasksView: View {
     @EnvironmentObject var state: AppState
 
     /// The items in this group.
-    @ObservedObject var tasks: Results<Task>
+//    @ObservedObject
+    var tasks: Results<Task> {
+        guard let tasks = state.tasks else { fatalError() }
+        return tasks
+    }
 
     @State private var showingLogoutAlert = false
     @State private var showingActionSheet = false
@@ -36,39 +40,39 @@ struct TasksView: View {
                 // View's ForEach(). Otherwise, unexpected behavior will occur,
                 // especially when deleting object from the list.
                 ForEach(tasks.freeze()) { frozenTask in
-                    TaskRow(task: tasks.realm!.resolve)
+                    TaskRow(task: tasks.realm!.resolve(ThreadSafeReference(to: frozenTask))!)
                         .onTapGesture { showingActionSheet = true }
                         // FIXME: First task in list is always the one modified.
                         .actionSheet(isPresented: $showingActionSheet) {
                             var buttons: [Alert.Button] = []
                             // If the task is not in the Open state, we can set it to open. Otherwise, that action will not be available.
                             // We do this for the other two states -- InProgress and Complete.
-                            if (task.statusEnum != .Open) {
+                            if (frozenTask.statusEnum != .Open) {
                                 buttons.append(.default(Text("Open"), action: {
                                     // Any modifications to managed objects must occur in a write block.
                                     // When we modify the Task's state, that change is automatically reflected in the realm.
-                                    task.statusEnum = .Open
+//                                    task.statusEnum = .Open
 //                                    data.taskDB.update(task)
                                 }))
                             }
 
-                            if (task.statusEnum != .InProgress) {
+                            if (frozenTask.statusEnum != .InProgress) {
                                 buttons.append(.default(Text("Start Progress"), action: {
-                                    task.statusEnum = .InProgress
+//                                    task.statusEnum = .InProgress
 //                                    data.taskDB.update(task)
                                 }))
                             }
 
-                            if (task.statusEnum != .Complete) {
+                            if (frozenTask.statusEnum != .Complete) {
                                 buttons.append(.default(Text("Complete"), action: {
-                                    task.statusEnum = .Complete
+//                                    task.statusEnum = .Complete
 //                                    data.taskDB.update(task)
                                 }))
                             }
 
                             buttons.append(.cancel())
 
-                            return ActionSheet(title: Text(task.name), message: Text("Select an action"), buttons: buttons)
+                            return ActionSheet(title: Text(frozenTask.name), message: Text("Select an action"), buttons: buttons)
                         }
                 }
                 .onDelete(perform: delete)
@@ -112,9 +116,9 @@ struct TasksView: View {
         for index in offsets {
             let task = tasks[index]
             let realm = try! Realm()
-            try! realm.write {
-                realm.delete(task)
-            }
+//            try! realm.write {
+//                realm.delete(task)
+//            }
         }
     }
 }
