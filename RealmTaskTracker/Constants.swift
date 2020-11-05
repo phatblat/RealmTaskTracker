@@ -8,7 +8,7 @@
 import Foundation
 
 struct Constants {
-    static let partitionValue = "My Project"
+    static let partitionValue = "SharedPartition"
 
     static let appVersion: String = {
         guard let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
