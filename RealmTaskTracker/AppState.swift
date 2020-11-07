@@ -36,6 +36,20 @@ final class AppState: ObservableObject {
         app.syncManager.logLevel = .debug
         app.syncManager.errorHandler = { (error, session) in
             print("Sync Error: \(error)")
+            // https://docs.realm.io/sync/using-synced-realms/errors
+            if let syncError = error as? SyncError {
+                switch syncError.code {
+                    case .clientResetError:
+                        if let (path, clientResetToken) = syncError.clientResetInfo() {
+                            // TODO: close and backup
+                            //closeRealmSafely()
+                            //saveBackupRealmPath(path)
+                            SyncSession.immediatelyHandleError(clientResetToken, syncManager: app.syncManager)
+                        }
+                    default:
+                        ()
+                }
+            }
             if let session = session {
                 print("Session: \(session)")
             }
