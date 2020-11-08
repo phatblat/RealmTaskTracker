@@ -18,23 +18,37 @@ struct AddTaskView: View {
     var body: some View {
         Form {
             TextField("Task Name", text: $enteredText)
-            Button("Save") {
-                guard enteredText != "" else {
-                    print("Empty task, ignoring")
-                    return
-                }
-
-                // Create a new Task with the text that the user entered.
-                let task = Task(name: enteredText)
-                let realm = try! Realm()
-                try! realm.write {
-                    realm.add(task)
-                }
-                print("Task added! \(task)")
-                presentationMode.wrappedValue.dismiss()
-            }
+            Button("Save", action: add)
         }
         .navigationBarTitle("Add Task")
+    }
+
+    func add() {
+        guard enteredText != "" else {
+            print("Empty task, ignoring")
+            return
+        }
+
+        guard let tasks = state.tasks else { fatalError("Unable to add task without results!") }
+
+        guard let realm = tasks.realm else {
+            // TODO: Not sure how to remove from a result
+            //  tasks.remove(at: offsets.first!)
+            return
+        }
+
+        // Create a new Task with the text that the user entered.
+        let task = Task(name: enteredText)
+        do {
+            try realm.write {
+                realm.add(task)
+            }
+        } catch {
+            print("Error add task: \(task)")
+        }
+
+        print("Task added! \(task)")
+        presentationMode.wrappedValue.dismiss()
     }
 }
 
