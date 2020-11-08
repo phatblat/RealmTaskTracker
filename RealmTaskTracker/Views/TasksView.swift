@@ -102,14 +102,22 @@ struct TasksView: View {
         .navigationBarHidden(true)
     }
 
-    // FIXME: Works to delete, but crashes as list is refreshed.
+    /// Deletes the given item.
     func delete(at offsets: IndexSet) {
-        for index in offsets {
-            let task = tasks[index]
-            let realm = try! Realm()
-//            try! realm.write {
-//                realm.delete(task)
-//            }
+        for offset in offsets {
+            guard let realm = tasks.realm else {
+                // TODO: Not sure how to remove from a result
+                //  tasks.remove(at: offsets.first!)
+                return
+            }
+
+            do {
+                try realm.write {
+                    realm.delete(tasks[offset])
+                }
+            } catch {
+                print("Error deleting task at offset: \(offset)")
+            }
         }
     }
 
