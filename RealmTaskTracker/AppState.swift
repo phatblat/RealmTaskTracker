@@ -32,7 +32,7 @@ final class AppState: ObservableObject {
 
     /// The Realm sync app.
     private let app: RealmSwift.App = {
-        let app = App(id: Constants.realmAppId)
+        let app = RealmSwift.App(id: Constants.realmAppId)
         app.syncManager.logLevel = .debug
         app.syncManager.errorHandler = { (error, session) in
             print("Sync Error: \(error)")
