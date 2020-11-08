@@ -41,7 +41,11 @@ struct TasksView: View {
                     // View's ForEach(). Otherwise, unexpected behavior will occur,
                     // especially when deleting object from the list.
                     ForEach(tasks.freeze()) { frozenTask in
-                        TaskRow(task: tasks.realm!.resolve(ThreadSafeReference(to: frozenTask))!)
+                        
+                        // "Thaw" the task so that it can be mutated
+                        let thawedTask = thaw(object: frozenTask, in: tasks.realm)
+
+                        TaskRow(task: thawedTask)
                             .onTapGesture { showingActionSheet = true }
                             // FIXME: First task in list is always the one modified.
                             .actionSheet(isPresented: $showingActionSheet) {
@@ -107,6 +111,14 @@ struct TasksView: View {
 //                realm.delete(task)
 //            }
         }
+    }
+
+    /// "Thaws" the realm object so that it can be mutated/updated.
+    func thaw<T: Object>(object: T, in realm: Realm?) -> T {
+        guard let thawedObject = realm?.resolve(ThreadSafeReference(to: object)) else {
+            fatalError("Failed to thaw frozen object \(object)")
+        }
+        return thawedObject
     }
 }
 
