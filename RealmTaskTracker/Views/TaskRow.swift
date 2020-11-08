@@ -15,6 +15,7 @@ struct TaskRow: View {
     var body: some View {
         HStack {
             Text(task.name)
+
             Spacer()
 
             switch task.statusEnum {
@@ -26,13 +27,6 @@ struct TaskRow: View {
                 EmptyView()
             }
         }
-    }
-}
-
-extension TaskRow {
-    func delete() {
-        // TODO: Implement
-//        model.tasks
     }
 }
 
