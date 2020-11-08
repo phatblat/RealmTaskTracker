@@ -75,13 +75,6 @@ final class AppState: ObservableObject {
                 }
             }, receiveValue: { realm in
                 // The realm has successfully opened.
-                // If no group has been created for this app, create one.
-                if realm.objects(Task.self).count == 0 {
-                    try! realm.write {
-                        realm.add(Task())
-                    }
-                }
-                assert(realm.objects(Task.self).count > 0)
                 self.tasks = realm.objects(Task.self)
             })
             .store(in: &cancellables)
