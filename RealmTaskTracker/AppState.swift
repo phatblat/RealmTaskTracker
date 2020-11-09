@@ -52,8 +52,6 @@ final class AppState: ObservableObject {
         return app
     }()
 
-    private var token: NotificationToken?
-
     init() {
         // Create a private subject for the opened realm, so that:
         // - if we are not using Realm Sync, we can open the realm immediately.
