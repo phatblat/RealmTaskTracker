@@ -14,12 +14,8 @@ struct TasksView: View {
 
     @EnvironmentObject var state: AppState
 
-    /// The items in this group.
-//    @ObservedObject
-    var tasks: Results<Task> {
-        guard let tasks = state.tasks else { fatalError() }
-        return tasks
-    }
+    /// All tasks.
+//    @ObservedObject var tasks: RealmSwift.List<Task>
 
     @State private var showingLogoutAlert = false
     @State private var showingActionSheet = false
@@ -104,6 +100,8 @@ struct TasksView: View {
 
     /// Deletes the given item.
     func delete(at offsets: IndexSet) {
+        guard let tasks = state.tasks else { fatalError("No tasks in state") }
+
         for offset in offsets {
             guard let realm = tasks.realm else {
                 // TODO: Not sure how to remove from a result
@@ -130,9 +128,9 @@ struct TasksView: View {
     }
 }
 
-struct TasksView_Previews: PreviewProvider {
-    static var previews: some View {
-        TasksView()
-            .environmentObject(AppState())
-    }
-}
+//struct TasksView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        TasksView()
+//            .environmentObject(AppState())
+//    }
+//}

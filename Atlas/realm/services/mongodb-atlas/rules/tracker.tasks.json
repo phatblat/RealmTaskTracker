@@ -2,9 +2,9 @@
     "collection": "tasks",
     "database": "tracker",
     "relationships": {
-        "assignee": {
+        "userId": {
             "ref": "#/relationship/mongodb-atlas/tracker/users",
-            "source_key": "assignee",
+            "source_key": "userId",
             "foreign_key": "_id",
             "is_list": false
         }
@@ -27,14 +27,14 @@
             "_partition": {
                 "bsonType": "string"
             },
-            "assignee": {
-                "bsonType": "objectId"
-            },
             "name": {
                 "bsonType": "string"
             },
             "status": {
                 "bsonType": "string"
+            },
+            "userId": {
+                "bsonType": "objectId"
             }
         },
         "required": [

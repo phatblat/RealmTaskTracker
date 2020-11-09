@@ -35,7 +35,7 @@ struct LoginView: View {
                         Button("Sign Up", action: signUp)
                             .disabled(state.shouldIndicateActivity)
                     }
-                    NavigationLink(destination: TasksView(), isActive: $signedIn) { EmptyView () }
+                    NavigationLink(destination: TasksView(), isActive: $signedIn) { EmptyView() }
                     Text(message)
                 }
             }

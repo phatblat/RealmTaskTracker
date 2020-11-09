@@ -9,14 +9,9 @@ import RealmSwift
 import Combine
 import Foundation
 
-let defaultConfig = { (user: RealmSwift.User) in
-    // Show only the active acronyms
-    Realm.Configuration.defaultConfiguration = user.configuration(partitionValue: Constants.partitionValue)
-}
-
 final class AppState: ObservableObject {
     /// Publisher that monitors log in state.
-    var loginPublisher = PassthroughSubject<User, Error>()
+    var loginPublisher = PassthroughSubject<RealmSwift.User, Error>()
 
     /// Publisher that monitors log out state.
     var logoutPublisher = PassthroughSubject<Void, Error>()
@@ -28,7 +23,7 @@ final class AppState: ObservableObject {
     @Published var shouldIndicateActivity = false
 
     /// The list of items in the first group in the realm that will be displayed to the user.
-    @Published private(set) var tasks: Results<Task>?
+    @Published private(set) var tasks: List<Task>?
 
     /// The Realm sync app.
     private let app: RealmSwift.App = {

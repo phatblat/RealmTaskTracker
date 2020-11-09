@@ -21,6 +21,7 @@ protocol Statusable {
 }
 
 extension Statusable {
+    /// Converts the status string to an enum.
     var statusEnum: TaskStatus {
         get {
             return TaskStatus(rawValue: status) ?? .Open
@@ -33,21 +34,26 @@ extension Statusable {
 
 // MARK: - Task
 class Task: Object, ObjectKeyIdentifiable, Statusable {
-    /// The unique ID of the Task.
-    @objc dynamic var _id: ObjectId = ObjectId.generate()
-    @objc dynamic var _partition: ProjectId = Constants.partitionValue
-
-    /// The displayed name of the task.
-    @objc dynamic var name: String = ""
-
-    /// The task's current status. Defaults to "Open".
-    @objc dynamic var status = TaskStatus.Open.rawValue
-//    @objc dynamic var assignee: User?
-
     /// Declares the _id member as the primary key to the realm.
     override static func primaryKey() -> String? {
         return "_id"
     }
+
+    /// Unique ID of the Task.
+    @objc dynamic var _id: ObjectId = ObjectId.generate()
+
+    /// Displayed name of the task.
+    @objc dynamic var name: String = ""
+
+    /// Current status of the task. Defaults to "Open".
+    @objc dynamic var status = TaskStatus.Open.rawValue
+
+    @objc dynamic var userId: User?
+
+    /// Backlink to the `User` that created this task.
+    let user = LinkingObjects(fromType: User.self, property: "tasks")
+
+    /// Initializer for previews.
     convenience init(name: String) {
         self.init()
         self.name = name
