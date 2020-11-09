@@ -101,11 +101,11 @@ final class AppState: ObservableObject {
                 // and returns the realm asyncOpen's result publisher for further
                 // processing.
 
-                // We use "SharedPartition" as the partition value so that all users of this app
-                // can see the same data. If we used the user.id, we could store data per user.
-                // However, with anonymous authentication, that user.id changes upon logout and login,
-                // so we will not see the same data or be able to sync across devices.
-                let configuration = user.configuration(partitionValue: "SharedPartition")
+                // Get a configuration to open the synced realm.
+                var configuration = user.configuration(partitionValue: "user=\(user.id)")
+
+                // Only allow User objects in this partition.
+                configuration.objectTypes = [User.self, Task.self]
 
                 // Loading may take a moment, so indicate activity.
                 self.shouldIndicateActivity = true
