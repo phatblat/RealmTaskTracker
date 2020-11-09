@@ -70,7 +70,21 @@ final class AppState: ObservableObject {
                 }
             }, receiveValue: { realm in
                 // The realm has successfully opened.
-                self.tasks = realm.objects(Task.self)
+
+                // If no User has been created for this realm, create one.
+                if realm.objects(User.self).count == 0 {
+                    let user = User()
+                    do {
+                        try realm.write {
+                            realm.add(user)
+                        }
+                    } catch {
+                        print("Error adding user: \(user)")
+                    }
+                }
+                assert(realm.objects(User.self).count > 0)
+
+                self.tasks = realm.objects(User.self).first!.tasks
             })
             .store(in: &cancellables)
 
