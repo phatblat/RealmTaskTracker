@@ -15,7 +15,7 @@ struct TasksView: View {
     @EnvironmentObject var state: AppState
 
     /// All tasks.
-//    @ObservedObject var tasks: RealmSwift.List<Task>
+    @ObservedObject var tasks: RealmSwift.List<Task>
 
     @State private var showingLogoutAlert = false
     @State private var showingActionSheet = false

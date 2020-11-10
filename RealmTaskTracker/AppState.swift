@@ -156,9 +156,12 @@ extension AppState {
         let emailPassAuth = app.emailPasswordAuth
         emailPassAuth.registerUser(email: username, password: password) { (error: Error?) in
             guard error == nil else {
-                 print("Signup failed: \(error!)")
-                 completionHandler(.failure(error!))
-                 return
+                DispatchQueue.main.async {
+                    self.shouldIndicateActivity = false
+                }
+                print("Signup failed: \(error!)")
+                completionHandler(.failure(error!))
+                return
             }
 
             print("Signup successful!")

@@ -19,27 +19,25 @@ struct LoginView: View {
     @State private var message = "Version: \(Constants.appVersion)"
 
     var body: some View {
-        NavigationView {
-            LoadingView(isShowing: $state.shouldIndicateActivity) {
-                VStack {
-                    if let error = error {
-                        Text("Error: \(error.localizedDescription)")
-                    }
-                    Text("Please enter a username and password.")
-                        .padding()
-                    Form {
-                        TextField("Username", text: $username)
-                        SecureField("Password", text: $password)
-                        Button("Sign In", action: signIn)
-                            .disabled(state.shouldIndicateActivity)
-                        Button("Sign Up", action: signUp)
-                            .disabled(state.shouldIndicateActivity)
-                    }
-                    NavigationLink(destination: TasksView(), isActive: $signedIn) { EmptyView() }
-                    Text(message)
-                }
+        VStack {
+            if let error = error {
+                Text("Error: \(error.localizedDescription)")
             }
-            .navigationBarTitle("Login")
+
+            Text("Please enter a username and password.")
+                .padding()
+
+            Form {
+                TextField("Username", text: $username)
+                SecureField("Password", text: $password)
+
+                Button("Sign In", action: signIn)
+                    .disabled(state.shouldIndicateActivity)
+
+                Button("Sign Up", action: signUp)
+                    .disabled(state.shouldIndicateActivity)
+            }
+            Text(message)
         }
     }
 }
@@ -49,7 +47,9 @@ extension LoginView {
         state.signUp(username: username, password: password) { result in
             switch result {
             case .failure(let error):
+                self.error = error
                 message = "Signup failed: \(error.localizedDescription)"
+                print(message)
             case .success():
                 print("Signup successful!")
                 signedIn = true
@@ -61,8 +61,9 @@ extension LoginView {
         state.signIn(username: username, password: password) { result in
             switch result {
             case .failure(let error):
-                print("Login failed: \(error)")
+                self.error = error
                 message = "Login failed: \(error.localizedDescription)"
+                print(message)
             case .success(_):
                 print("Login succeeded!")
                 signedIn = true
