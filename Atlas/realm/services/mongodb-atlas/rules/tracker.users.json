@@ -19,20 +19,13 @@
             "_partition": {
                 "bsonType": "string"
             },
-            "image": {
-                "bsonType": "string"
-            },
             "name": {
-                "bsonType": "string"
-            },
-            "user_id": {
                 "bsonType": "string"
             }
         },
         "required": [
             "_id",
             "_partition",
-            "user_id",
             "name"
         ],
         "title": "User"

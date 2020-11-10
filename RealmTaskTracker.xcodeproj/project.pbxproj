@@ -10,13 +10,16 @@
 		1EEDB6F50D54FBCB4F940AB6 /* Pods_RealmTaskTrackerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 907EC3DD01D524CB0E53AFD1 /* Pods_RealmTaskTrackerTests.framework */; };
 		C23183EA1465C3F46EE5F23A /* Pods_RealmTaskTracker_RealmTaskTrackerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 691FDBE374D4822ADF4844BE /* Pods_RealmTaskTracker_RealmTaskTrackerUITests.framework */; };
 		C855642007EFF193A25ECFC6 /* Pods_RealmTaskTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C4EACB8FCC6598BDBEA5CF8 /* Pods_RealmTaskTracker.framework */; };
+		F85DB7D0255A391600E621BB /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85DB7CF255A391500E621BB /* MainView.swift */; };
+		F85DB7DC255A3A2E00E621BB /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85DB7DB255A3A2E00E621BB /* ActivityIndicator.swift */; };
+		F86A0D942550F873003D3E60 /* LogoutButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86A0D932550F873003D3E60 /* LogoutButton.swift */; };
 		F887347E2544A44B002B5B31 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F887347D2544A44B002B5B31 /* Constants.swift */; };
 		F8BC89A1251F9CB900566416 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BC89A0251F9CB900566416 /* Project.swift */; };
 		F8BC89A6251F9CBD00566416 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BC89A5251F9CBD00566416 /* User.swift */; };
 		F8BC89AB251F9CC300566416 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BC89AA251F9CC300566416 /* Task.swift */; };
-		F8BC89CE251FB5E500566416 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BC89CD251FB5E500566416 /* DataModel.swift */; };
-		F8E140CC2511935F003B4289 /* RealmTaskTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E140CB2511935F003B4289 /* RealmTaskTrackerApp.swift */; };
-		F8E140CE2511935F003B4289 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E140CD2511935F003B4289 /* WelcomeView.swift */; };
+		F8BC89CE251FB5E500566416 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BC89CD251FB5E500566416 /* AppState.swift */; };
+		F8E140CC2511935F003B4289 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E140CB2511935F003B4289 /* App.swift */; };
+		F8E140CE2511935F003B4289 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E140CD2511935F003B4289 /* LoginView.swift */; };
 		F8E140D025119360003B4289 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8E140CF25119360003B4289 /* Assets.xcassets */; };
 		F8E140D325119360003B4289 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8E140D225119360003B4289 /* Preview Assets.xcassets */; };
 		F8E140DE25119361003B4289 /* RealmTaskTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E140DD25119361003B4289 /* RealmTaskTrackerTests.swift */; };
@@ -55,14 +58,17 @@
 		C39ABC7D2CA919D8E68C04EE /* Pods-RealmTaskTrackerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealmTaskTrackerTests.debug.xcconfig"; path = "Target Support Files/Pods-RealmTaskTrackerTests/Pods-RealmTaskTrackerTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F3A5DFEA6B870BD302B36665 /* Pods-RealmTaskTrackerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealmTaskTrackerTests.release.xcconfig"; path = "Target Support Files/Pods-RealmTaskTrackerTests/Pods-RealmTaskTrackerTests.release.xcconfig"; sourceTree = "<group>"; };
 		F5AA5B0820CE66B16B48ED07 /* Pods-RealmTaskTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealmTaskTracker.release.xcconfig"; path = "Target Support Files/Pods-RealmTaskTracker/Pods-RealmTaskTracker.release.xcconfig"; sourceTree = "<group>"; };
+		F85DB7CF255A391500E621BB /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		F85DB7DB255A3A2E00E621BB /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
+		F86A0D932550F873003D3E60 /* LogoutButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutButton.swift; sourceTree = "<group>"; };
 		F887347D2544A44B002B5B31 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F8BC89A0251F9CB900566416 /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		F8BC89A5251F9CBD00566416 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F8BC89AA251F9CC300566416 /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
-		F8BC89CD251FB5E500566416 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
+		F8BC89CD251FB5E500566416 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		F8E140C82511935F003B4289 /* RealmTaskTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealmTaskTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		F8E140CB2511935F003B4289 /* RealmTaskTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmTaskTrackerApp.swift; sourceTree = "<group>"; };
-		F8E140CD2511935F003B4289 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		F8E140CB2511935F003B4289 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
+		F8E140CD2511935F003B4289 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		F8E140CF25119360003B4289 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F8E140D225119360003B4289 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		F8E140D425119360003B4289 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -165,13 +171,13 @@
 		F8E140CA2511935F003B4289 /* RealmTaskTracker */ = {
 			isa = PBXGroup;
 			children = (
+				F8E140CB2511935F003B4289 /* App.swift */,
+				F8BC89CD251FB5E500566416 /* AppState.swift */,
 				F8E140CF25119360003B4289 /* Assets.xcassets */,
 				F887347D2544A44B002B5B31 /* Constants.swift */,
-				F8BC89CD251FB5E500566416 /* DataModel.swift */,
 				F8E140D425119360003B4289 /* Info.plist */,
 				F8BC899C251F9C9A00566416 /* Models */,
 				F8E140D125119360003B4289 /* Preview Content */,
-				F8E140CB2511935F003B4289 /* RealmTaskTrackerApp.swift */,
 				F8E141562511A64A003B4289 /* Views */,
 			);
 			path = RealmTaskTracker;
@@ -206,12 +212,15 @@
 		F8E141562511A64A003B4289 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F85DB7DB255A3A2E00E621BB /* ActivityIndicator.swift */,
 				F8E1419B2512BFC3003B4289 /* AddTaskView.swift */,
 				F8E141622511A8AA003B4289 /* LoadingView.swift */,
+				F8E140CD2511935F003B4289 /* LoginView.swift */,
+				F86A0D932550F873003D3E60 /* LogoutButton.swift */,
+				F85DB7CF255A391500E621BB /* MainView.swift */,
 				F8E141A6251312CC003B4289 /* TaskRow.swift */,
 				F8E1416A2511C537003B4289 /* TasksView.swift */,
 				F8E141932512B296003B4289 /* TextAlert.swift */,
-				F8E140CD2511935F003B4289 /* WelcomeView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -471,18 +480,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F8E140CE2511935F003B4289 /* WelcomeView.swift in Sources */,
+				F8E140CE2511935F003B4289 /* LoginView.swift in Sources */,
+				F85DB7DC255A3A2E00E621BB /* ActivityIndicator.swift in Sources */,
+				F85DB7D0255A391600E621BB /* MainView.swift in Sources */,
 				F8E141632511A8AA003B4289 /* LoadingView.swift in Sources */,
-				F8E140CC2511935F003B4289 /* RealmTaskTrackerApp.swift in Sources */,
+				F8E140CC2511935F003B4289 /* App.swift in Sources */,
 				F8E141A7251312CC003B4289 /* TaskRow.swift in Sources */,
 				F8E1416B2511C537003B4289 /* TasksView.swift in Sources */,
+				F86A0D942550F873003D3E60 /* LogoutButton.swift in Sources */,
 				F8BC89A1251F9CB900566416 /* Project.swift in Sources */,
 				F8BC89A6251F9CBD00566416 /* User.swift in Sources */,
 				F8BC89AB251F9CC300566416 /* Task.swift in Sources */,
 				F8E1419C2512BFC3003B4289 /* AddTaskView.swift in Sources */,
 				F8E141942512B296003B4289 /* TextAlert.swift in Sources */,
 				F887347E2544A44B002B5B31 /* Constants.swift in Sources */,
-				F8BC89CE251FB5E500566416 /* DataModel.swift in Sources */,
+				F8BC89CE251FB5E500566416 /* AppState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,5 +1,5 @@
 //
-//  RealmTask.swift
+//  Task.swift
 //  RealmTaskTracker
 //
 //  Created by Ben Chatelain on 9/26/20.
@@ -21,6 +21,7 @@ protocol Statusable {
 }
 
 extension Statusable {
+    /// Converts the status string to an enum.
     var statusEnum: TaskStatus {
         get {
             return TaskStatus(rawValue: status) ?? .Open
@@ -32,25 +33,29 @@ extension Statusable {
 }
 
 // MARK: - Task
-class Task: Object, Statusable {
-    @objc dynamic var _id: ObjectId = ObjectId.generate()
-    @objc dynamic var _partition: ProjectId = Constants.partitionValue
-    @objc dynamic var name: String = ""
-    @objc dynamic var status = TaskStatus.Open.rawValue
-    @objc dynamic var assignee: User?
-
+class Task: Object, ObjectKeyIdentifiable, Statusable {
+    /// Declares the _id member as the primary key to the realm.
     override static func primaryKey() -> String? {
         return "_id"
     }
+
+    /// Unique ID of the Task.
+    @objc dynamic var _id: ObjectId = ObjectId.generate()
+
+    /// Displayed name of the task.
+    @objc dynamic var name: String = ""
+
+    /// Current status of the task. Defaults to "Open".
+    @objc dynamic var status = TaskStatus.Open.rawValue
+
+    @objc dynamic var userId: User?
+
+    /// Backlink to the `User` that created this task.
+    let user = LinkingObjects(fromType: User.self, property: "tasks")
+
+    /// Initializer for previews.
     convenience init(name: String) {
         self.init()
         self.name = name
-    }
-}
-
-// MARK: - Identifiable
-extension Task: Identifiable {
-    var id: ObjectIdentifier {
-        ObjectIdentifier(_id)
     }
 }
