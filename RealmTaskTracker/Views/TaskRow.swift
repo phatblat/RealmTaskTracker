@@ -32,7 +32,7 @@ struct TaskRow: View {
 
 struct TaskRow_Previews: PreviewProvider {
     static var previews: some View {
-        TaskRow(task: Task(name: "Some Task"))
+        TaskRow(task: Task(name: "☑️ Some Task"))
             .environmentObject(AppState())
     }
 }
