@@ -25,6 +25,14 @@ final class AppState: ObservableObject {
     /// The list of items in the first group in the realm that will be displayed to the user.
     @Published private(set) var tasks: List<Task>?
 
+    /// Realm user convenience property.
+    var realmUser: RealmSwift.User? {
+        app.currentUser
+    }
+
+    /// App user.
+    private(set) var appUser: User?
+
     /// The Realm sync app.
     private let app: RealmSwift.App = {
         let app = RealmSwift.App(id: Constants.realmAppId)
@@ -70,9 +78,13 @@ final class AppState: ObservableObject {
                 // The realm has successfully opened.
 
                 // If no User has been created for this realm, create one.
-                if realm.objects(User.self).count == 0 {
+                let users = realm.objects(User.self)
+                if users.count == 0 {
                     let user = User()
                     do {
+                        if let realmUser = self.realmUser {
+                            user._id = try ObjectId(string: realmUser.id)
+                        }
                         try realm.write {
                             realm.add(user)
                         }
@@ -80,9 +92,11 @@ final class AppState: ObservableObject {
                         print("Error adding user: \(user)")
                     }
                 }
-                assert(realm.objects(User.self).count > 0)
+                assert(users.count > 0)
+                guard let user = users.first else { fatalError("No user!") }
 
-                self.tasks = realm.objects(User.self).first!.tasks
+                self.appUser = user
+                self.tasks = user.tasks
             })
             .store(in: &cancellables)
 

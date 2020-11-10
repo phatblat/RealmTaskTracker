@@ -42,6 +42,9 @@ struct AddTaskView: View {
         do {
             try realm.write {
                 realm.add(task)
+                if let user = state.appUser {
+                    user.tasks.append(task)
+                }
             }
         } catch {
             print("Error add task: \(task)")

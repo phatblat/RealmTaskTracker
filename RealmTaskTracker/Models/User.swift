@@ -21,5 +21,5 @@ class User: Object, ObjectKeyIdentifiable {
     @objc dynamic var name: String = ""
 
     /// The collection of Tasks in this group.
-    let tasks = RealmSwift.List<Task>()
+    let tasks = List<Task>()
 }
