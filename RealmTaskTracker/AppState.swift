@@ -33,6 +33,9 @@ final class AppState: ObservableObject {
     /// App user.
     private(set) var appUser: User?
 
+    /// Name of the currently logged in user
+    private var username: String?
+
     /// The Realm sync app.
     private let app: RealmSwift.App = {
         let app = RealmSwift.App(id: Constants.realmAppId)
@@ -85,6 +88,9 @@ final class AppState: ObservableObject {
                         if let realmUser = self.realmUser {
                             user._id = try ObjectId(string: realmUser.id)
                         }
+                        if let name = self.username {
+                            user.name = name
+                        }
                         try realm.write {
                             realm.add(user)
                         }
@@ -94,6 +100,13 @@ final class AppState: ObservableObject {
                 }
                 assert(users.count > 0)
                 guard let user = users.first else { fatalError("No user!") }
+
+                // Update username
+                if let name = self.username {
+                    try! realm.write {
+                        user.name = name
+                    }
+                }
 
                 self.appUser = user
                 self.tasks = user.tasks
@@ -137,6 +150,7 @@ final class AppState: ObservableObject {
         logoutPublisher
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { _ in }, receiveValue: {
+                self.username = nil
                 self.tasks = nil
             })
             .store(in: &cancellables)
@@ -192,6 +206,7 @@ extension AppState {
                 }
             }, receiveValue: {
                 print("Login succeeded")
+                self.username = username
                 self.loginPublisher.send($0)
             })
             .store(in: &cancellables)
