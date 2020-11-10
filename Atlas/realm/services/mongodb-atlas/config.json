@@ -5,6 +5,7 @@
         "readPreference": "primary",
         "sync": {
             "state": "enabled",
+            "database_name": "tracker",
             "partition": {
                 "key": "_partition",
                 "type": "string",
