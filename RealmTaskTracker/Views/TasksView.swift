@@ -17,16 +17,7 @@ struct TasksView: View {
     /// All tasks.
     @ObservedObject var tasks: RealmSwift.List<Task>
 
-    @State private var showingLogoutAlert = false
     @State private var showingActionSheet = false
-
-    /// The button to be displayed on the top left.
-    var leadingBarButton: AnyView?
-
-    // Partition value must be of string type.
-    private var partitionValue: String {
-        Constants.partitionValue
-    }
 
     var body: some View {
         NavigationView {

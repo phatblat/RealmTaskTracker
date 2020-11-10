@@ -13,7 +13,6 @@ struct LoginView: View {
     // Display an error if it occurs
     @State var error: Error?
 
-    @State private var signedIn = false
     @State private var username = "Testuser"
     @State private var password = "password"
     @State private var message = "Version: \(Constants.appVersion)"
@@ -52,7 +51,6 @@ extension LoginView {
                 print(message)
             case .success():
                 print("Signup successful!")
-                signedIn = true
             }
         }
     }
@@ -66,7 +64,6 @@ extension LoginView {
                 print(message)
             case .success(_):
                 print("Login succeeded!")
-                signedIn = true
             }
         }
     }
