@@ -1,14 +1,6 @@
 {
     "collection": "tasks",
     "database": "tracker",
-    "relationships": {
-        "userId": {
-            "ref": "#/relationship/mongodb-atlas/tracker/users",
-            "source_key": "userId",
-            "foreign_key": "_id",
-            "is_list": false
-        }
-    },
     "roles": [
         {
             "name": "default",
@@ -32,9 +24,6 @@
             },
             "status": {
                 "bsonType": "string"
-            },
-            "userId": {
-                "bsonType": "objectId"
             }
         },
         "required": [

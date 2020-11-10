@@ -48,8 +48,6 @@ class Task: Object, ObjectKeyIdentifiable, Statusable {
     /// Current status of the task. Defaults to "Open".
     @objc dynamic var status = TaskStatus.Open.rawValue
 
-    @objc dynamic var userId: User?
-
     /// Backlink to the `User` that created this task.
     let user = LinkingObjects(fromType: User.self, property: "tasks")
 
