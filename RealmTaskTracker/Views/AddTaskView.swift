@@ -29,13 +29,7 @@ struct AddTaskView: View {
             return
         }
 
-        guard let tasks = state.tasks else { fatalError("Unable to add task without results!") }
-
-        guard let realm = tasks.realm else {
-            // TODO: Not sure how to remove from a result
-            //  tasks.remove(at: offsets.first!)
-            return
-        }
+        guard let realm = state.tasks?.realm else { fatalError("Unable to add task without a realm!") }
 
         // Create a new Task with the text that the user entered.
         let task = Task(name: enteredText)
