@@ -18,6 +18,7 @@ struct TasksView: View {
     @ObservedObject var tasks: RealmSwift.List<Task>
 
     @State private var showingActionSheet = false
+    @State private var editTask: Task? = nil
 
     var body: some View {
         NavigationView {
@@ -26,44 +27,15 @@ struct TasksView: View {
                 // View's ForEach(). Otherwise, unexpected behavior will occur,
                 // especially when deleting object from the list.
                 ForEach(tasks.freeze()) { frozenTask in
-
                     // "Thaw" the task so that it can be mutated
                     let thawedTask = thaw(object: frozenTask, in: tasks.realm)
 
                     TaskRow(task: thawedTask)
-                        .onTapGesture { showingActionSheet = true }
-                        // FIXME: First task in list is always the one modified.
-                        .actionSheet(isPresented: $showingActionSheet) {
-                            var buttons: [Alert.Button] = []
-                            // If the task is not in the Open state, we can set it to open. Otherwise, that action will not be available.
-                            // We do this for the other two states -- InProgress and Complete.
-                            if (frozenTask.statusEnum != .Open) {
-                                buttons.append(.default(Text("Open"), action: {
-                                    // Any modifications to managed objects must occur in a write block.
-                                    // When we modify the Task's state, that change is automatically reflected in the realm.
-//                                    task.statusEnum = .Open
-//                                    data.taskDB.update(task)
-                                }))
-                            }
-
-                            if (frozenTask.statusEnum != .InProgress) {
-                                buttons.append(.default(Text("Start Progress"), action: {
-//                                    task.statusEnum = .InProgress
-//                                    data.taskDB.update(task)
-                                }))
-                            }
-
-                            if (frozenTask.statusEnum != .Complete) {
-                                buttons.append(.default(Text("Complete"), action: {
-//                                    task.statusEnum = .Complete
-//                                    data.taskDB.update(task)
-                                }))
-                            }
-
-                            buttons.append(.cancel())
-
-                            return ActionSheet(title: Text(frozenTask.name), message: Text("Select an action"), buttons: buttons)
+                        .onTapGesture {
+                            editTask = thawedTask
+                            showingActionSheet = true
                         }
+                        .actionSheet(isPresented: $showingActionSheet, content: editTaskStatus)
                 }
                 .onDelete(perform: delete)
             }
@@ -80,6 +52,45 @@ struct TasksView: View {
             )
         }
         .navigationBarHidden(true)
+    }
+
+    /// Builds an action sheet to toggle the selected task's status.
+    func editTaskStatus() -> ActionSheet {
+        guard var task = editTask else { fatalError("Error: no task saved to edit!") }
+
+        var buttons: [Alert.Button] = []
+
+        // If the task is not in the Open state, we can set it to open. Otherwise, that action will not be available.
+        // We do this for the other two states -- InProgress and Complete.
+        if (task.statusEnum != .Open) {
+            buttons.append(.default(Text("Open"), action: {
+                // Any modifications to managed objects must occur in a write block.
+                // When we modify the Task's state, that change is automatically reflected in the realm.
+                try! tasks.realm?.write {
+                    task.statusEnum = .Open
+                }
+            }))
+        }
+
+        if (task.statusEnum != .InProgress) {
+            buttons.append(.default(Text("Start Progress"), action: {
+                try! tasks.realm?.write {
+                    task.statusEnum = .InProgress
+                }
+            }))
+        }
+
+        if (task.statusEnum != .Complete) {
+            buttons.append(.default(Text("Complete"), action: {
+                try! tasks.realm?.write {
+                    task.statusEnum = .Complete
+                }
+            }))
+        }
+
+        buttons.append(.cancel())
+
+        return ActionSheet(title: Text(task.name), message: Text("Select an action"), buttons: buttons)
     }
 
     /// Deletes the given item.
