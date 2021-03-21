@@ -80,6 +80,7 @@ import:
 #
 # Realm CLI
 # https://docs.mongodb.com/realm/deploy/realm-cli-reference/
+# Note: v2 beta syntax does not match documented CLI reference.
 #
 
 .PHONY: login
@@ -102,14 +103,18 @@ users:
 realmdiff:
 	$(REALM_CLI) app diff --app $(REALM_APP_ID)
 
-.PHONY: realmexport
-realmexport:
+.PHONY: realmpull
+realmpull:
 	rm -rf $(ATLAS_FOLDER)/realm
-	$(REALM_CLI) export --app-id=$(REALM_APP_ID) --output $(REALM_FOLDER) --for-source-control
+	$(REALM_CLI) pull --remote $(REALM_APP_ID) --local $(REALM_FOLDER)
 
 # FIXME: Errors out
 # node_modules/.bin/realm-cli import --app-id=task-tracker-seidr --path Atlas/realm --strategy=replace
 # failed to diff app with currently deployed instance: error: error validating Service: mongodb-atlas: only [wireProtocolEnabled, readPreference, readPreferenceTagSets] are allowed config options
-.PHONY: realmimport
-realmimport:
-	$(REALM_CLI) import --app-id=$(REALM_APP_ID) --path $(REALM_FOLDER) --strategy=replace
+.PHONY: realmpush
+realmpush:
+	$(REALM_CLI) push --remote $(REALM_APP_ID) --local $(REALM_FOLDER)
+
+.PHONY: realmpushtest
+realmpushtest:
+	$(REALM_CLI) push --remote $(REALM_APP_ID) --local $(REALM_FOLDER) --dry-run
