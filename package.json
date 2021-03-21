@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/phatblat/RealmTaskTracker#readme",
   "devDependencies": {
-    "mongodb-realm-cli": "^1.1.0"
+    "mongodb-realm-cli": "^2.0.0-beta.1"
   },
   "dependencies": {}
 }

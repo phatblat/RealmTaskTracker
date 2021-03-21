@@ -2,17 +2,21 @@
     "name": "mongodb-atlas",
     "type": "mongodb-atlas",
     "config": {
+        "clusterName": "Sandbox",
         "readPreference": "primary",
         "sync": {
             "state": "enabled",
-            "database_name": "tracker",
             "partition": {
                 "key": "_partition",
                 "type": "string",
                 "required": true,
                 "permissions": {
-                    "read": {},
-                    "write": {}
+                    "read": {
+                        "%%partition": "%%user.id"
+                    },
+                    "write": {
+                        "%%partition": "%%user.id"
+                    }
                 }
             }
         },
