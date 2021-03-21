@@ -5,11 +5,19 @@
         "clusterName": "Sandbox",
         "readPreference": "primary",
         "sync": {
-            "state": "",
+            "state": "enabled",
             "partition": {
-                "key": "",
-                "type": "",
-                "permissions": {}
+                "key": "_partition",
+                "type": "string",
+                "required": true,
+                "permissions": {
+                    "read": {
+                        "%%partition": "%%user.id"
+                    },
+                    "write": {
+                        "%%partition": "%%user.id"
+                    }
+                }
             }
         },
         "wireProtocolEnabled": false
