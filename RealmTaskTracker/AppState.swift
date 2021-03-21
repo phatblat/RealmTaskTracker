@@ -188,7 +188,9 @@ extension AppState {
     }
 
     func signIn(username: String, password: String, completionHandler: @escaping (_ result: Result<Void, Error>) -> Void) {
-        shouldIndicateActivity = true
+        DispatchQueue.main.async {
+            self.shouldIndicateActivity = true
+        }
 
         let credentials = Credentials.emailPassword(email: username, password: password)
         app.login(credentials: credentials)
