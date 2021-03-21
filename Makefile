@@ -90,6 +90,10 @@ login:
 whoami:
 	$(REALM_CLI) whoami
 
+.PHONY: list
+list:
+	$(REALM_CLI) apps list
+
 .PHONY: realmdiff
 realmdiff:
 	$(REALM_CLI) diff --app-id=$(REALM_APP_ID)
