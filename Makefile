@@ -100,7 +100,7 @@ users:
 
 .PHONY: realmdiff
 realmdiff:
-	$(REALM_CLI) diff --app-id=$(REALM_APP_ID)
+	$(REALM_CLI) app diff --app $(REALM_APP_ID)
 
 .PHONY: realmexport
 realmexport:
