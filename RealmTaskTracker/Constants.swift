@@ -8,8 +8,6 @@
 import Foundation
 
 struct Constants {
-    static let partitionValue = "SharedPartition"
-
     static let appVersion: String = {
         guard let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
             else { fatalError("Info.plist does not contain CFBundleShortVersionString") }
