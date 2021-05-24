@@ -16,7 +16,7 @@ CLUSTER = cluster10.5exqq.azure.mongodb.net
 DATABASE = tracker
 COLLECTION = tasks
 REALM_APP_ID := $(shell cat .realm_app_id)
-REALM_CLI = node_modules/.bin/realm-cli
+REALM_CLI = $(shell npm bin)/realm-cli
 SWIFT_VERSION = 5.3
 ATLAS_FOLDER = Atlas
 MONGODB_FOLDER = $(ATLAS_FOLDER)/mongodb
@@ -36,6 +36,8 @@ version:
 	mongorestore --version
 	mongoexport --version
 	mongoimport --version
+	node --version
+	npm --version
 	$(REALM_CLI) --version
 
 .PHONY: init
@@ -93,7 +95,7 @@ list:
 
 .PHONY: users
 users:
-	$(REALM_CLI) users list
+	$(REALM_CLI) users list --app $(REALM_APP_ID)
 
 .PHONY: realmdiff
 realmdiff:
