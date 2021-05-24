@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F853E8E9265C6266002BB02C /* AuthDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F853E8E8265C6266002BB02C /* AuthDelegate.swift */; };
 		F85DB7D0255A391600E621BB /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85DB7CF255A391500E621BB /* MainView.swift */; };
 		F85DB7DC255A3A2E00E621BB /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85DB7DB255A3A2E00E621BB /* ActivityIndicator.swift */; };
 		F86A0D942550F873003D3E60 /* LogoutButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86A0D932550F873003D3E60 /* LogoutButton.swift */; };
@@ -47,6 +48,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F853E8E8265C6266002BB02C /* AuthDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDelegate.swift; sourceTree = "<group>"; };
 		F85DB7CF255A391500E621BB /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		F85DB7DB255A3A2E00E621BB /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		F86A0D932550F873003D3E60 /* LogoutButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutButton.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				F8E140CB2511935F003B4289 /* App.swift */,
 				F8BC89CD251FB5E500566416 /* AppState.swift */,
 				F8E140CF25119360003B4289 /* Assets.xcassets */,
+				F853E8E8265C6266002BB02C /* AuthDelegate.swift */,
 				F887347D2544A44B002B5B31 /* Constants.swift */,
 				F8E140D425119360003B4289 /* Info.plist */,
 				F8BC899C251F9C9A00566416 /* Models */,
@@ -332,6 +335,7 @@
 				F86A0D942550F873003D3E60 /* LogoutButton.swift in Sources */,
 				F8BC89A1251F9CB900566416 /* Project.swift in Sources */,
 				F8BC89A6251F9CBD00566416 /* User.swift in Sources */,
+				F853E8E9265C6266002BB02C /* AuthDelegate.swift in Sources */,
 				F8BC89AB251F9CC300566416 /* Task.swift in Sources */,
 				F8E1419C2512BFC3003B4289 /* AddTaskView.swift in Sources */,
 				F8E141942512B296003B4289 /* TextAlert.swift in Sources */,

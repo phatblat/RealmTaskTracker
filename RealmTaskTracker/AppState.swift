@@ -39,9 +39,12 @@ final class AppState: ObservableObject {
     /// The Realm sync app.
     private let app: RealmSwift.App = {
         let app = RealmSwift.App(id: Constants.realmAppId)
+        app.syncManager.logger = { (level: SyncLogLevel, message: String) in
+            print("RealmSync: \(message)")
+        }
         app.syncManager.logLevel = .debug
         app.syncManager.errorHandler = { (error, session) in
-            print("Sync Error: \(error)")
+            print("RealmSync Error: \(error)")
             // https://docs.realm.io/sync/using-synced-realms/errors
             if let syncError = error as? SyncError {
                 switch syncError.code {
@@ -57,7 +60,7 @@ final class AppState: ObservableObject {
                 }
             }
             if let session = session {
-                print("Session: \(session)")
+                print("RealmSync Session: \(session)")
             }
         }
         return app
