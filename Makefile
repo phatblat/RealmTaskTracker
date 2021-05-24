@@ -43,15 +43,11 @@ init:
 	- brew bundle install
 	# nvm use
 	npm install
-	bundle install --gemfile=Gemfile
-	pod install --repo-update
 
 .PHONY: clean
 clean:
 	rm -rf Packages
 	xcodebuild clean
-	swift package clean
-	swift package reset
 
 #
 # MongoDB
