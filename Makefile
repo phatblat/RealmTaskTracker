@@ -14,7 +14,6 @@ MONGODB_USERNAME := $(shell cat .mongodb_username)
 MONGODB_PASSWORD := $(shell cat .mongodb_password)
 CLUSTER = sandbox.5exqq.mongodb.net
 DATABASE = tracker
-COLLECTION = tasks
 REALM_APP_ID := $(shell cat .realm_app_id)
 REALM_CLI = $(shell npm bin)/realm-cli
 SWIFT_VERSION = 5.3
@@ -69,11 +68,15 @@ restore:
 
 .PHONY: export
 export:
-	mongoexport --uri="mongodb+srv://$(MONGODB_USERNAME):$(MONGODB_PASSWORD)@$(CLUSTER)/$(DATABASE)" --collection=$(COLLECTION) --out=$(MONGODB_FOLDER)/$(COLLECTION).json
+	mongoexport --uri="mongodb+srv://$(MONGODB_USERNAME):$(MONGODB_PASSWORD)@$(CLUSTER)/$(DATABASE)" --collection=users --out=$(MONGODB_FOLDER)/users.json
+	mongoexport --uri="mongodb+srv://$(MONGODB_USERNAME):$(MONGODB_PASSWORD)@$(CLUSTER)/$(DATABASE)" --collection=tasks --out=$(MONGODB_FOLDER)/tasks.json
+	mongoexport --uri="mongodb+srv://$(MONGODB_USERNAME):$(MONGODB_PASSWORD)@$(CLUSTER)/$(DATABASE)" --collection=projects --out=$(MONGODB_FOLDER)/projects.json
 
 .PHONY: import
 import:
-	mongoimport --uri="mongodb+srv://$(MONGODB_USERNAME):$(MONGODB_PASSWORD)@$(CLUSTER)/$(DATABASE)" --collection=$(COLLECTION) --drop $(MONGODB_FOLDER)/$(COLLECTION).json
+	mongoimport --uri="mongodb+srv://$(MONGODB_USERNAME):$(MONGODB_PASSWORD)@$(CLUSTER)/$(DATABASE)" --collection=users --drop $(MONGODB_FOLDER)/users.json
+	mongoimport --uri="mongodb+srv://$(MONGODB_USERNAME):$(MONGODB_PASSWORD)@$(CLUSTER)/$(DATABASE)" --collection=tasks --drop $(MONGODB_FOLDER)/tasks.json
+	mongoimport --uri="mongodb+srv://$(MONGODB_USERNAME):$(MONGODB_PASSWORD)@$(CLUSTER)/$(DATABASE)" --collection=projects --drop $(MONGODB_FOLDER)/projects.json
 
 #
 # Realm CLI
