@@ -48,15 +48,24 @@ final class AppState: ObservableObject {
             // https://docs.realm.io/sync/using-synced-realms/errors
             if let syncError = error as? SyncError {
                 switch syncError.code {
-                    case .clientResetError:
-                        if let (path, clientResetToken) = syncError.clientResetInfo() {
-                            // TODO: close and backup
-                            //closeRealmSafely()
-                            //saveBackupRealmPath(path)
-                            SyncSession.immediatelyHandleError(clientResetToken, syncManager: app.syncManager)
-                        }
-                    default:
-                        ()
+                case .permissionDeniedError:
+                    // HTTP/1.1 401 Unauthorized
+//                    shouldIndicateActivity = false
+                    _ = app.currentUser?.logOut()
+                        .sink(receiveCompletion: {
+                            print($0)
+                        }, receiveValue: {
+                            print("receive value")
+                        })
+                case .clientResetError:
+                    if let (path, clientResetToken) = syncError.clientResetInfo() {
+                        // TODO: close and backup
+                        //closeRealmSafely()
+                        //saveBackupRealmPath(path)
+                        SyncSession.immediatelyHandleError(clientResetToken, syncManager: app.syncManager)
+                    }
+                default:
+                    ()
                 }
             }
             if let session = session {
@@ -130,7 +139,7 @@ final class AppState: ObservableObject {
                 // processing.
 
                 // Get a configuration to open the synced realm.
-                var configuration = user.configuration(partitionValue: "user=\(user.id)")
+                var configuration = user.configuration(partitionValue: user.id)
 
                 // Only allow User objects in this partition.
                 configuration.objectTypes = [User.self, Task.self]
