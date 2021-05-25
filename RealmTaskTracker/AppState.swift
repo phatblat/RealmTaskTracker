@@ -39,25 +39,37 @@ final class AppState: ObservableObject {
     /// The Realm sync app.
     private let app: RealmSwift.App = {
         let app = RealmSwift.App(id: Constants.realmAppId)
+        app.syncManager.logger = { (level: SyncLogLevel, message: String) in
+            print("RealmSync: \(message)")
+        }
         app.syncManager.logLevel = .debug
         app.syncManager.errorHandler = { (error, session) in
-            print("Sync Error: \(error)")
+            print("RealmSync Error: \(error)")
             // https://docs.realm.io/sync/using-synced-realms/errors
             if let syncError = error as? SyncError {
                 switch syncError.code {
-                    case .clientResetError:
-                        if let (path, clientResetToken) = syncError.clientResetInfo() {
-                            // TODO: close and backup
-                            //closeRealmSafely()
-                            //saveBackupRealmPath(path)
-                            SyncSession.immediatelyHandleError(clientResetToken, syncManager: app.syncManager)
-                        }
-                    default:
-                        ()
+                case .permissionDeniedError:
+                    // HTTP/1.1 401 Unauthorized
+//                    shouldIndicateActivity = false
+                    _ = app.currentUser?.logOut()
+                        .sink(receiveCompletion: {
+                            print($0)
+                        }, receiveValue: {
+                            print("receive value")
+                        })
+                case .clientResetError:
+                    if let (path, clientResetToken) = syncError.clientResetInfo() {
+                        // TODO: close and backup
+                        //closeRealmSafely()
+                        //saveBackupRealmPath(path)
+                        SyncSession.immediatelyHandleError(clientResetToken, syncManager: app.syncManager)
+                    }
+                default:
+                    ()
                 }
             }
             if let session = session {
-                print("Session: \(session)")
+                print("RealmSync Session: \(session)")
             }
         }
         return app
@@ -127,7 +139,7 @@ final class AppState: ObservableObject {
                 // processing.
 
                 // Get a configuration to open the synced realm.
-                var configuration = user.configuration(partitionValue: "user=\(user.id)")
+                var configuration = user.configuration(partitionValue: user.id)
 
                 // Only allow User objects in this partition.
                 configuration.objectTypes = [User.self, Task.self]
@@ -188,7 +200,9 @@ extension AppState {
     }
 
     func signIn(username: String, password: String, completionHandler: @escaping (_ result: Result<Void, Error>) -> Void) {
-        shouldIndicateActivity = true
+        DispatchQueue.main.async {
+            self.shouldIndicateActivity = true
+        }
 
         let credentials = Credentials.emailPassword(email: username, password: password)
         app.login(credentials: credentials)

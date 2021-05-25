@@ -1,12 +1,12 @@
 [
     {
-        "name": "resetFunc",
-        "private": false,
+        "name": "createNewUserDocument",
+        "private": true,
         "can_evaluate": {}
     },
     {
-        "name": "createNewUserDocument",
-        "private": true,
+        "name": "resetFunc",
+        "private": false,
         "can_evaluate": {}
     }
 ]

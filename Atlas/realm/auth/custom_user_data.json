@@ -1,3 +1,7 @@
 {
-    "enabled": false
+    "enabled": false,
+    "mongo_service_name": "mongodb-atlas",
+    "database_name": "tracker",
+    "collection_name": "users",
+    "user_id_field": "_id"
 }

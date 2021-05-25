@@ -12,11 +12,10 @@ ATLAS_PUBLIC_API_KEY := $(shell cat .atlas_public_api_key)
 ATLAS_PRIVATE_API_KEY := $(shell cat .atlas_private_api_key)
 MONGODB_USERNAME := $(shell cat .mongodb_username)
 MONGODB_PASSWORD := $(shell cat .mongodb_password)
-CLUSTER = cluster10.5exqq.azure.mongodb.net
+CLUSTER = sandbox.5exqq.mongodb.net
 DATABASE = tracker
-COLLECTION = tasks
 REALM_APP_ID := $(shell cat .realm_app_id)
-REALM_CLI = node_modules/.bin/realm-cli
+REALM_CLI = $(shell npm bin)/realm-cli
 SWIFT_VERSION = 5.3
 ATLAS_FOLDER = Atlas
 MONGODB_FOLDER = $(ATLAS_FOLDER)/mongodb
@@ -36,6 +35,8 @@ version:
 	mongorestore --version
 	mongoexport --version
 	mongoimport --version
+	node --version
+	npm --version
 	$(REALM_CLI) --version
 
 .PHONY: init
@@ -43,15 +44,11 @@ init:
 	- brew bundle install
 	# nvm use
 	npm install
-	bundle install --gemfile=Gemfile
-	pod install --repo-update
 
 .PHONY: clean
 clean:
 	rm -rf Packages
 	xcodebuild clean
-	swift package clean
-	swift package reset
 
 #
 # MongoDB
@@ -71,11 +68,15 @@ restore:
 
 .PHONY: export
 export:
-	mongoexport --uri="mongodb+srv://$(MONGODB_USERNAME):$(MONGODB_PASSWORD)@$(CLUSTER)/$(DATABASE)" --collection=$(COLLECTION) --out=$(MONGODB_FOLDER)/$(COLLECTION).json
+	mongoexport --uri="mongodb+srv://$(MONGODB_USERNAME):$(MONGODB_PASSWORD)@$(CLUSTER)/$(DATABASE)" --collection=users --out=$(MONGODB_FOLDER)/users.json
+	mongoexport --uri="mongodb+srv://$(MONGODB_USERNAME):$(MONGODB_PASSWORD)@$(CLUSTER)/$(DATABASE)" --collection=tasks --out=$(MONGODB_FOLDER)/tasks.json
+	mongoexport --uri="mongodb+srv://$(MONGODB_USERNAME):$(MONGODB_PASSWORD)@$(CLUSTER)/$(DATABASE)" --collection=projects --out=$(MONGODB_FOLDER)/projects.json
 
 .PHONY: import
 import:
-	mongoimport --uri="mongodb+srv://$(MONGODB_USERNAME):$(MONGODB_PASSWORD)@$(CLUSTER)/$(DATABASE)" --collection=$(COLLECTION) --drop $(MONGODB_FOLDER)/$(COLLECTION).json
+	mongoimport --uri="mongodb+srv://$(MONGODB_USERNAME):$(MONGODB_PASSWORD)@$(CLUSTER)/$(DATABASE)" --collection=users --drop $(MONGODB_FOLDER)/users.json
+	mongoimport --uri="mongodb+srv://$(MONGODB_USERNAME):$(MONGODB_PASSWORD)@$(CLUSTER)/$(DATABASE)" --collection=tasks --drop $(MONGODB_FOLDER)/tasks.json
+	mongoimport --uri="mongodb+srv://$(MONGODB_USERNAME):$(MONGODB_PASSWORD)@$(CLUSTER)/$(DATABASE)" --collection=projects --drop $(MONGODB_FOLDER)/projects.json
 
 #
 # Realm CLI
@@ -97,7 +98,7 @@ list:
 
 .PHONY: users
 users:
-	$(REALM_CLI) users list
+	$(REALM_CLI) users list --app $(REALM_APP_ID)
 
 .PHONY: realmdiff
 realmdiff:
