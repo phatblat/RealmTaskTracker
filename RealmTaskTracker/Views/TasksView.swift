@@ -14,8 +14,8 @@ struct TasksView: View {
 
     @EnvironmentObject var state: AppState
 
-    /// All tasks.
-    @ObservedObject var tasks: RealmSwift.List<Task>
+    /// All of the user's tasks.
+    @ObservedResults(Task.self) var tasks
 
     @State private var showingActionSheet = false
     @State private var editTask: Task? = nil
@@ -26,18 +26,16 @@ struct TasksView: View {
                 // ⚠️ ALWAYS freeze a Realm list while iterating in a SwiftUI
                 // View's ForEach(). Otherwise, unexpected behavior will occur,
                 // especially when deleting object from the list.
-                ForEach(tasks.freeze()) { frozenTask in
-                    // "Thaw" the task so that it can be mutated
-                    let thawedTask = thaw(object: frozenTask, in: tasks.realm)
-
-                    TaskRow(task: thawedTask)
+                ForEach(tasks) { task in
+                    TaskRow(task: task)
                         .onTapGesture {
-                            editTask = thawedTask
+                            editTask = task
                             showingActionSheet = true
                         }
                         .actionSheet(isPresented: $showingActionSheet, content: editTaskStatus)
                 }
-                .onDelete(perform: delete)
+                .onDelete(perform: $tasks.remove)
+//                .onMove(perform: $tasks.move)
             }
             .navigationBarTitle("Tasks", displayMode: .large)
             .navigationBarBackButtonHidden(true)
@@ -91,35 +89,6 @@ struct TasksView: View {
         buttons.append(.cancel())
 
         return ActionSheet(title: Text(task.name), message: Text("Select an action"), buttons: buttons)
-    }
-
-    /// Deletes the given item.
-    func delete(at offsets: IndexSet) {
-        guard let tasks = state.tasks else { fatalError("No tasks in state") }
-
-        for offset in offsets {
-            guard let realm = tasks.realm else {
-                // TODO: Not sure how to remove from a result
-                //  tasks.remove(at: offsets.first!)
-                return
-            }
-
-            do {
-                try realm.write {
-                    realm.delete(tasks[offset])
-                }
-            } catch {
-                print("Error deleting task at offset: \(offset)")
-            }
-        }
-    }
-
-    /// "Thaws" the realm object so that it can be mutated/updated.
-    func thaw<T: Object>(object: T, in realm: Realm?) -> T {
-        guard let thawedObject = realm?.resolve(ThreadSafeReference(to: object)) else {
-            fatalError("Failed to thaw frozen object \(object)")
-        }
-        return thawedObject
     }
 }
 

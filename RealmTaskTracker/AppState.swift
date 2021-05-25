@@ -143,6 +143,7 @@ final class AppState: ObservableObject {
 
                 // Only allow User objects in this partition.
                 configuration.objectTypes = [User.self, Task.self]
+                Realm.Configuration.defaultConfiguration = configuration
 
                 // Loading may take a moment, so indicate activity.
                 self.shouldIndicateActivity = true

@@ -11,15 +11,14 @@ import SwiftUI
 /// The main screen that determines whether to present the LoginView or the TasksView for the one group in the realm.
 struct MainView: View {
     /// The state of this application.
-//    @ObservedObject var state = AppState()
     @EnvironmentObject var state: AppState
 
     var body: some View {
         NavigationView {
             ZStack {
                 // If a realm is open for a logged in user, show the TasksView, otherwise show the LoginView
-                if let tasks = state.tasks {
-                    TasksView(tasks: tasks)
+                if let _ = state.tasks {
+                    TasksView()
                         .navigationBarTitle("Tasks")
                         .disabled(state.shouldIndicateActivity)
                 } else {
