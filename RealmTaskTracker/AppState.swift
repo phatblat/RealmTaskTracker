@@ -219,10 +219,10 @@ extension AppState {
                     print("Login failed: \(error)")
                     completionHandler(.failure(error))
                 }
-            }, receiveValue: {
+            }, receiveValue: { user in
                 print("Login succeeded")
                 self.username = username
-                self.loginPublisher.send($0)
+                self.loginPublisher.send(user)
             })
             .store(in: &cancellables)
     }
