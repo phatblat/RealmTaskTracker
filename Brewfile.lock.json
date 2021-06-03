@@ -2,7 +2,7 @@
   "entries": {
     "tap": {
       "mongodb/brew": {
-        "revision": "1b2ec2f5d2c6e1f44f7eb44d3f9e64c266fbd3ac"
+        "revision": "f72f2b28645ac2f2e793a8af46d2b1a3859d4521"
       }
     },
     "brew": {
@@ -100,12 +100,12 @@
         "macOS": "10.15.7"
       },
       "big_sur": {
-        "HOMEBREW_VERSION": "3.1.9-2-g1795b37",
+        "HOMEBREW_VERSION": "3.1.9",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "080081c769a61b5203558cd37ae70f03bc81e7fe",
+        "Homebrew/homebrew-core": "c2ef03d8bd1ea64846576ee6f3cc90e61f7b87f6",
         "CLT": "12.5.0.22.9",
         "Xcode": "12.5",
-        "macOS": "11.3.1"
+        "macOS": "11.4"
       }
     }
   }
