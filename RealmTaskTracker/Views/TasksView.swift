@@ -23,9 +23,6 @@ struct TasksView: View {
     var body: some View {
         NavigationView {
             List {
-                // ⚠️ ALWAYS freeze a Realm list while iterating in a SwiftUI
-                // View's ForEach(). Otherwise, unexpected behavior will occur,
-                // especially when deleting object from the list.
                 ForEach(tasks) { task in
                     TaskRow(task: task)
                         .onTapGesture {
