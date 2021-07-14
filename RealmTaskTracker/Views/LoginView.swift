@@ -28,7 +28,13 @@ struct LoginView: View {
 
             Form {
                 TextField("Username", text: $username)
+                    .disableAutocorrection(true)
+                    .keyboardType(.emailAddress)
+                    .autocapitalization(UITextAutocapitalizationType.none)
+
                 SecureField("Password", text: $password)
+                    .disableAutocorrection(true)
+                    .autocapitalization(UITextAutocapitalizationType.none)
 
                 Button("Sign In", action: signIn)
                     .disabled(state.shouldIndicateActivity)
