@@ -102,7 +102,7 @@ users:
 
 .PHONY: realmdiff
 realmdiff:
-	$(REALM_CLI) app diff --app $(REALM_APP_ID)
+	$(REALM_CLI) app diff --remote $(REALM_APP_ID) --local $(REALM_FOLDER)
 
 .PHONY: realmpull
 realmpull:
