@@ -15,5 +15,5 @@ class User: Object, ObjectKeyIdentifiable {
     @Persisted var name: String = ""
 
     /// The collection of Tasks in this group.
-    let tasks = List<Task>()
+    @Persisted var tasks = List<Task>()
 }
