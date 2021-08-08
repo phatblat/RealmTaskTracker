@@ -1,1 +1,2 @@
-{"_id":{"$oid":"60ac4fab713d3980e99a61d0"},"_partition":"60ac4fab713d3980e99a61d0","name":"Testuser"}
+{"_id":{"$oid":"60ac4fab713d3980e99a61d0"},"_partition":"60ac4fab713d3980e99a61d0","name":"Testuser","tasks":[{"$oid":"60b993dd89fae52138e66d8c"},{"$oid":"611045501a12f2286e7e19e8"}]}
+{"_id":{"$oid":"60f5a01f3b0d8363439a5955"},"_partition":"60f5a01f3b0d8363439a5955","name":"TristanBac231","tasks":[{"$oid":"60f5a0374bb3c98d852717af"}]}

@@ -1,0 +1,3 @@
+{"_id":{"$oid":"60b993dd89fae52138e66d8c"},"_partition":"60ac4fab713d3980e99a61d0","name":"Feed the cats 🐈🐈‍⬛","status":"Open"}
+{"_id":{"$oid":"60f5a0374bb3c98d852717af"},"_partition":"60f5a01f3b0d8363439a5955","name":"Est","status":"Open"}
+{"_id":{"$oid":"611045501a12f2286e7e19e8"},"_partition":"60ac4fab713d3980e99a61d0","name":"Get milk 🥛","status":"Open"}

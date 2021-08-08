@@ -1,1 +1,1 @@
-{"options":{"recordPreImages":true},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_"}],"uuid":"139d7f7ae9844e13a2651d2d76f6725d","collectionName":"tasks"}
+{"options":{"recordPreImages":true},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_"}],"uuid":"139d7f7ae9844e13a2651d2d76f6725d","collectionName":"tasks","type":"collection"}
