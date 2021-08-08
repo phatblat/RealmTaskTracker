@@ -8,31 +8,14 @@
 import RealmSwift
 
 // MARK: - TaskStatus
-enum TaskStatus: String {
+enum TaskStatus: String, PersistableEnum {
 case Open
 case InProgress
 case Complete
 }
 
-// MARK: - Statusable
-protocol Statusable {
-    var status: String { get set }
-}
-
-extension Statusable {
-    /// Converts the status string to an enum.
-    var statusEnum: TaskStatus {
-        get {
-            return TaskStatus(rawValue: status) ?? .Open
-        }
-        set {
-            status = newValue.rawValue
-        }
-    }
-}
-
 // MARK: - Task
-class Task: Object, ObjectKeyIdentifiable, Statusable {
+class Task: Object, ObjectKeyIdentifiable {
     /// Declares the _id member as the primary key to the realm.
     /// Unique ID of the Task.
     @Persisted(primaryKey: true) var _id: ObjectId
@@ -41,7 +24,7 @@ class Task: Object, ObjectKeyIdentifiable, Statusable {
     @Persisted var name: String = ""
 
     /// Current status of the task. Defaults to "Open".
-    @Persisted var status = TaskStatus.Open.rawValue
+    @Persisted var status = TaskStatus.Open
 
     /// Backlink to the `User` that created this task.
     let user = LinkingObjects(fromType: User.self, property: "tasks")

@@ -57,28 +57,28 @@ struct TasksView: View {
 
         // If the task is not in the Open state, we can set it to open. Otherwise, that action will not be available.
         // We do this for the other two states -- InProgress and Complete.
-        if (task.statusEnum != .Open) {
+        if (task.status != .Open) {
             buttons.append(.default(Text("Open"), action: {
                 // Any modifications to managed objects must occur in a write block.
                 // When we modify the Task's state, that change is automatically reflected in the realm.
                 try! tasks.realm?.write {
-                    task.statusEnum = .Open
+                    task.status = .Open
                 }
             }))
         }
 
-        if (task.statusEnum != .InProgress) {
+        if (task.status != .InProgress) {
             buttons.append(.default(Text("Start Progress"), action: {
                 try! tasks.realm?.write {
-                    task.statusEnum = .InProgress
+                    task.status = .InProgress
                 }
             }))
         }
 
-        if (task.statusEnum != .Complete) {
+        if (task.status != .Complete) {
             buttons.append(.default(Text("Complete"), action: {
                 try! tasks.realm?.write {
-                    task.statusEnum = .Complete
+                    task.status = .Complete
                 }
             }))
         }

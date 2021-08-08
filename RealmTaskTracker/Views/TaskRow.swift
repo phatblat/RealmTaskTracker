@@ -18,7 +18,7 @@ struct TaskRow: View {
 
             Spacer()
 
-            switch task.statusEnum {
+            switch task.status {
             case .InProgress:
                 Text("In Progress")
             case .Complete:
