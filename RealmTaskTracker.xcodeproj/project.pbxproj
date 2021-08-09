@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B5DF72B226C17330001D58E1 /* SyncLogLevel+Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DF72B126C17330001D58E1 /* SyncLogLevel+Name.swift */; };
 		F853E8E9265C6266002BB02C /* AuthDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F853E8E8265C6266002BB02C /* AuthDelegate.swift */; };
 		F85DB7D0255A391600E621BB /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85DB7CF255A391500E621BB /* MainView.swift */; };
 		F85DB7DC255A3A2E00E621BB /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85DB7DB255A3A2E00E621BB /* ActivityIndicator.swift */; };
@@ -47,6 +48,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B5DF72B126C17330001D58E1 /* SyncLogLevel+Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SyncLogLevel+Name.swift"; sourceTree = "<group>"; };
 		F853E8E8265C6266002BB02C /* AuthDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDelegate.swift; sourceTree = "<group>"; };
 		F85DB7CF255A391500E621BB /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		F85DB7DB255A3A2E00E621BB /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 				F8E140D425119360003B4289 /* Info.plist */,
 				F8BC899C251F9C9A00566416 /* Models */,
 				F8E140D125119360003B4289 /* Preview Content */,
+				B5DF72B126C17330001D58E1 /* SyncLogLevel+Name.swift */,
 				F8E141562511A64A003B4289 /* Views */,
 			);
 			path = RealmTaskTracker;
@@ -327,6 +330,7 @@
 				F85DB7D0255A391600E621BB /* MainView.swift in Sources */,
 				F8E141632511A8AA003B4289 /* LoadingView.swift in Sources */,
 				F8E140CC2511935F003B4289 /* App.swift in Sources */,
+				B5DF72B226C17330001D58E1 /* SyncLogLevel+Name.swift in Sources */,
 				F8E141A7251312CC003B4289 /* TaskRow.swift in Sources */,
 				F8E1416B2511C537003B4289 /* TasksView.swift in Sources */,
 				F86A0D942550F873003D3E60 /* LogoutButton.swift in Sources */,
