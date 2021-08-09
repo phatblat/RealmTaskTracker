@@ -44,7 +44,7 @@ final class AppState: ObservableObject {
     private let app: RealmSwift.App = {
         let app = RealmSwift.App(id: Constants.realmAppId)
         let syncManager = app.syncManager
-        syncManager.logLevel = .debug
+        syncManager.logLevel = .info
         syncManager.logger = { (level: SyncLogLevel, message: String) in
             print("[\(level.name)] Sync - \(message)")
         }
