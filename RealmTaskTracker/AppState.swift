@@ -26,8 +26,11 @@ final class AppState: ObservableObject {
     /// Cancellables to be retained for any Future.
     var cancellables = Set<AnyCancellable>()
 
-    /// Token for a progress notification block.
-    var progressNotificationToken: SyncSession.ProgressNotificationToken?
+    /// Token for upload progress notification block.
+    var uploadProgressToken: SyncSession.ProgressNotificationToken?
+
+    /// Token for download progress notification block.
+    var downloadProgressToken: SyncSession.ProgressNotificationToken?
 
     /// Realm user convenience property.
     var realmUser: RealmSwift.User? {
@@ -114,7 +117,16 @@ final class AppState: ObservableObject {
                     }
                     .store(in: &self.cancellables)
 
-                self.progressNotificationToken = syncSession.addProgressNotification(
+                self.downloadProgressToken = syncSession.addProgressNotification(
+                    for: .download, mode: .forCurrentlyOutstandingWork)
+                { (progress) in
+                    let transferredBytes = progress.transferredBytes
+                    let transferrableBytes = progress.transferrableBytes
+                    let transferPercent = progress.fractionTransferred * 100
+                    print("Sync Downloaded \(transferredBytes)B / \(transferrableBytes)B (\(transferPercent)%)")
+                }
+
+                self.uploadProgressToken = syncSession.addProgressNotification(
                     for: .upload, mode: .forCurrentlyOutstandingWork)
                 { (progress) in
                     let transferredBytes = progress.transferredBytes
@@ -196,7 +208,8 @@ final class AppState: ObservableObject {
             .sink(receiveCompletion: { _ in }, receiveValue: {
                 self.username = nil
                 self.tasks = nil
-                self.progressNotificationToken?.invalidate()
+                self.downloadProgressToken?.invalidate()
+                self.uploadProgressToken?.invalidate()
             })
             .store(in: &cancellables)
 
