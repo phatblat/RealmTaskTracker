@@ -21,10 +21,10 @@ class Task: Object, ObjectKeyIdentifiable {
     @Persisted(primaryKey: true) var _id: ObjectId
 
     /// Displayed name of the task.
-    @Persisted var name: String = ""
+    @Persisted var name: String
 
     /// Current status of the task. Defaults to "Open".
-    @Persisted var status = TaskStatus.Open
+    @Persisted var status: TaskStatus
 
     /// Backlink to the `User` that created this task.
     let user = LinkingObjects(fromType: User.self, property: "tasks")

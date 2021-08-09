@@ -8,12 +8,12 @@
 import RealmSwift
 
 class User: Object, ObjectKeyIdentifiable {
-    /// The unique ID of the User.
+    /// Unique ID of the User.
     @Persisted(primaryKey: true) var _id: ObjectId
 
     /// The username.
-    @Persisted var name: String = ""
+    @Persisted var name: String
 
-    /// The collection of Tasks in this group.
-    @Persisted var tasks = List<Task>()
+    /// Collection of Tasks belonging to the User.
+    @Persisted var tasks: List<Task>
 }
