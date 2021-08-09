@@ -21,32 +21,29 @@ struct TasksView: View {
     @State private var editTask: Task? = nil
 
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(tasks) { task in
-                    TaskRow(task: task)
-                        .onTapGesture {
-                            editTask = task
-                            showingActionSheet = true
-                        }
-                        .actionSheet(isPresented: $showingActionSheet, content: editTaskStatus)
-                }
-                .onDelete(perform: $tasks.remove)
-//                .onMove(perform: $tasks.move)
-            }
-            .navigationBarTitle("Tasks", displayMode: .large)
-            .navigationBarBackButtonHidden(true)
-            .navigationBarItems(
-                leading:
-                    LogoutButton(),
-                trailing:
-                    NavigationLink(destination: AddTaskView()) {
-                        Text("+")
+        List {
+            ForEach(tasks) { task in
+                TaskRow(task: task)
+                    .onTapGesture {
+                        editTask = task
+                        showingActionSheet = true
                     }
-                    .animation(.easeInOut(duration: 3.0))
-            )
+                    .actionSheet(isPresented: $showingActionSheet, content: editTaskStatus)
+            }
+            .onDelete(perform: $tasks.remove)
+//                .onMove(perform: $tasks.move)
         }
-        .navigationBarHidden(true)
+        .navigationBarTitle("Tasks", displayMode: .large)
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(
+            leading:
+                LogoutButton(),
+            trailing:
+                NavigationLink(destination: AddTaskView()) {
+                    Text("+")
+                }
+                .animation(.easeInOut(duration: 3.0))
+        )
     }
 
     /// Builds an action sheet to toggle the selected task's status.
