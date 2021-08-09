@@ -29,7 +29,8 @@ struct MainView: View {
                 // If the app is doing work in the background,
                 // overlay an ActivityIndicator
                 if state.shouldIndicateActivity {
-                    ActivityIndicator()
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle())
                 }
             }
         }

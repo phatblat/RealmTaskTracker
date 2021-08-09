@@ -19,10 +19,9 @@ struct LogoutButton: View {
         .disabled(state.shouldIndicateActivity)
         .alert(isPresented: $showingLogoutAlert) {
             Alert(title: Text("Log Out"),
-                  message: Text(""),
                   primaryButton: .cancel(),
                   secondaryButton: .destructive(
-                    Text("Yes, Log Out"), action: {
+                    Text("Yes"), action: {
                         print("Logging out...")
                         state.signOut()
                     }
