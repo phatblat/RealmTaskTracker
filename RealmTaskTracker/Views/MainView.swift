@@ -17,8 +17,8 @@ struct MainView: View {
         NavigationView {
             ZStack {
                 // If a realm is open for a logged in user, show the TasksView, otherwise show the LoginView
-                if let _ = state.tasks {
-                    TasksView()
+                if let tasks = state.tasks, let firstTask = tasks.first {
+                    TasksView(editTask: firstTask)
                         .navigationBarTitle("Tasks")
                         .disabled(state.shouldIndicateActivity)
                 } else {
@@ -29,7 +29,8 @@ struct MainView: View {
                 // If the app is doing work in the background,
                 // overlay an ActivityIndicator
                 if state.shouldIndicateActivity {
-                    ActivityIndicator()
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle())
                 }
             }
         }

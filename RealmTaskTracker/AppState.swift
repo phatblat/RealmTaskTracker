@@ -9,7 +9,14 @@ import RealmSwift
 import Combine
 import Foundation
 
+/// Core app logic including Realm app and Combine publishers.
 final class AppState: ObservableObject {
+    /// Whether or not the UI should be showing a spinner.
+    @Published var shouldIndicateActivity = false
+
+    /// List of items in the first group in the realm that will be displayed to the user.
+    @Published private(set) var tasks: List<Task>?
+
     /// Publisher that monitors log in state.
     var loginPublisher = PassthroughSubject<RealmSwift.User, Error>()
 
@@ -19,11 +26,8 @@ final class AppState: ObservableObject {
     /// Cancellables to be retained for any Future.
     var cancellables = Set<AnyCancellable>()
 
-    /// Whether or not the app is active in the background.
-    @Published var shouldIndicateActivity = false
-
-    /// The list of items in the first group in the realm that will be displayed to the user.
-    @Published private(set) var tasks: List<Task>?
+    /// Token for a progress notification block.
+    var progressNotificationToken: SyncSession.ProgressNotificationToken?
 
     /// Realm user convenience property.
     var realmUser: RealmSwift.User? {
@@ -39,12 +43,13 @@ final class AppState: ObservableObject {
     /// The Realm sync app.
     private let app: RealmSwift.App = {
         let app = RealmSwift.App(id: Constants.realmAppId)
-        app.syncManager.logger = { (level: SyncLogLevel, message: String) in
-            print("RealmSync: \(message)")
+        let syncManager = app.syncManager
+        syncManager.logLevel = .info
+        syncManager.logger = { (level: SyncLogLevel, message: String) in
+            print("[\(level.name)] Sync - \(message)")
         }
-        app.syncManager.logLevel = .debug
-        app.syncManager.errorHandler = { (error, session) in
-            print("RealmSync Error: \(error)")
+        syncManager.errorHandler = { (error, session) in
+            print("Sync Error: \(error)")
             // https://docs.realm.io/sync/using-synced-realms/errors
             if let syncError = error as? SyncError {
                 switch syncError.code {
@@ -69,7 +74,7 @@ final class AppState: ObservableObject {
                 }
             }
             if let session = session {
-                print("RealmSync Session: \(session)")
+                print("Sync Session: \(session)")
             }
         }
         return app
@@ -91,6 +96,32 @@ final class AppState: ObservableObject {
                 }
             }, receiveValue: { realm in
                 // The realm has successfully opened.
+                let syncSession = realm.syncSession!
+
+                // Observe using Combine
+                syncSession.publisher(for: \.connectionState)
+                    .sink { connectionState in
+                        switch connectionState {
+                        case .connecting:
+                            print("Sync Connecting...")
+                        case .connected:
+                            print("Sync Connected")
+                        case .disconnected:
+                            print("Sync Disconnected")
+                        default:
+                            break
+                        }
+                    }
+                    .store(in: &self.cancellables)
+
+                self.progressNotificationToken = syncSession.addProgressNotification(
+                    for: .upload, mode: .forCurrentlyOutstandingWork)
+                { (progress) in
+                    let transferredBytes = progress.transferredBytes
+                    let transferrableBytes = progress.transferrableBytes
+                    let transferPercent = progress.fractionTransferred * 100
+                    print("Sync Uploaded \(transferredBytes)B / \(transferrableBytes)B (\(transferPercent)%)")
+                }
 
                 // If no User has been created for this realm, create one.
                 let users = realm.objects(User.self)
@@ -126,7 +157,7 @@ final class AppState: ObservableObject {
             .store(in: &cancellables)
 
 
-        // Monitor login state and open a realm on login.
+        // Opens and publishes a synced realm upon user login. Leverages AsyncOpenPublisher.
         loginPublisher
             .receive(on: DispatchQueue.main) // Ensure we update UI elements on the main thread.
             .flatMap { user -> RealmPublishers.AsyncOpenPublisher in
@@ -157,7 +188,7 @@ final class AppState: ObservableObject {
                 return $0 // Forward the result as-is to the next stage.
             }
             .subscribe(realmPublisher) // Forward the opened realm to the handler we set up earlier.
-            .store(in: &self.cancellables)
+            .store(in: &cancellables)
 
         // Monitor logout state and unset the items list on logout.
         logoutPublisher
@@ -165,6 +196,7 @@ final class AppState: ObservableObject {
             .sink(receiveCompletion: { _ in }, receiveValue: {
                 self.username = nil
                 self.tasks = nil
+                self.progressNotificationToken?.invalidate()
             })
             .store(in: &cancellables)
 
@@ -178,22 +210,23 @@ final class AppState: ObservableObject {
 
 extension AppState {
     func signUp(username: String, password: String, completionHandler: @escaping (_ result: Result<Void, Error>) -> Void) {
-        shouldIndicateActivity = true
+        DispatchQueue.main.async {
+            self.shouldIndicateActivity = true
+        }
 
-        let emailPassAuth = app.emailPasswordAuth
-        emailPassAuth.registerUser(email: username, password: password) { (error: Error?) in
-            guard error == nil else {
+        app.emailPasswordAuth.registerUser(email: username, password: password) { (error: Error?) in
+            if let error = error {
                 DispatchQueue.main.async {
                     self.shouldIndicateActivity = false
                 }
-                print("Signup failed: \(error!)")
-                completionHandler(.failure(error!))
+                print("Signup failed: \(error)")
+                completionHandler(.failure(error))
                 return
             }
 
-            print("Signup successful!")
+            print("Signup successful")
 
-            // Registering just registers. Now we need to sign in,
+            // Registering just creates a new user. Now we need to sign in,
             // but we can reuse the existing username and password.
 
             self.signIn(username: username, password: password, completionHandler: completionHandler)
