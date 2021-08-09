@@ -25,7 +25,6 @@
 		F8E140E925119361003B4289 /* RealmTaskTrackerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E140E825119361003B4289 /* RealmTaskTrackerUITests.swift */; };
 		F8E141632511A8AA003B4289 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E141622511A8AA003B4289 /* LoadingView.swift */; };
 		F8E1416B2511C537003B4289 /* TasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E1416A2511C537003B4289 /* TasksView.swift */; };
-		F8E141942512B296003B4289 /* TextAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E141932512B296003B4289 /* TextAlert.swift */; };
 		F8E1419C2512BFC3003B4289 /* AddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E1419B2512BFC3003B4289 /* AddTaskView.swift */; };
 		F8E141A7251312CC003B4289 /* TaskRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E141A6251312CC003B4289 /* TaskRow.swift */; };
 /* End PBXBuildFile section */
@@ -71,7 +70,6 @@
 		F8E140EA25119361003B4289 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F8E141622511A8AA003B4289 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		F8E1416A2511C537003B4289 /* TasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksView.swift; sourceTree = "<group>"; };
-		F8E141932512B296003B4289 /* TextAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAlert.swift; sourceTree = "<group>"; };
 		F8E1419B2512BFC3003B4289 /* AddTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskView.swift; sourceTree = "<group>"; };
 		F8E141A6251312CC003B4289 /* TaskRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -185,7 +183,6 @@
 				F85DB7CF255A391500E621BB /* MainView.swift */,
 				F8E141A6251312CC003B4289 /* TaskRow.swift */,
 				F8E1416A2511C537003B4289 /* TasksView.swift */,
-				F8E141932512B296003B4289 /* TextAlert.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -338,7 +335,6 @@
 				F853E8E9265C6266002BB02C /* AuthDelegate.swift in Sources */,
 				F8BC89AB251F9CC300566416 /* Task.swift in Sources */,
 				F8E1419C2512BFC3003B4289 /* AddTaskView.swift in Sources */,
-				F8E141942512B296003B4289 /* TextAlert.swift in Sources */,
 				F887347E2544A44B002B5B31 /* Constants.swift in Sources */,
 				F8BC89CE251FB5E500566416 /* AppState.swift in Sources */,
 			);
