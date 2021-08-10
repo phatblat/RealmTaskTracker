@@ -20,7 +20,6 @@
 		F86A0D942550F873003D3E60 /* LogoutButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86A0D932550F873003D3E60 /* LogoutButton.swift */; };
 		F887347E2544A44B002B5B31 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F887347D2544A44B002B5B31 /* Constants.swift */; };
 		F8BC89AB251F9CC300566416 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BC89AA251F9CC300566416 /* Task.swift */; };
-		F8BC89CE251FB5E500566416 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8BC89CD251FB5E500566416 /* AppState.swift */; };
 		F8E140CC2511935F003B4289 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E140CB2511935F003B4289 /* App.swift */; };
 		F8E140CE2511935F003B4289 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E140CD2511935F003B4289 /* LoginView.swift */; };
 		F8E140D025119360003B4289 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8E140CF25119360003B4289 /* Assets.xcassets */; };
@@ -359,7 +358,6 @@
 				B5CAD10926C20B5400A4102E /* ErrorView.swift in Sources */,
 				F887347E2544A44B002B5B31 /* Constants.swift in Sources */,
 				B5CAD10B26C20FDA00A4102E /* UserPublisher.swift in Sources */,
-				F8BC89CE251FB5E500566416 /* AppState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
