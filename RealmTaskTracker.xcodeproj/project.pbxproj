@@ -10,8 +10,9 @@
 		B5CAD10926C20B5400A4102E /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CAD10826C20B5400A4102E /* ErrorView.swift */; };
 		B5CAD10B26C20FDA00A4102E /* AccountHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CAD10A26C20FDA00A4102E /* AccountHelper.swift */; };
 		B5CAD10D26C2135200A4102E /* MockRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CAD10C26C2135200A4102E /* MockRealm.swift */; };
+		B5CAD10F26C21BD900A4102E /* AsyncOpenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CAD10E26C21BD900A4102E /* AsyncOpenView.swift */; };
+		B5CAD11126C21D7200A4102E /* LazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CAD11026C21D7200A4102E /* LazyView.swift */; };
 		B5DF72B226C17330001D58E1 /* SyncLogLevel+Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DF72B126C17330001D58E1 /* SyncLogLevel+Name.swift */; };
-		F85DB7D0255A391600E621BB /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85DB7CF255A391500E621BB /* MainView.swift */; };
 		F86A0D942550F873003D3E60 /* LogoutButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86A0D932550F873003D3E60 /* LogoutButton.swift */; };
 		F8783B6E265C08CC005200A9 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F8783B6D265C08CC005200A9 /* RealmSwift */; };
 		F887347E2544A44B002B5B31 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F887347D2544A44B002B5B31 /* Constants.swift */; };
@@ -50,8 +51,9 @@
 		B5CAD10826C20B5400A4102E /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		B5CAD10A26C20FDA00A4102E /* AccountHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountHelper.swift; sourceTree = "<group>"; };
 		B5CAD10C26C2135200A4102E /* MockRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRealm.swift; sourceTree = "<group>"; };
+		B5CAD10E26C21BD900A4102E /* AsyncOpenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncOpenView.swift; sourceTree = "<group>"; };
+		B5CAD11026C21D7200A4102E /* LazyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyView.swift; sourceTree = "<group>"; };
 		B5DF72B126C17330001D58E1 /* SyncLogLevel+Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SyncLogLevel+Name.swift"; sourceTree = "<group>"; };
-		F85DB7CF255A391500E621BB /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		F86A0D932550F873003D3E60 /* LogoutButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutButton.swift; sourceTree = "<group>"; };
 		F887347D2544A44B002B5B31 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F8BC89A5251F9CBD00566416 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -177,11 +179,12 @@
 			isa = PBXGroup;
 			children = (
 				F8E1419B2512BFC3003B4289 /* AddTaskView.swift */,
+				B5CAD10E26C21BD900A4102E /* AsyncOpenView.swift */,
 				B5CAD10826C20B5400A4102E /* ErrorView.swift */,
+				B5CAD11026C21D7200A4102E /* LazyView.swift */,
 				F8E1416A2511C537003B4289 /* ListView.swift */,
 				F8E140CD2511935F003B4289 /* LoginView.swift */,
 				F86A0D932550F873003D3E60 /* LogoutButton.swift */,
-				F85DB7CF255A391500E621BB /* MainView.swift */,
 				F8E141A6251312CC003B4289 /* TaskRow.swift */,
 			);
 			path = Views;
@@ -323,14 +326,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				F8E140CE2511935F003B4289 /* LoginView.swift in Sources */,
-				F85DB7D0255A391600E621BB /* MainView.swift in Sources */,
 				F8E140CC2511935F003B4289 /* App.swift in Sources */,
 				B5DF72B226C17330001D58E1 /* SyncLogLevel+Name.swift in Sources */,
 				F8E141A7251312CC003B4289 /* TaskRow.swift in Sources */,
+				B5CAD11126C21D7200A4102E /* LazyView.swift in Sources */,
 				F8E1416B2511C537003B4289 /* ListView.swift in Sources */,
 				F86A0D942550F873003D3E60 /* LogoutButton.swift in Sources */,
 				F8BC89A6251F9CBD00566416 /* User.swift in Sources */,
 				F8BC89AB251F9CC300566416 /* Task.swift in Sources */,
+				B5CAD10F26C21BD900A4102E /* AsyncOpenView.swift in Sources */,
 				B5CAD10D26C2135200A4102E /* MockRealm.swift in Sources */,
 				F8E1419C2512BFC3003B4289 /* AddTaskView.swift in Sources */,
 				B5CAD10926C20B5400A4102E /* ErrorView.swift in Sources */,

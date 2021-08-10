@@ -1,8 +1,8 @@
 //
-//  MainView.swift
+//  AsyncOpenView.swift
 //  RealmTaskTracker
 //
-//  Created by Ben Chatelain on 11/9/20.
+//  Created by Ben Chatelain on 8/9/21.
 //
 
 import RealmSwift
@@ -16,17 +16,19 @@ let app = RealmSwift.App(id: appId)
 
 // MARK: Main View
 /// The main screen that determines whether to present the LoginView or the TasksView for the one group in the realm.
-struct MainView: View {
+struct AsyncOpenView: View {
 
-    @AsyncOpen(appId: appId, partitionValue: "60ac4fab713d3980e99a61d0", timeout: 2000) var asyncOpen
+    @State var user: User?
+    @AsyncOpen(appId: appId, partitionValue: "60ac4fab713d3980e99a61d0", timeout: 5000) var asyncOpen
 
     var body: some View {
         VStack {
             switch asyncOpen {
             case .connecting:
                 ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle())
             case .waitingForUser:
-                LoginView()
+                ProgressView("Waiting for user to be logged in...")
             case .open(let realm):
                 ListView()
                     .environment(\.realm, realm)

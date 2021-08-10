@@ -21,29 +21,30 @@ struct ListView: View {
 //    @StateRealmObject<Task> var editTask: Task
 
     var body: some View {
-        List {
-            ForEach(tasks) { task in
-                TaskRow(task: task)
-                    .onTapGesture {
+        NavigationView {
+            List {
+                ForEach(tasks) { task in
+                    TaskRow(task: task)
+                        .onTapGesture {
 //                        editTask = task
-                        showingActionSheet = true
-                    }
+                            showingActionSheet = true
+                        }
 //                    .actionSheet(isPresented: $showingActionSheet, content: editTaskStatus)
-            }
-            .onDelete(perform: $tasks.remove)
-//                .onMove(perform: $tasks.move)
-        }
-        .navigationBarTitle("Tasks", displayMode: .large)
-        .navigationBarBackButtonHidden(true)
-        .navigationBarItems(
-            leading:
-                LogoutButton(),
-            trailing:
-                NavigationLink(destination: AddTaskView()) {
-                    Text("+")
                 }
-                .animation(.easeInOut(duration: 3.0))
-        )
+                .onDelete(perform: $tasks.remove)
+//                .onMove(perform: $tasks.move)
+            }
+            .navigationBarTitle("Tasks", displayMode: .large)
+            .navigationBarItems(
+                leading:
+                    LogoutButton(),
+                trailing:
+                    NavigationLink(destination: AddTaskView()) {
+                        Text("+")
+                    }
+                    .animation(.easeInOut(duration: 3.0))
+            )
+        }
     }
 /*
     /// Builds an action sheet to toggle the selected task's status.
@@ -98,6 +99,7 @@ struct ListView: View {
 struct TasksView_Previews: PreviewProvider {
     static var previews: some View {
         ListView()
+            .navigationBarTitle("Tasks")
             .environment(\.realm, MockRealms.previewRealm)
     }
 }

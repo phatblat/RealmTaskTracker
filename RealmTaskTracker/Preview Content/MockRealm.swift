@@ -14,9 +14,8 @@ class MockRealms {
             try! realm.write {
                 let user = User()
                 user.name = "phatblat"
-
-                let task = Task(name: "New task")
-                user.tasks.append(task)
+                user.tasks.append(Task(name: "New task"))
+                user.tasks.append(Task(name: "Another task"))
             }
             return realm
         }
