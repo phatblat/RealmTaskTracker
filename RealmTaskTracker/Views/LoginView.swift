@@ -9,8 +9,6 @@ import RealmSwift
 import SwiftUI
 
 struct LoginView: View {
-    // Display an error if it occurs
-    @State var error: Error?
     @State var navigationTag: String?
 
     @State private var username = "Testuser"
@@ -22,10 +20,6 @@ struct LoginView: View {
     var body: some View {
         NavigationView {
             VStack {
-                if let error = error {
-                    Text("Error: \(error.localizedDescription)")
-                }
-
                 Text("Please enter a username and password.")
                     .padding()
 
@@ -68,7 +62,6 @@ extension LoginView {
         account.signUp(username: username, password: password) { result in
             switch result {
             case .failure(let error):
-                self.error = error
                 message = "Signup failed: \(error.localizedDescription)"
                 print(message)
             case .success(let user):
@@ -82,7 +75,6 @@ extension LoginView {
         account.signIn(username: username, password: password) { result in
             switch result {
             case .failure(let error):
-                self.error = error
                 message = "Login failed: \(error.localizedDescription)"
                 print(message)
             case .success(let user):

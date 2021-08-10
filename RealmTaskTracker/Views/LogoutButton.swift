@@ -9,10 +9,15 @@ import SwiftUI
 
 /// A button that handles logout requests.
 struct LogoutButton: View {
+
     @State var showingLogoutAlert = false
 
     let account = AccountHelper()
+    let action: () -> Void
 
+    init(action: @escaping () -> Void) {
+        self.action = action
+    }
     var body: some View {
         Button("Log Out") {
             showingLogoutAlert = true
@@ -24,6 +29,7 @@ struct LogoutButton: View {
                     Text("Yes"), action: {
                         print("Logging out...")
                         account.signOut()
+                        action()
                     }
                   )
             )

@@ -11,7 +11,7 @@ import SwiftUI
 /// Screen containing a list of tasks. Implements functionality for adding, rearranging, and deleting tasks.
 struct ListView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-
+    
     /// All of the user's tasks.
     @ObservedResults(Task.self) var tasks
 
@@ -37,7 +37,9 @@ struct ListView: View {
             .navigationBarTitle("Tasks", displayMode: .large)
             .navigationBarItems(
                 leading:
-                    LogoutButton(),
+                    LogoutButton() {
+                        presentationMode.wrappedValue.dismiss()
+                    },
                 trailing:
                     NavigationLink(destination: AddTaskView()) {
                         Text("+")
