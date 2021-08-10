@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct LoginView: View {
-    @EnvironmentObject var state: AppState
-
     // Display an error if it occurs
     @State var error: Error?
 
     @State private var username = "Testuser"
     @State private var password = "password"
     @State private var message = "Version: \(Constants.appVersion)"
+
+    let account = AccountHelper()
 
     var body: some View {
         VStack {
@@ -37,10 +37,10 @@ struct LoginView: View {
                     .autocapitalization(UITextAutocapitalizationType.none)
 
                 Button("Sign In", action: signIn)
-                    .disabled(state.shouldIndicateActivity)
+//                    .disabled(state.shouldIndicateActivity)
 
                 Button("Sign Up", action: signUp)
-                    .disabled(state.shouldIndicateActivity)
+//                    .disabled(state.shouldIndicateActivity)
             }
             Text(message)
         }
@@ -49,27 +49,27 @@ struct LoginView: View {
 
 extension LoginView {
     func signUp() {
-        state.signUp(username: username, password: password) { result in
+        account.signUp(username: username, password: password) { result in
             switch result {
             case .failure(let error):
                 self.error = error
                 message = "Signup failed: \(error.localizedDescription)"
                 print(message)
-            case .success():
-                print("Signup successful!")
+            case .success(let user):
+                print("Signup and login successful")
             }
         }
     }
 
     func signIn() {
-        state.signIn(username: username, password: password) { result in
+        account.signIn(username: username, password: password) { result in
             switch result {
             case .failure(let error):
                 self.error = error
                 message = "Login failed: \(error.localizedDescription)"
                 print(message)
-            case .success(_):
-                print("Login succeeded!")
+            case .success(let user):
+                print("Login succeeded")
             }
         }
     }
@@ -78,6 +78,5 @@ extension LoginView {
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView()
-            .environmentObject(AppState())
     }
 }

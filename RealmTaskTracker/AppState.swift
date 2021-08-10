@@ -14,9 +14,6 @@ final class AppState: ObservableObject {
     /// Whether or not the UI should be showing a spinner.
     @Published var shouldIndicateActivity = false
 
-    /// List of items in the first group in the realm that will be displayed to the user.
-    @Published private(set) var tasks: List<Task>?
-
     /// Publisher that monitors log in state.
     var loginPublisher = PassthroughSubject<RealmSwift.User, Error>()
 
@@ -164,7 +161,6 @@ final class AppState: ObservableObject {
                 }
 
                 self.appUser = user
-                self.tasks = user.tasks
             })
             .store(in: &cancellables)
 
@@ -202,17 +198,6 @@ final class AppState: ObservableObject {
             .subscribe(realmPublisher) // Forward the opened realm to the handler we set up earlier.
             .store(in: &cancellables)
 
-        // Monitor logout state and unset the items list on logout.
-        logoutPublisher
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { _ in }, receiveValue: {
-                self.username = nil
-                self.tasks = nil
-                self.downloadProgressToken?.invalidate()
-                self.uploadProgressToken?.invalidate()
-            })
-            .store(in: &cancellables)
-
         // If we already have a current user from a previous app
         // session, announce it to the world.
         if let user = app.currentUser {
@@ -221,67 +206,3 @@ final class AppState: ObservableObject {
     }
 }
 
-extension AppState {
-    func signUp(username: String, password: String, completionHandler: @escaping (_ result: Result<Void, Error>) -> Void) {
-        DispatchQueue.main.async {
-            self.shouldIndicateActivity = true
-        }
-
-        app.emailPasswordAuth.registerUser(email: username, password: password) { (error: Error?) in
-            if let error = error {
-                DispatchQueue.main.async {
-                    self.shouldIndicateActivity = false
-                }
-                print("Signup failed: \(error)")
-                completionHandler(.failure(error))
-                return
-            }
-
-            print("Signup successful")
-
-            // Registering just creates a new user. Now we need to sign in,
-            // but we can reuse the existing username and password.
-
-            self.signIn(username: username, password: password, completionHandler: completionHandler)
-        }
-    }
-
-    func signIn(username: String, password: String, completionHandler: @escaping (_ result: Result<Void, Error>) -> Void) {
-        DispatchQueue.main.async {
-            self.shouldIndicateActivity = true
-        }
-
-        let credentials = Credentials.emailPassword(email: username, password: password)
-        app.login(credentials: credentials)
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: {
-                self.shouldIndicateActivity = false
-
-                switch $0 {
-                case .finished:
-                    completionHandler(.success(()))
-                    break
-                case .failure(let error):
-                    print("Login failed: \(error)")
-                    completionHandler(.failure(error))
-                }
-            }, receiveValue: { user in
-                print("Login succeeded")
-                self.username = username
-                self.loginPublisher.send(user)
-            })
-            .store(in: &cancellables)
-    }
-
-    func signOut() {
-        shouldIndicateActivity = true
-
-        app.currentUser?.logOut()
-            .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: { _ in }, receiveValue: {
-                self.shouldIndicateActivity = false
-                self.logoutPublisher.send($0)
-            })
-            .store(in: &cancellables)
-    }
-}

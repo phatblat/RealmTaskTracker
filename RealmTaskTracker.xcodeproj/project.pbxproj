@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B5CAD10926C20B5400A4102E /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CAD10826C20B5400A4102E /* ErrorView.swift */; };
+		B5CAD10B26C20FDA00A4102E /* AccountHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CAD10A26C20FDA00A4102E /* AccountHelper.swift */; };
+		B5CAD10D26C2135200A4102E /* MockRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CAD10C26C2135200A4102E /* MockRealm.swift */; };
 		B5DF72B226C17330001D58E1 /* SyncLogLevel+Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DF72B126C17330001D58E1 /* SyncLogLevel+Name.swift */; };
-		F853E8E9265C6266002BB02C /* AuthDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F853E8E8265C6266002BB02C /* AuthDelegate.swift */; };
 		F85DB7D0255A391600E621BB /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85DB7CF255A391500E621BB /* MainView.swift */; };
 		F86A0D942550F873003D3E60 /* LogoutButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86A0D932550F873003D3E60 /* LogoutButton.swift */; };
 		F8783B6E265C08CC005200A9 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F8783B6D265C08CC005200A9 /* RealmSwift */; };
@@ -22,8 +24,7 @@
 		F8E140D325119360003B4289 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8E140D225119360003B4289 /* Preview Assets.xcassets */; };
 		F8E140DE25119361003B4289 /* RealmTaskTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E140DD25119361003B4289 /* RealmTaskTrackerTests.swift */; };
 		F8E140E925119361003B4289 /* RealmTaskTrackerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E140E825119361003B4289 /* RealmTaskTrackerUITests.swift */; };
-		F8E141632511A8AA003B4289 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E141622511A8AA003B4289 /* LoadingView.swift */; };
-		F8E1416B2511C537003B4289 /* TasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E1416A2511C537003B4289 /* TasksView.swift */; };
+		F8E1416B2511C537003B4289 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E1416A2511C537003B4289 /* ListView.swift */; };
 		F8E1419C2512BFC3003B4289 /* AddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E1419B2512BFC3003B4289 /* AddTaskView.swift */; };
 		F8E141A7251312CC003B4289 /* TaskRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E141A6251312CC003B4289 /* TaskRow.swift */; };
 /* End PBXBuildFile section */
@@ -46,8 +47,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B5CAD10826C20B5400A4102E /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		B5CAD10A26C20FDA00A4102E /* AccountHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountHelper.swift; sourceTree = "<group>"; };
+		B5CAD10C26C2135200A4102E /* MockRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRealm.swift; sourceTree = "<group>"; };
 		B5DF72B126C17330001D58E1 /* SyncLogLevel+Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SyncLogLevel+Name.swift"; sourceTree = "<group>"; };
-		F853E8E8265C6266002BB02C /* AuthDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDelegate.swift; sourceTree = "<group>"; };
 		F85DB7CF255A391500E621BB /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		F86A0D932550F873003D3E60 /* LogoutButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutButton.swift; sourceTree = "<group>"; };
 		F887347D2544A44B002B5B31 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -66,8 +69,7 @@
 		F8E140E425119361003B4289 /* RealmTaskTrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RealmTaskTrackerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8E140E825119361003B4289 /* RealmTaskTrackerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmTaskTrackerUITests.swift; sourceTree = "<group>"; };
 		F8E140EA25119361003B4289 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F8E141622511A8AA003B4289 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
-		F8E1416A2511C537003B4289 /* TasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksView.swift; sourceTree = "<group>"; };
+		F8E1416A2511C537003B4289 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		F8E1419B2512BFC3003B4289 /* AddTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskView.swift; sourceTree = "<group>"; };
 		F8E141A6251312CC003B4289 /* TaskRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -130,10 +132,10 @@
 		F8E140CA2511935F003B4289 /* RealmTaskTracker */ = {
 			isa = PBXGroup;
 			children = (
+				B5CAD10A26C20FDA00A4102E /* AccountHelper.swift */,
 				F8E140CB2511935F003B4289 /* App.swift */,
 				F8BC89CD251FB5E500566416 /* AppState.swift */,
 				F8E140CF25119360003B4289 /* Assets.xcassets */,
-				F853E8E8265C6266002BB02C /* AuthDelegate.swift */,
 				F887347D2544A44B002B5B31 /* Constants.swift */,
 				F8E140D425119360003B4289 /* Info.plist */,
 				F8BC899C251F9C9A00566416 /* Models */,
@@ -147,6 +149,7 @@
 		F8E140D125119360003B4289 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
+				B5CAD10C26C2135200A4102E /* MockRealm.swift */,
 				F8E140D225119360003B4289 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
@@ -174,12 +177,12 @@
 			isa = PBXGroup;
 			children = (
 				F8E1419B2512BFC3003B4289 /* AddTaskView.swift */,
-				F8E141622511A8AA003B4289 /* LoadingView.swift */,
+				B5CAD10826C20B5400A4102E /* ErrorView.swift */,
+				F8E1416A2511C537003B4289 /* ListView.swift */,
 				F8E140CD2511935F003B4289 /* LoginView.swift */,
 				F86A0D932550F873003D3E60 /* LogoutButton.swift */,
 				F85DB7CF255A391500E621BB /* MainView.swift */,
 				F8E141A6251312CC003B4289 /* TaskRow.swift */,
-				F8E1416A2511C537003B4289 /* TasksView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -321,17 +324,18 @@
 			files = (
 				F8E140CE2511935F003B4289 /* LoginView.swift in Sources */,
 				F85DB7D0255A391600E621BB /* MainView.swift in Sources */,
-				F8E141632511A8AA003B4289 /* LoadingView.swift in Sources */,
 				F8E140CC2511935F003B4289 /* App.swift in Sources */,
 				B5DF72B226C17330001D58E1 /* SyncLogLevel+Name.swift in Sources */,
 				F8E141A7251312CC003B4289 /* TaskRow.swift in Sources */,
-				F8E1416B2511C537003B4289 /* TasksView.swift in Sources */,
+				F8E1416B2511C537003B4289 /* ListView.swift in Sources */,
 				F86A0D942550F873003D3E60 /* LogoutButton.swift in Sources */,
 				F8BC89A6251F9CBD00566416 /* User.swift in Sources */,
-				F853E8E9265C6266002BB02C /* AuthDelegate.swift in Sources */,
 				F8BC89AB251F9CC300566416 /* Task.swift in Sources */,
+				B5CAD10D26C2135200A4102E /* MockRealm.swift in Sources */,
 				F8E1419C2512BFC3003B4289 /* AddTaskView.swift in Sources */,
+				B5CAD10926C20B5400A4102E /* ErrorView.swift in Sources */,
 				F887347E2544A44B002B5B31 /* Constants.swift in Sources */,
+				B5CAD10B26C20FDA00A4102E /* AccountHelper.swift in Sources */,
 				F8BC89CE251FB5E500566416 /* AppState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -490,6 +494,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"RealmTaskTracker/Preview Content\"";
 				DEVELOPMENT_TEAM = MTGSZH8QM4;
 				ENABLE_PREVIEWS = YES;
@@ -499,10 +504,12 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "co.log-g.RealmTaskTracker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
@@ -512,6 +519,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"RealmTaskTracker/Preview Content\"";
 				DEVELOPMENT_TEAM = MTGSZH8QM4;
 				ENABLE_PREVIEWS = YES;
@@ -521,10 +529,12 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "co.log-g.RealmTaskTracker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};

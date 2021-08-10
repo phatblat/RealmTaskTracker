@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct TaskRow: View {
-    @EnvironmentObject var state: AppState
-
+//    @ObservedRealmObject<Task>
     var task: Task
 
     var body: some View {
@@ -33,6 +32,5 @@ struct TaskRow: View {
 struct TaskRow_Previews: PreviewProvider {
     static var previews: some View {
         TaskRow(task: Task(name: "☑️ Some Task"))
-            .environmentObject(AppState())
     }
 }
