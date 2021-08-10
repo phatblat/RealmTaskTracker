@@ -39,21 +39,18 @@ struct LoginView: View {
                         }
                     }
 
-//                    .disabled(state.shouldIndicateActivity)
-
                     Button("Sign Up") {
                         signUp { user in
                             navigationTag = "asyncOpen"
                         }
                     }
-//                    .disabled(state.shouldIndicateActivity)
                 }
                 Text(message)
                 NavigationLink(destination: LazyView(AsyncOpenView()), tag: "asyncOpen", selection: $navigationTag, label: { EmptyView() })
             }
+            .navigationBarTitle("Login", displayMode: .large)
+            .navigationBarBackButtonHidden(true)
         }
-        .navigationBarBackButtonHidden(true)
-        .navigationBarHidden(true)
     }
 }
 

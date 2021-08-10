@@ -21,32 +21,31 @@ struct ListView: View {
 //    @StateRealmObject<Task> var editTask: Task
 
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(tasks) { task in
-                    TaskRow(task: task)
-                        .onTapGesture {
+        List {
+            ForEach(tasks) { task in
+                TaskRow(task: task)
+                    .onTapGesture {
 //                        editTask = task
-                            showingActionSheet = true
-                        }
-//                    .actionSheet(isPresented: $showingActionSheet, content: editTaskStatus)
-                }
-                .onDelete(perform: $tasks.remove)
-//                .onMove(perform: $tasks.move)
-            }
-            .navigationBarTitle("Tasks", displayMode: .large)
-            .navigationBarItems(
-                leading:
-                    LogoutButton() {
-                        presentationMode.wrappedValue.dismiss()
-                    },
-                trailing:
-                    NavigationLink(destination: AddTaskView()) {
-                        Text("+")
+                        showingActionSheet = true
                     }
-                    .animation(.easeInOut(duration: 3.0))
-            )
+//                    .actionSheet(isPresented: $showingActionSheet, content: editTaskStatus)
+            }
+            .onDelete(perform: $tasks.remove)
+//                .onMove(perform: $tasks.move)
         }
+        .navigationBarBackButtonHidden(true)
+        .navigationBarTitle("Tasks", displayMode: .large)
+        .navigationBarItems(
+            leading:
+                LogoutButton() {
+                    presentationMode.wrappedValue.dismiss()
+                },
+            trailing:
+                NavigationLink(destination: AddTaskView()) {
+                    Text("+")
+                }
+                .animation(.easeInOut(duration: 3.0))
+        )
     }
 /*
     /// Builds an action sheet to toggle the selected task's status.
