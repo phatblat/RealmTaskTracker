@@ -18,20 +18,20 @@ struct ListView: View {
     @State private var showingActionSheet = false
 
     /// Selected task for updating status.
-//    @StateRealmObject<Task> var editTask: Task
+    @StateRealmObject<Task> var editTask: Task
 
     var body: some View {
         List {
             ForEach(tasks) { task in
                 TaskRow(task: task)
                     .onTapGesture {
-//                        editTask = task
+                        editTask = task
                         showingActionSheet = true
                     }
-//                    .actionSheet(isPresented: $showingActionSheet, content: editTaskStatus)
+                    .actionSheet(isPresented: $showingActionSheet, content: editTaskStatus)
             }
             .onDelete(perform: $tasks.remove)
-//                .onMove(perform: $tasks.move)
+//            .onMove(perform: $tasks.move)
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarTitle("Tasks", displayMode: .large)
@@ -47,7 +47,7 @@ struct ListView: View {
                 .animation(.easeInOut(duration: 3.0))
         )
     }
-/*
+
     /// Builds an action sheet to toggle the selected task's status.
     func editTaskStatus() -> ActionSheet {
         var buttons: [Alert.Button] = []
@@ -85,21 +85,21 @@ struct ListView: View {
                 // Any modifications to managed objects must occur in a write block.
                 // When we modify the Task's state, that change is automatically reflected in the realm.
                 try realm.write {
-//                    if let task = editTask.thaw() {
-//                        task.status = newStatus
-//                    }
+                    if let task = editTask.thaw() {
+                        task.status = newStatus
+                    }
                 }
             }catch {
                 debugPrint("Error updating task status: \(error)")
             }
         }
     }
- */
+
 }
 
 struct TasksView_Previews: PreviewProvider {
     static var previews: some View {
-        ListView()
+        ListView(editTask: Task())
             .navigationBarTitle("Tasks")
             .environment(\.realm, MockRealms.previewRealm)
     }

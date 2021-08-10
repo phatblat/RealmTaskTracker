@@ -33,7 +33,7 @@ struct AsyncOpenView: View {
             case .waitingForUser:
                 ProgressView("Waiting for user to be logged in...")
             case .open(let realm):
-                ListView()
+                ListView(editTask: Task())
                     .environment(\.realm, realm)
             case .error(let error):
                 ErrorView(error: error)
