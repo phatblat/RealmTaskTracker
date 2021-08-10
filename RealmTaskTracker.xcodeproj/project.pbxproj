@@ -59,7 +59,7 @@
 		F887347D2544A44B002B5B31 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F8BC89AA251F9CC300566416 /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		F8BC89CD251FB5E500566416 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
-		F8E140C82511935F003B4289 /* RealmTaskTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealmTaskTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8E140C82511935F003B4289 /* ✅ Task Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "✅ Task Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8E140CB2511935F003B4289 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		F8E140CD2511935F003B4289 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		F8E140CF25119360003B4289 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -142,7 +142,7 @@
 		F8E140C92511935F003B4289 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F8E140C82511935F003B4289 /* RealmTaskTracker.app */,
+				F8E140C82511935F003B4289 /* ✅ Task Tracker.app */,
 				F8E140D925119360003B4289 /* RealmTaskTrackerTests.xctest */,
 				F8E140E425119361003B4289 /* RealmTaskTrackerUITests.xctest */,
 			);
@@ -229,7 +229,7 @@
 				B5C8A1F826C2D96F0021A268 /* Realm */,
 			);
 			productName = RealmTaskTracker;
-			productReference = F8E140C82511935F003B4289 /* RealmTaskTracker.app */;
+			productReference = F8E140C82511935F003B4289 /* ✅ Task Tracker.app */;
 			productType = "com.apple.product-type.application";
 		};
 		F8E140D825119360003B4289 /* RealmTaskTrackerTests */ = {
@@ -527,7 +527,7 @@
 				);
 				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "co.log-g.RealmTaskTracker";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "✅ Task Tracker";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -552,7 +552,7 @@
 				);
 				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "co.log-g.RealmTaskTracker";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "✅ Task Tracker";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
