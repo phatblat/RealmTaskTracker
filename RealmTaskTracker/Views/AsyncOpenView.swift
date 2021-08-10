@@ -16,7 +16,7 @@ let partitionValue = Constants.testuserId
 let app = RealmSwift.App(id: appId)
 
 // MARK: Main View
-/// The main screen that determines whether to present the LoginView or the TasksView for the one group in the realm.
+/// View that presents the ListView once a user is logged in.
 struct AsyncOpenView: View {
 
 //    @ObservedObject var user: User
@@ -37,8 +37,8 @@ struct AsyncOpenView: View {
                     .environment(\.realm, realm)
             case .error(let error):
                 ErrorView(error: error)
-            case .progress(let progress):
-                ProgressView(progress)
+            case .progress(_):
+                ProgressView()
             }
         }
     }

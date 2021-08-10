@@ -20,6 +20,6 @@ struct Constants {
         return version
     }()
 
-    /// This is a temporary workaround to not being able to set the partitionValue for @AsyncOpen using the environment.
+    /// FIXME: Temporary workaround to not being able to set the partitionValue for @AsyncOpen using the environment.
     static let testuserId: String = "60ac4fab713d3980e99a61d0"
 }
