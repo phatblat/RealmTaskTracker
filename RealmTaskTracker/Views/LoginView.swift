@@ -50,6 +50,10 @@ struct LoginView: View {
                                tag: "asyncOpen",
                                selection: $navigationTag,
                                label: { EmptyView() })
+                    .onReceive(user, perform: { _ in
+                        // Auto-navigate to the AsyncOpenView when already logged in.
+                        navigationTag = "asyncOpen"
+                    })
             }
             .navigationBarTitle("Login", displayMode: .large)
             .navigationBarBackButtonHidden(true)
