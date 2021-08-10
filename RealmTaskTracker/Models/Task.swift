@@ -9,9 +9,9 @@ import RealmSwift
 
 // MARK: - TaskStatus
 enum TaskStatus: String, PersistableEnum {
-case Open
-case InProgress
-case Complete
+    case Open
+    case InProgress
+    case Complete
 }
 
 // MARK: - Task

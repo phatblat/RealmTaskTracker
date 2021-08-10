@@ -18,7 +18,7 @@ struct ListView: View {
     @State private var showingActionSheet = false
 
     /// Selected task for updating status.
-    @StateRealmObject<Task> var editTask: Task
+    @StateRealmObject var editTask: Task
 
     var body: some View {
         List {
@@ -89,7 +89,7 @@ struct ListView: View {
                         task.status = newStatus
                     }
                 }
-            }catch {
+            } catch {
                 debugPrint("Error updating task status: \(error)")
             }
         }
