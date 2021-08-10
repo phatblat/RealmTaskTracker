@@ -15,7 +15,7 @@ struct LoginView: View {
     @State private var password = "password"
     @State private var message = "Version: \(Constants.appVersion)"
 
-    let account = AccountHelper()
+    @ObservedObject var user = UserPublisher()
 
     var body: some View {
         NavigationView {
@@ -46,17 +46,21 @@ struct LoginView: View {
                     }
                 }
                 Text(message)
-                NavigationLink(destination: LazyView(AsyncOpenView()), tag: "asyncOpen", selection: $navigationTag, label: { EmptyView() })
+                NavigationLink(destination: LazyView(AsyncOpenView()),
+                               tag: "asyncOpen",
+                               selection: $navigationTag,
+                               label: { EmptyView() })
             }
             .navigationBarTitle("Login", displayMode: .large)
             .navigationBarBackButtonHidden(true)
         }
+        .environment(\.partitionValue, user.$paritionValue as? PartitionValue)
     }
 }
 
 extension LoginView {
-    func signUp(completion: @escaping (RealmSwift.User) -> Void) {
-        account.signUp(username: username, password: password) { result in
+    func signUp(completion: @escaping (User) -> Void) {
+        user.signUp(username: username, password: password) { result in
             switch result {
             case .failure(let error):
                 message = "Signup failed: \(error.localizedDescription)"
@@ -68,8 +72,8 @@ extension LoginView {
         }
     }
 
-    func signIn(completion: @escaping (RealmSwift.User) -> Void) {
-        account.signIn(username: username, password: password) { result in
+    func signIn(completion: @escaping (User) -> Void) {
+        user.signIn(username: username, password: password) { result in
             switch result {
             case .failure(let error):
                 message = "Login failed: \(error.localizedDescription)"

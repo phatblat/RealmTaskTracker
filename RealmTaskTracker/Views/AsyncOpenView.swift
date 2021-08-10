@@ -10,16 +10,19 @@ import SwiftUI
 
 // You can find your Realm app ID in the Realm UI.
 let appId = Constants.realmAppId
+
 // The partition determines which subset of data to access, this is configured in the Realm UI too.
-let partitionValue = "partition-value"
+let partitionValue = Constants.testuserId
 let app = RealmSwift.App(id: appId)
 
 // MARK: Main View
 /// The main screen that determines whether to present the LoginView or the TasksView for the one group in the realm.
 struct AsyncOpenView: View {
 
-    @State var user: User?
-    @AsyncOpen(appId: appId, partitionValue: "60ac4fab713d3980e99a61d0", timeout: 5000) var asyncOpen
+//    @ObservedObject var user: User
+//    @Environment(\.partitionValue) var partitionValue
+
+    @AsyncOpen(appId: appId, partitionValue: partitionValue, timeout: 5000) var asyncOpen
 
     var body: some View {
         VStack {

@@ -26,9 +26,6 @@ class Task: Object, ObjectKeyIdentifiable {
     /// Current status of the task. Defaults to "Open".
     @Persisted var status: TaskStatus
 
-    /// Backlink to the `User` that created this task.
-    let user = LinkingObjects(fromType: User.self, property: "tasks")
-
     /// Initializer for previews.
     convenience init(name: String) {
         self.init()

@@ -5,11 +5,11 @@
 //  Created by Ben Chatelain on 9/16/20.
 //
 
+import RealmSwift
 import SwiftUI
 
 struct TaskRow: View {
-//    @ObservedRealmObject<Task>
-    var task: Task
+    @ObservedRealmObject var task: Task
 
     var body: some View {
         HStack {

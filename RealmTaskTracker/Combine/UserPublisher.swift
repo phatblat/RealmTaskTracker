@@ -1,5 +1,5 @@
 //
-//  AccountHelper.swift
+//  UserPublisher.swift
 //  RealmTaskTracker
 //
 //  Created by Ben Chatelain on 8/9/21.
@@ -10,19 +10,25 @@ import RealmSwift
 import Foundation
 
 /// Email and password authentication helper.
-class AccountHelper {
+class UserPublisher: ObservableObject {
     /// Whether or not the UI should be showing a spinner.
-    @Published var shouldIndicateActivity = false
+    @Published private(set) var shouldIndicateActivity = false
+
+    /// User model, populated once logged in.
+    @Published private(set) var user: User?
+
+    /// Partition value aka the user identifier.
+    @Published private(set) var paritionValue: String?
 
     /// Container for publishers.
-    var cancellables = Set<AnyCancellable>()
+    private var cancellables = Set<AnyCancellable>()
 
     /// Creates a new account.
     /// - Parameters:
     ///   - username: Login username (normally this should be an email).
     ///   - password: Super-secret password.
-    ///   - completionHandler: Delivers a results with either a realm user or an error.
-    func signUp(username: String, password: String, completionHandler: @escaping (_ result: Result<RealmSwift.User, Error>) -> Void) {
+    ///   - completion: Result containing a user or error
+    func signUp(username: String, password: String, completion: @escaping (_ result: Result<User, Error>) -> Void) {
         DispatchQueue.main.async {
             self.shouldIndicateActivity = true
         }
@@ -32,17 +38,14 @@ class AccountHelper {
                 DispatchQueue.main.async {
                     self.shouldIndicateActivity = false
                 }
-                print("Signup failed: \(error)")
-                completionHandler(.failure(error))
+                debugPrint("Signup failed: \(error)")
                 return
             }
 
-            print("Signup successful")
+            debugPrint("Signup successful")
 
-            // Registering just creates a new user. Now we need to sign in,
-            // but we can reuse the existing username and password.
-
-            self.signIn(username: username, password: password, completionHandler: completionHandler)
+            // Sign in with the new user
+            self.signIn(username: username, password: password, completion: completion)
         }
     }
 
@@ -50,8 +53,8 @@ class AccountHelper {
     /// - Parameters:
     ///   - username: Login username (normally this should be an email).
     ///   - password: Super-secret password.
-    ///   - completionHandler: Delivers a results with either a realm user or an error.
-    func signIn(username: String, password: String, completionHandler: @escaping (_ result: Result<RealmSwift.User, Error>) -> Void) {
+    ///   - completion: Result containing a user or error
+    func signIn(username: String, password: String, completion: @escaping (_ result: Result<User, Error>) -> Void) {
         DispatchQueue.main.async {
             self.shouldIndicateActivity = true
         }
@@ -59,32 +62,33 @@ class AccountHelper {
         let credentials = Credentials.emailPassword(email: username, password: password)
         app.login(credentials: credentials)
             .receive(on: DispatchQueue.main)
-            .sink(receiveCompletion: {
-                self.shouldIndicateActivity = false
-
+            .sink ( receiveCompletion: {
                 switch $0 {
-                case .finished:
-                    break
                 case .failure(let error):
-                    print("Login failed: \(error)")
-                    completionHandler(.failure(error))
-                }
-            }, receiveValue: { user in
-                print("Login succeeded")
-                completionHandler(.success(user))
+                    debugPrint("Sign-in failed")
+                    completion(.failure(error))
+                case .finished: ()
+            }}, receiveValue: { user in
+                debugPrint("Sign-in succeeded")
+                self.user = user
+                self.paritionValue = user.id
+                completion(.success(user))
             })
             .store(in: &cancellables)
     }
 
     /// Signs out the current user.
     func signOut() {
-        shouldIndicateActivity = true
+        DispatchQueue.main.async {
+            self.shouldIndicateActivity = true
+        }
 
         app.currentUser?.logOut()
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { _ in }, receiveValue: {
                 self.shouldIndicateActivity = false
-                print("Logout complete")
+                self.user = nil
+                debugPrint("Logout complete")
             })
             .store(in: &cancellables)
     }

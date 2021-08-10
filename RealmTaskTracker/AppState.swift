@@ -131,36 +131,6 @@ final class AppState: ObservableObject {
                     let transferPercent = progress.fractionTransferred * 100
                     print("Sync Uploaded \(transferredBytes)B / \(transferrableBytes)B (\(transferPercent)%)")
                 }
-
-                // If no User has been created for this realm, create one.
-                let users = realm.objects(User.self)
-                if users.count == 0 {
-                    let user = User()
-                    do {
-                        if let realmUser = self.realmUser {
-                            user._id = try ObjectId(string: realmUser.id)
-                        }
-                        if let name = self.username {
-                            user.name = name
-                        }
-                        try realm.write {
-                            realm.add(user)
-                        }
-                    } catch {
-                        print("Error adding user: \(user)")
-                    }
-                }
-                assert(users.count > 0)
-                guard let user = users.first else { fatalError("No user!") }
-
-                // Update username
-                if let name = self.username {
-                    try! realm.write {
-                        user.name = name
-                    }
-                }
-
-                self.appUser = user
             })
             .store(in: &cancellables)
 
@@ -181,7 +151,7 @@ final class AppState: ObservableObject {
                 var configuration = user.configuration(partitionValue: user.id)
 
                 // Only allow User objects in this partition.
-                configuration.objectTypes = [User.self, Task.self]
+                configuration.objectTypes = [Task.self]
                 Realm.Configuration.defaultConfiguration = configuration
 
                 // Loading may take a moment, so indicate activity.

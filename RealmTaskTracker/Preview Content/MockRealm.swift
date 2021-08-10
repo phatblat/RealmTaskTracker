@@ -10,12 +10,10 @@ import RealmSwift
 class MockRealms {
     static var previewRealm: Realm {
         get {
-            let realm = try! Realm(configuration: Realm.Configuration(inMemoryIdentifier: "previewRealm", objectTypes: [User.self, Task.self]))
+            let realm = try! Realm(configuration: Realm.Configuration(inMemoryIdentifier: "previewRealm", objectTypes: [Task.self]))
             try! realm.write {
-                let user = User()
-                user.name = "phatblat"
-                user.tasks.append(Task(name: "New task"))
-                user.tasks.append(Task(name: "Another task"))
+                _ = Task(name: "New task")
+                _ = Task(name: "Another task")
             }
             return realm
         }

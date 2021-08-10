@@ -12,7 +12,7 @@ struct LogoutButton: View {
 
     @State var showingLogoutAlert = false
 
-    let account = AccountHelper()
+    let account = UserPublisher()
     let action: () -> Void
 
     init(action: @escaping () -> Void) {
