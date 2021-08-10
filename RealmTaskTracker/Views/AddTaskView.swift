@@ -11,8 +11,6 @@ import SwiftUI
 struct AddTaskView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
-    @EnvironmentObject var state: AppState
-
     @State private var enteredText: String = ""
 
     var body: some View {
@@ -29,16 +27,13 @@ struct AddTaskView: View {
             return
         }
 
-        guard let realm = state.tasks?.realm else { fatalError("Unable to add task without a realm!") }
+        let realm = try! Realm()
 
         // Create a new Task with the text that the user entered.
         let task = Task(name: enteredText)
         do {
             try realm.write {
                 realm.add(task)
-                if let user = state.appUser {
-                    user.tasks.append(task)
-                }
             }
         } catch {
             print("Error add task: \(task)")

@@ -5,12 +5,11 @@
 //  Created by Ben Chatelain on 9/16/20.
 //
 
+import RealmSwift
 import SwiftUI
 
 struct TaskRow: View {
-    @EnvironmentObject var state: AppState
-
-    var task: Task
+    @ObservedRealmObject var task: Task
 
     var body: some View {
         HStack {
@@ -33,6 +32,5 @@ struct TaskRow: View {
 struct TaskRow_Previews: PreviewProvider {
     static var previews: some View {
         TaskRow(task: Task(name: "☑️ Some Task"))
-            .environmentObject(AppState())
     }
 }

@@ -9,21 +9,27 @@ import SwiftUI
 
 /// A button that handles logout requests.
 struct LogoutButton: View {
-    @EnvironmentObject var state: AppState
+
     @State var showingLogoutAlert = false
 
+    let account = UserPublisher()
+    let action: () -> Void
+
+    init(action: @escaping () -> Void) {
+        self.action = action
+    }
     var body: some View {
         Button("Log Out") {
             showingLogoutAlert = true
         }
-        .disabled(state.shouldIndicateActivity)
         .alert(isPresented: $showingLogoutAlert) {
             Alert(title: Text("Log Out"),
                   primaryButton: .cancel(),
                   secondaryButton: .destructive(
                     Text("Yes"), action: {
                         print("Logging out...")
-                        state.signOut()
+                        account.signOut()
+                        action()
                     }
                   )
             )

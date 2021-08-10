@@ -1,5 +1,5 @@
 //
-//  TasksView.swift
+//  ListView.swift
 //  RealmTaskTracker
 //
 //  Created by Ben Chatelain on 9/15/20.
@@ -9,18 +9,16 @@ import RealmSwift
 import SwiftUI
 
 /// Screen containing a list of tasks. Implements functionality for adding, rearranging, and deleting tasks.
-struct TasksView: View {
+struct ListView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-
-    @EnvironmentObject var state: AppState
-
+    
     /// All of the user's tasks.
     @ObservedResults(Task.self) var tasks
 
     @State private var showingActionSheet = false
 
-    /// Initially set to the first task in the list since the property wrapper won't allow it to be null.
-    @StateRealmObject<Task> var editTask: Task
+    /// Selected task for updating status.
+    @StateRealmObject var editTask: Task
 
     var body: some View {
         List {
@@ -33,13 +31,15 @@ struct TasksView: View {
                     .actionSheet(isPresented: $showingActionSheet, content: editTaskStatus)
             }
             .onDelete(perform: $tasks.remove)
-//                .onMove(perform: $tasks.move)
+//            .onMove(perform: $tasks.move)
         }
-        .navigationBarTitle("Tasks", displayMode: .large)
         .navigationBarBackButtonHidden(true)
+        .navigationBarTitle("Tasks", displayMode: .large)
         .navigationBarItems(
             leading:
-                LogoutButton(),
+                LogoutButton() {
+                    presentationMode.wrappedValue.dismiss()
+                },
             trailing:
                 NavigationLink(destination: AddTaskView()) {
                     Text("+")
@@ -89,16 +89,18 @@ struct TasksView: View {
                         task.status = newStatus
                     }
                 }
-            }catch {
+            } catch {
                 debugPrint("Error updating task status: \(error)")
             }
         }
     }
+
 }
 
-//struct TasksView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        TasksView()
-//            .environmentObject(AppState())
-//    }
-//}
+struct TasksView_Previews: PreviewProvider {
+    static var previews: some View {
+        ListView(editTask: Task())
+            .navigationBarTitle("Tasks")
+            .environment(\.realm, MockRealms.previewRealm)
+    }
+}
