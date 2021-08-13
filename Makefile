@@ -104,7 +104,6 @@ realmdiff:
 
 .PHONY: realmpull
 realmpull:
-	rm -rf $(ATLAS_FOLDER)/realm
 	$(REALM_CLI) pull --remote $(REALM_APP_ID) --local $(REALM_FOLDER)
 
 # FIXME: Errors out
