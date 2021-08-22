@@ -12,9 +12,6 @@ import Foundation
 /// Email and password authentication helper.
 class UserPublisher: ObservableObject {
 
-    /// Whether or not the UI should be showing a spinner.
-    @Published private(set) var shouldIndicateActivity = false
-
     /// User model, populated once logged in.
     @Published private(set) var user: User? {
         didSet {
@@ -41,15 +38,8 @@ class UserPublisher: ObservableObject {
     ///   - password: Super-secret password.
     ///   - completion: Result containing a user or error
     func signUp(username: String, password: String, completion: @escaping (_ result: Result<User, Error>) -> Void) {
-        DispatchQueue.main.async {
-            self.shouldIndicateActivity = true
-        }
-
         app.emailPasswordAuth.registerUser(email: username, password: password) { (error: Error?) in
             if let error = error {
-                DispatchQueue.main.async {
-                    self.shouldIndicateActivity = false
-                }
                 debugPrint("Signup failed: \(error)")
                 return
             }
@@ -67,10 +57,6 @@ class UserPublisher: ObservableObject {
     ///   - password: Super-secret password.
     ///   - completion: Result containing a user or error
     func signIn(username: String, password: String, completion: @escaping (_ result: Result<User, Error>) -> Void) {
-        DispatchQueue.main.async {
-            self.shouldIndicateActivity = true
-        }
-
         let credentials = Credentials.emailPassword(email: username, password: password)
         app.login(credentials: credentials)
             .receive(on: DispatchQueue.main)
@@ -90,14 +76,9 @@ class UserPublisher: ObservableObject {
 
     /// Signs out the current user.
     func signOut() {
-        DispatchQueue.main.async {
-            self.shouldIndicateActivity = true
-        }
-
         app.currentUser?.logOut()
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { _ in }, receiveValue: {
-                self.shouldIndicateActivity = false
                 self.user = nil
                 debugPrint("Logout complete")
             })

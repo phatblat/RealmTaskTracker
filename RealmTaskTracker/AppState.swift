@@ -35,7 +35,6 @@ final class AppState {
                 switch syncError.code {
                 case .permissionDeniedError:
                     // HTTP/1.1 401 Unauthorized
-//                    shouldIndicateActivity = false
                     _ = app.currentUser?.logOut()
                         .sink(receiveCompletion: {
                             print($0)
