@@ -58,7 +58,8 @@ struct LoginView: View {
             .navigationBarTitle("Login", displayMode: .large)
             .navigationBarBackButtonHidden(true)
         }
-        .environment(\.partitionValue, user.$paritionValue as? PartitionValue)
+        .environment(\.partitionValue, user.partitionValue)
+        .environment(\.realmConfiguration, user.realmConfiguration ?? Realm.Configuration.defaultConfiguration)
     }
 }
 

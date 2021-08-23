@@ -15,12 +15,23 @@ class UserPublisher: ObservableObject {
     /// User model, populated once logged in.
     @Published private(set) var user: User? {
         didSet {
-            paritionValue = user?.id
+            if let user = user {
+                partitionValue = AnyBSON(user.id)
+            }
         }
     }
 
-    /// Partition value aka the user identifier.
-    @Published private(set) var paritionValue: String?
+    /// Partition value, the user identifier.
+    @Published private(set) var partitionValue: AnyBSON? {
+        didSet {
+            if let user = user, let partitionValue = partitionValue {
+                realmConfiguration = user.configuration(partitionValue: partitionValue)
+            }
+        }
+    }
+
+    /// Realm sync configuration
+    @Published private(set) var realmConfiguration: Realm.Configuration?
 
     /// Container for publishers.
     private var cancellables = Set<AnyCancellable>()
