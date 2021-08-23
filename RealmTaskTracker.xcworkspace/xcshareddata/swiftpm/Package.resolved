@@ -2,15 +2,6 @@
   "object": {
     "pins": [
       {
-        "package": "Realm",
-        "repositoryURL": "https://github.com/phatblat/realm-cocoa/",
-        "state": {
-          "branch": "async-open",
-          "revision": "d895f2d23c50e28b093fa23c48d1049e90169961",
-          "version": null
-        }
-      },
-      {
         "package": "RealmDatabase",
         "repositoryURL": "https://github.com/realm/realm-core",
         "state": {
