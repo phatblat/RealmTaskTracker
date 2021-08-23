@@ -293,7 +293,7 @@
 				};
 			};
 			buildConfigurationList = F8E140C32511935F003B4289 /* Build configuration list for PBXProject "RealmTaskTracker" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 11.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
