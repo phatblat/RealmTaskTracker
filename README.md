@@ -5,7 +5,16 @@ in SwiftUI.
 
 v1 presented at [MongoDB.live 2021](https://app.swapcard.com/widget/event/mongodb-live-2021/planning/UGxhbm5pbmdfNDc3Nzcw).
 v2 presented at [Denver Cocoaheads](https://www.meetup.com/CocoaheadsDenver/)
-and (soon) at [360|iDev 2021](https://360idev.com/session/combine-ing-mongodb-realm-with-swiftui/).
+and at [360|iDev 2021](https://360idev.com/session/combine-ing-mongodb-realm-with-swiftui/).
+
+## ⚠️ Caveats
+
+> TL;DR: Only `Testuser` works.
+
+This app uses a dynamic partition value of the current user's ID.
+However, I have not yet gotten this to work with the new Realm `@AsyncOpen`
+property wrapper. To work around this the partition value is hard-coded
+with the value of `Testuser`.
 
 ## 📸 Screenshots
 

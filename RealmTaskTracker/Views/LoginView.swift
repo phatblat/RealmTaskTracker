@@ -39,11 +39,14 @@ struct LoginView: View {
                         }
                     }
 
+                    /*
+                    FIXME: Re-enable once Testuser's ID is no longer hard-coded as the partition value.
                     Button("Sign Up") {
                         signUp { user in
                             navigationTag = "asyncOpen"
                         }
                     }
+                    */
                 }
                 Text(message)
                 NavigationLink(destination: LazyView(AsyncOpenView()),

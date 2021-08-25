@@ -9,7 +9,8 @@ import RealmSwift
 import Combine
 import Foundation
 
-/// Core app logic including Realm app and Combine publishers.
+/// Core app logic including Realm app and Combine publishers. No longer used.
+/// TODO: Move syng logging and error handling to 
 final class AppState {
     /// Cancellables to be retained for any Future.
     var cancellables = Set<AnyCancellable>()
