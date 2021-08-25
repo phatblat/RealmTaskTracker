@@ -3,9 +3,13 @@
 Implementation of the [MongoDB Realm iOS Swift tutorial](https://docs.mongodb.com/realm/tutorial/ios-swift/)
 in SwiftUI.
 
-v1 presented at [MongoDB.live 2021](https://app.swapcard.com/widget/event/mongodb-live-2021/planning/UGxhbm5pbmdfNDc3Nzcw).
-v2 presented at [Denver Cocoaheads](https://www.meetup.com/CocoaheadsDenver/)
-and at [360|iDev 2021](https://360idev.com/session/combine-ing-mongodb-realm-with-swiftui/).
+## Conferences
+
+- v1 presented at [MongoDB.live 2021](https://app.swapcard.com/widget/event/mongodb-live-2021/planning/UGxhbm5pbmdfNDc3Nzcw).
+- v2 (beta) presented at [Denver Cocoaheads](https://www.meetup.com/CocoaheadsDenver/)
+- v2 presented at [360|iDev 2021](https://360idev.com/session/combine-ing-mongodb-realm-with-swiftui/).
+
+ **[Combine-ing MongoDB Realm with SwiftUI Slides (PDF)](Combine-ing%20MongoDB%20Realm%20with%20SwiftUI.pdf)**
 
 ## ⚠️ Caveats
 
