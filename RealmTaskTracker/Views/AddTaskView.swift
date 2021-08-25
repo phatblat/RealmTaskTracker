@@ -9,6 +9,7 @@ import RealmSwift
 import SwiftUI
 
 struct AddTaskView: View {
+    @Environment(\.realm) var realm: Realm
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
     @State private var enteredText: String = ""
@@ -26,8 +27,6 @@ struct AddTaskView: View {
             print("Empty task, ignoring")
             return
         }
-
-        let realm = try! Realm()
 
         // Create a new Task with the text that the user entered.
         let task = Task(name: enteredText)
